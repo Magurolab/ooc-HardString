@@ -1,3 +1,12 @@
+<<<<<<< HEAD
+.idea
+*.iml
+target
+tomcat*
+dependency-reduce-pom.xml
+dependency-reduced-pom.xml
+.DS_Store
+=======
 target/
 !.mvn/wrapper/maven-wrapper.jar
 
@@ -22,3 +31,4 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+>>>>>>> d9a789a472c6941e47f2b992eb04ce1cb599902c
