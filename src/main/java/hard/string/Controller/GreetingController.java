@@ -5,7 +5,7 @@ package hard.string.Controller;
  */
 import java.util.concurrent.atomic.AtomicLong;
 
-import hard.string.Resource.Greeting;
+import hard.string.Database.Greeting;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

@@ -1,4 +1,4 @@
-package hard.string.Resource;
+package hard.string.Database;
 
 /**
  * Created by Teama on 3/10/2018.
