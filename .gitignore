@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .idea
 *.iml
 target
@@ -5,3 +6,29 @@ tomcat*
 dependency-reduce-pom.xml
 dependency-reduced-pom.xml
 .DS_Store
+=======
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+>>>>>>> d9a789a472c6941e47f2b992eb04ce1cb599902c
