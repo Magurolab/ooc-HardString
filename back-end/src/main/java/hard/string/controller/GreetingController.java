@@ -1,11 +1,11 @@
-package hard.string.Controller;
+package hard.string.controller;
 
 /**
  * Created by Teama on 3/10/2018.
  */
 import java.util.concurrent.atomic.AtomicLong;
 
-import hard.string.Database.Greeting;
+import hard.string.entity.Greeting;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
