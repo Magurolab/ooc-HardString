@@ -1,4 +1,4 @@
-package hard.string.Database.Cards;
+package hard.string.entity.Cards;
 
 /**
  * Created by Teama on 3/10/2018.

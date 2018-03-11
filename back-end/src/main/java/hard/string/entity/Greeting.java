@@ -1,4 +1,4 @@
-package hard.string.Database;
+package hard.string.entity;
 
 /**
  * Created by Teama on 3/10/2018.
