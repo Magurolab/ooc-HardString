@@ -25,7 +25,7 @@ public class RegisterController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping(value = {"/addUser"})
+    @GetMapping(value = {"/register"})
     public List<User> addUser(
             @RequestParam String username,
             @RequestParam String password,
