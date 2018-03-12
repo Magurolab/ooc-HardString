@@ -1,6 +1,6 @@
-package hard.string.entity.Cards.Monster;
+package hard.string.entity.cards.Monster;
 
-import hard.string.entity.Cards.Card;
+import hard.string.entity.cards.Card;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.GeneratedValue;
