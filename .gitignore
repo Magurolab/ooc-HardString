@@ -6,7 +6,6 @@ tomcat*
 dependency-reduce-pom.xml
 dependency-reduced-pom.xml
 .DS_Store
-.zip
 =======
 target/
 !.mvn/wrapper/maven-wrapper.jar
