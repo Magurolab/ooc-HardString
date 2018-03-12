@@ -1,15 +1,16 @@
 package hard.string.repository;
 
-import org.apache.tomcat.jni.User;
+import hard.string.entity.Cards.Card;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * Created by Teama on 3/10/2018.
  */
 
-//@Repository
-public interface CardRepository  {
-
+@Repository
+public interface CardRepository {
 
 }
