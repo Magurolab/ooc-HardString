@@ -1,6 +1,5 @@
 package hard.string.controller;
 
-import com.sun.org.apache.regexp.internal.RE;
 import hard.string.entity.Greeting;
 import hard.string.entity.User;
 import hard.string.repository.UserRepository;
