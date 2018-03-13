@@ -12,4 +12,6 @@ public interface Card {
     Integer getCost();
 
     Integer getId();
+
+    void init();
 }

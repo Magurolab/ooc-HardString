@@ -1,13 +1,16 @@
 package hard.string.entity.cards.Magic;
 
 import hard.string.entity.cards.Card;
-import org.springframework.data.annotation.Id;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 /**
  * Created by Teama on 3/10/2018.
  */
+
+@Entity
 public class Magic implements Card {
 
     @Id
@@ -15,6 +18,13 @@ public class Magic implements Card {
     private String name;
     private Integer cost;
     private Integer id;
+
+    public Magic(String name, int cost){
+        this.name = name;
+        this.cost = cost;
+
+    }
+
 
     /**
      * Todo
@@ -34,5 +44,10 @@ public class Magic implements Card {
     @Override
     public Integer getId() {
         return id;
+    }
+
+    @Override
+    public void init() {
+        //TODO: apply the effect
     }
 }
