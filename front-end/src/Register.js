@@ -3,7 +3,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import axios from 'axios';
+import axios from './AxiosConfig';
 import Login from './Login';
 
 class Register extends React.Component {
@@ -70,7 +70,7 @@ class Register extends React.Component {
                         <TextField
                             hintText="Enter your Username"
                             floatingLabelText="Username"
-                            onChange = {(event,newValue) => this.setState({email:newValue})}
+                            onChange = {(event,newValue) => this.setState({username:newValue})}
                         />
                         <br/>
                         <TextField

@@ -25,7 +25,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping(value = {"/register"})
+    @GetMapping(value = {"/displayAll"})
     public ResponseEntity displayAll(){
         Iterable<User> userIterable = userRepository.findAll();
 

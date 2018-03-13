@@ -19,6 +19,7 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 
 @RestController
+@RequestMapping("/register")
 public class RegisterController {
 
     private final AtomicLong counter = new AtomicLong();
@@ -51,14 +52,14 @@ public class RegisterController {
 //    }
 
 
-    @GetMapping(value = {"/register"})
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity addUser(
             @RequestParam String username,
             @RequestParam String password,
-            @RequestParam String firstname,
-            @RequestParam String lastname
+            @RequestParam String first_name,
+            @RequestParam String last_name
     ) {
-        User user = userService.addUser(username,password,firstname,lastname,counter.incrementAndGet());
+        User user = userService.addUser(username,password,first_name,last_name,counter.incrementAndGet());
         userRepository.save(user);
 
         Iterable<User> userIterable = userRepository.findAll();
