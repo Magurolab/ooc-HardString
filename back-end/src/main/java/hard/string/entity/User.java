@@ -14,9 +14,11 @@ public class User {
     @Id
     @GeneratedValue
     private Long iduser;
+
     private String username;
     private String password;
-    private String name;
+    private String first_name;
+    private String last_name;
     private Long iddeck;
 
 
@@ -26,10 +28,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public void setIdDeck(Long deckid) {
-        this.iddeck = deckid;
     }
 
     public void setIduser(Long iduser) {
@@ -44,19 +42,32 @@ public class User {
         return password;
     }
 
-    public Long getIdDeck() {
-        return iddeck;
-    }
 
     public Long getIduser() {
         return iduser;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
     }
 
-    public String getName() {
-        return name;
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
+    }
+
+    public Long getIddeck() {
+        return iddeck;
+    }
+
+    public String getFirst_name() {
+        return first_name;
+    }
+
+    public String getLast_name() {
+        return last_name;
+    }
+
+    public void setIddeck(Long iddeck) {
+        this.iddeck = iddeck;
     }
 }
