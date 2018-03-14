@@ -1,10 +1,9 @@
 package hard.string.entity.cards.Monster;
 
 import hard.string.entity.cards.Card;
+import org.springframework.data.annotation.Id;
 
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
 /**
  * Created by Teama on 3/10/2018.
