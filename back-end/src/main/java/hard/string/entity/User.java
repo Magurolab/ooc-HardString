@@ -1,7 +1,15 @@
 package hard.string.entity;
 
+import hard.string.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowire;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
@@ -9,15 +17,19 @@ import javax.persistence.Id;
  */
 
 @Entity
-public class User {
+public class User{
+
+
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long iduser;
     private String username;
     private String password;
     private String name;
     private Long iddeck;
+
+
 
 
     public void setUsername(String username) {

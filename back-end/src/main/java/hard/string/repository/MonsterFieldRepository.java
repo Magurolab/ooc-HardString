@@ -1,20 +1,16 @@
 package hard.string.repository;
 
-import hard.string.entity.User;
 import hard.string.entity.cards.Card;
+import hard.string.entity.cards.Monster.Monster;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/**
- * Created by Teama on 3/10/2018.
- */
 
 @Repository
-public interface CardRepository extends CrudRepository<Card,Long> {
+public interface MonsterFieldRepository extends CrudRepository<Monster,Long> {
 
-    List<Card> findByCardname(String cardName);
-
+    List<Monster> findMonsterById(Long monsterId);
 
 }
