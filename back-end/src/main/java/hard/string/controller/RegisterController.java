@@ -1,5 +1,6 @@
 package hard.string.controller;
 
+import hard.string.dto.UserWithProfileDto;
 import hard.string.entity.Greeting;
 import hard.string.entity.User;
 import hard.string.repository.UserRepository;
@@ -31,49 +32,22 @@ public class RegisterController {
     @Autowired
     private UserService userService;
 
-//    @GetMapping(value = {"/registerdebug"})
-//    public List<User> addUserDebug(
-//            @RequestParam String username,
-//            @RequestParam String password,
-//            @RequestParam String name
-//    ) {
-//        User user = new User();
-//
-//        userRepository.save(user);
-//
-//        Iterable<User> userIterable = userRepository.findAll();
-//
-//        List<User> users = new ArrayList<>();
-//        for (User c : userIterable) {
-//            users.add(c);
-//        }
-//
-//        return users;
-//    }
-
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity addUser(
             @RequestParam String username,
             @RequestParam String password,
-            @RequestParam String first_name,
-            @RequestParam String last_name
+            @RequestParam String firstName,
+            @RequestParam String lastName
     ) {
-        User user = userService.addUser(username,password,first_name,last_name,counter.incrementAndGet());
+
+        User user = userService.addUser(username,password,firstName,lastName,counter.incrementAndGet());
+        if(user == null) {
+            System.out.println(username);
+            return ResponseEntity.badRequest().body("This username already exists");
+        }
         userRepository.save(user);
 
-        Iterable<User> userIterable = userRepository.findAll();
-
-        List<User> users = new ArrayList<>();
-        for (User c : userIterable) {
-            users.add(c);
-        }
-        boolean success = true;
-        if(success) {
-            return ResponseEntity.ok(user);
-        }
-        else{
-            return ResponseEntity.badRequest().body("Registration fail");
-        }
+        return ResponseEntity.ok(new UserWithProfileDto(user));
     }
 }

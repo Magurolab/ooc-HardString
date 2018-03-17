@@ -1,10 +1,13 @@
 package hard.string.service;
 
-import hard.string.Hashing.HashPassword;
+import hard.string.dto.UserWithProfileDto;
+import hard.string.hashing.HashPassword;
 import hard.string.entity.User;
 import hard.string.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Created by Teama on 3/12/2018.
@@ -23,12 +26,30 @@ public class UserService {
 
     public User addUser(String username, String password, String firstName, String lastName, Long deckId){
         User user = new User();
+        User duplicateCheck = userRepository.findByUsername(username);
+        if(duplicateCheck!=null){
+//            System.out.println("this user " +duplicateCheck.getUsername() + "already exists");
+            return null;
+        }
         String hashpassword = HashPassword.hashPassword(password);
         user.setUsername(username);
-        user.setFirst_name(firstName);
-        user.setLast_name(lastName);
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
         user.setPassword(hashpassword);
         user.setIddeck(deckId);
         return user;
+    }
+
+    public UserWithProfileDto authenticate(String username, String password){
+        User findUser = userRepository.findByUsername(username);
+        if(findUser!=null) {
+            System.out.println(username);
+            System.out.println(password);
+            if (HashPassword.verifyPassword(findUser.getPassword(), password)) {
+//                System.out.println("authenticated!");
+                return new UserWithProfileDto(findUser);
+            }
+        }
+        return null;
     }
 }
