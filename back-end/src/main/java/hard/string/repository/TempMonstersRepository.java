@@ -1,5 +1,6 @@
 package hard.string.repository;
 
+import hard.string.entity.TempMonsters;
 import hard.string.entity.cards.Card;
 import hard.string.entity.cards.Monster.Monster;
 import org.springframework.data.repository.CrudRepository;
@@ -9,8 +10,12 @@ import java.util.List;
 
 
 @Repository
-public interface MonsterFieldRepository extends CrudRepository<Monster,Long> {
+public interface TempMonstersRepository extends CrudRepository<TempMonsters,Integer> {
 
-    List<Monster> findMonsterById(Long monsterId);
+    TempMonsters findDistinctByIndex(int index);
+
+    TempMonsters findDistinctByName(String name);
+
+
 
 }

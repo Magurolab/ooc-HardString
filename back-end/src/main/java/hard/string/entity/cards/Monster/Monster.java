@@ -3,70 +3,48 @@ package hard.string.entity.cards.Monster;
 import hard.string.entity.cards.Card;
 //import org.springframework.data.annotation.Id;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Teama on 3/10/2018.
  */
 @Entity
-public class Monster implements Card {
+@Table(name = "monster")
+public class Monster extends Card {
 
-    /**
-     * Todo
-     * What will monster have? attribute, attack, etc.
-     */
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer id;
-    private String name;
-    private Integer cost, hp, maxHP ,atk;
+
+//    @GeneratedValue()
+//    private Integer id;
+//    private String name;
+//    private Integer cost;
+    private int hp;
+    private int maxHP;
+    private int atk;
     private boolean taunt;
     private boolean canAttack;
-    private String type;
+//    private String type;
 
 
-//    public Monster(Integer cost, Integer hp, Integer atk, Integer id, boolean taunt, boolean canAttack) {
-//        this.cost = cost;
-//        this.hp = hp;
-//        this.atk = atk;
-//        this.id = id;
-//        this.taunt = taunt;
-//        this.canAttack = canAttack;
-//
-//    }
-
-    @Override
-    public String getName() {
-        return name;
+    public Monster() {
     }
 
-    @Override
-    public String getType() {
-        return type;
+    public void setHp(int hp) {
+        this.hp = hp;
     }
 
-    @Override
-    public Integer getCost() {
-        return cost;
+    public void setMaxHP(int maxHP) {
+        this.maxHP = maxHP;
     }
 
-    @Override
-    public Integer getId() {
-        return id;
-    }
-
-    @Override
-    public void init() {
-        //TODO: extract it to the board and do some shite.
+    public void setAtk(int atk) {
+        this.atk = atk;
     }
 
     public boolean canAttack(){
         return  canAttack;
     }
-
 
 
     public int getHp() {
@@ -77,18 +55,6 @@ public class Monster implements Card {
         return atk;
     }
 
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setCost(Integer cost) {
-        this.cost = cost;
-    }
 
     public void setHp(Integer hp) {
         this.hp = hp;
@@ -104,10 +70,6 @@ public class Monster implements Card {
 
     public void setCanAttack(boolean canAttack) {
         this.canAttack = canAttack;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public boolean isTaunt() {

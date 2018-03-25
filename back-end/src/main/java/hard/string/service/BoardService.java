@@ -4,11 +4,18 @@ package hard.string.service;
 import hard.string.entity.Board;
 import hard.string.entity.MonsterField;
 import hard.string.entity.Player;
+import hard.string.entity.TempMonsters;
 import hard.string.entity.cards.Monster.Monster;
+import hard.string.repository.PlayerRepository;
+import hard.string.repository.TempMonstersRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class BoardService {
+
+
+
 
 
     //TODO Return values of both the monster (What else??)
@@ -16,26 +23,29 @@ public class BoardService {
     //[1] == monsterB
 
     //[x][] == {health,atk,?isDead?}
-    public static int[][] fight(Monster monsterA, MonsterField a, Monster monsterB, MonsterField b){
-        if(!a.equals(b)){
+    public static int[][] fight(Player pA, Player pB, TempMonsters mA, TempMonsters mB){
+
+        if(pA.getUserID() != pA.getUserID()){
             //if player try to attack monster on the same side, we'll not allow that
-            if(b.getTauntNum() == 0 || monsterB.isTaunt()){
+
+
+            if(pA.getActiveTaunt() == 0 || mB.isTaunt()){
                 //doing an attack
-                MonsterService.takeDamage(monsterA,monsterB.getAtk());
+                MonsterService.takeDamage(mA,mB.getAtk());
 //                monA hp -= monB atk
-                MonsterService.takeDamage(monsterB,monsterA.getAtk());
+                MonsterService.takeDamage(mB,mA.getAtk());
 //                monB hp -= monA atk
-                if(MonsterService.isDead(monsterA)){
+                if(MonsterService.isDead(mA)){
                     //remove monster if it dead
-                    a.remove(monsterA);
+                    a.remove(mA);
                 }
                 else{
                     //make monster cannot attack twice in a turn
-                    monsterA.setCanAttack(false);
+                    mA.setCanAttack(false);
                 }
-                if(MonsterService.isDead(monsterB)){
+                if(MonsterService.isDead(mB)){
                     //remove monster if it dead
-                    b.remove(monsterB);
+                    b.remove(mB);
                 }
 
             }
@@ -46,8 +56,9 @@ public class BoardService {
         else{
             //cannot attack
         }
-        return new int[][] {{monsterA.getHp(),monsterA.getAtk()},{monsterB.getHp(),monsterB.getAtk()}};
+        return new int[][] {{m1.getHp(),m1.getAtk()},{m2.getHp(),m2.getAtk()}};
     }
+
 
 
     //Switch turn
@@ -55,14 +66,23 @@ public class BoardService {
     //TODO Ask if they want names or object or username
     public static Player endTurn(Board b){
         if(b.getTurn() ==1){
+            //Add one mana to P1
+            b.setMana1(b.getMana1()+1);
+            //Set turn to P2
             b.setTurn(2);
             return b.getP2();
         }else {
+            //Add one mana to P2
+            b.setMana2(b.getMana2()+1);
+            //Set turn to P1
             b.setTurn(1);
+
             return b.getP1();
         }
 
     }
+
+
 
 
 

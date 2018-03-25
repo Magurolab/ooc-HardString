@@ -9,4 +9,6 @@ public interface MonsterRepository extends CrudRepository<Monster,String>{
 
     Monster findMonsterByName(String name);
 
+    Monster findMonsterByCardID(Long id);
+
 }

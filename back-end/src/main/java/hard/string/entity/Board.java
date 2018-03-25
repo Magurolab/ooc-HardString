@@ -2,36 +2,57 @@ package hard.string.entity;
 
 import hard.string.entity.cards.Monster.Monster;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 
 //TODO Get Update every turn?
 @Entity
+@Table(name = "board")
 public class Board {
 
     @Id
+    @Column(name ="board_id")
     @GeneratedValue
-    private Player p1;
-    private Player p2;
+    private long b_id;
+
+//    @Transient
+    @Column(name = "board_p1ID")
+    private long p1ID;
+    @Column(name = "board_p2ID")
+    private long p2ID;
+
+//    @OneToOne
+//    @JoinColumn(name = "board_player_1")
+//    private Player p1;
+//
+//    @OneToOne
+//    @JoinColumn(name = "board_player_2")
+//    private Player p2;
+
+    @Column(name = "board_mana1")
     private int mana1;
+    @Column(name = "board_mana2")
     private int mana2;
+    @Column(name = "board_turn")
     private int turn; //1 for Player1, 2 Player2
+    @Column(name = "board_gameIsOver")
     static boolean gameIsOver;
 
-//    public Board(Player p1,Player p2){
-//        this.p1 = p1;
-//        this.p2 = p2;
-//    }
-
-
-    public Player getP1() {
-        return p1;
+    public Board() {
     }
 
-    public Player getP2() {
-        return p2;
+
+
+    public long getB_id() {
+        return b_id;
+    }
+
+    public long getP1ID() {
+        return p1ID;
+    }
+
+    public long getP2ID() {
+        return p2ID;
     }
 
     public int getMana1() {
@@ -50,12 +71,16 @@ public class Board {
         return gameIsOver;
     }
 
-    public void setP1(Player p1) {
-        this.p1 = p1;
+    public void setB_id(int b_id) {
+        this.b_id = b_id;
     }
 
-    public void setP2(Player p2) {
-        this.p2 = p2;
+    public void setP1ID(int p1ID) {
+        this.p1ID = p1ID;
+    }
+
+    public void setP2ID(int p2ID) {
+        this.p2ID = p2ID;
     }
 
     public void setMana1(int mana1) {
@@ -73,4 +98,6 @@ public class Board {
     public static void setGameIsOver(boolean gameIsOver) {
         Board.gameIsOver = gameIsOver;
     }
+
+
 }

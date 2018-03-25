@@ -3,24 +3,22 @@ package hard.string.entity.cards.Magic;
 import hard.string.entity.cards.Card;
 //import org.springframework.data.annotation.Id;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by Teama on 3/10/2018.
  */
 
 @Entity
-public class Magic implements Card {
+@Table(name="magic")
+public class Magic extends Card {
 
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private String name;
-    private Integer cost;
-    private Integer id;
-    private String type;
+
+    //ID same as what is in Card
+//    private Integer id;
+//    private String name;
+//    private Integer cost;
+//    private String type;
     private int heal;
     private int dmg;
     private int atkBuff;
@@ -28,42 +26,14 @@ public class Magic implements Card {
     private boolean needTarget;
     private boolean randomEff;
 
-    public Magic(String name, int cost){
-        this.name = name;
-        this.cost = cost;
+    public Magic() {
 
     }
 
 
-    /**
-     * Todo
-     * How would effect work? sub-class of magic card?
-     * How do we keep what magic have what effect?
-     */
-    @Override
-    public String getName() {
-        return name;
-    }
 
-    @Override
-    public String getType() {
-        return type;
-    }
 
-    @Override
-    public Integer getCost() {
-        return cost;
-    }
 
-    @Override
-    public Integer getId() {
-        return id;
-    }
-
-    @Override
-    public void init() {
-        //TODO: apply the effect
-    }
 
     public int getHeal() {
         return heal;
@@ -79,22 +49,6 @@ public class Magic implements Card {
 
     public int getDraw() {
         return draw;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setCost(Integer cost) {
-        this.cost = cost;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public void setHeal(int heal) {

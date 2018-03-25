@@ -7,10 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by Teama on 3/12/2018.
@@ -23,11 +20,17 @@ public class User{
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Long iduser;
+    @OneToOne(mappedBy = "player_idUser")
+    @Column(name = "user_id")
+    private long iduser;
+    @Column(name = "user_username")
     private String username;
+    @Column(name = "user_password")
     private String password;
+    @Column(name = "user_name")
     private String name;
-    private Long iddeck;
+    @Column(name = "user_deckID")
+    private long deckID;
 
 
 
@@ -41,7 +44,7 @@ public class User{
     }
 
     public void setIdDeck(Long deckid) {
-        this.iddeck = deckid;
+        this.deckID = deckid;
     }
 
     public void setIduser(Long iduser) {
@@ -56,11 +59,11 @@ public class User{
         return password;
     }
 
-    public Long getIdDeck() {
-        return iddeck;
+    public long getIdDeck() {
+        return deckID;
     }
 
-    public Long getIduser() {
+    public long getIduser() {
         return iduser;
     }
 
