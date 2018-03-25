@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import  createMuiTheme from 'material-ui/styles/createMuiTheme';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Board from './Board/Board.js';
+
+const theme = createMuiTheme();
 
 class App extends Component {
+
   render() {
     return (
-      <div className="App">
-          
-      </div>
+        <MuiThemeProvider theme = { theme }>
+            <Router>
+                <Route exact path="/" exact component={ Board } />
+            </Router>
+        </MuiThemeProvider>
     );
   }
 }
