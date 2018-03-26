@@ -8,5 +8,16 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/98894
 injectTapEventPlugin();
-ReactDOM.render(<App />, document.getElementById('root'));
+
+const sty = {
+    minWidth: "100%",
+    minHeight: "100%"
+
+};
+
+
+function Main() {
+    return (<App style={sty}/>)
+}
+ReactDOM.render(<Main />, document.getElementById('root'));
 registerServiceWorker();

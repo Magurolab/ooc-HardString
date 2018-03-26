@@ -4,13 +4,11 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 const styles = theme => ({
-    root: {
-        flexGrow: 1,
-    },
+
     field: {
         padding: 20, marginTop: 10, marginButton: 10, marginLeft: 5, marginRight:5,
-        width: '100%',
-        height: '100%',
+        display: "flex",
+
 
     }
 })
