@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>hard.string</groupId>
@@ -71,16 +71,36 @@
 			<artifactId>spring-security-web</artifactId>
 		</dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>6.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>io.spring.platform</groupId>
+			<artifactId>platform-bom</artifactId>
+			<version>Cairo-RC1</version>
+			<type>pom</type>
+			<scope>import</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
 		</dependency>
 
 
@@ -92,7 +112,7 @@
 			<version>0.4</version>
 		</dependency>
 
-    </dependencies>
+	</dependencies>
 
 	<build>
 		<plugins>

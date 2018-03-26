@@ -1,15 +1,10 @@
 package hard.string.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
-/**
- * Created by Teama on 3/12/2018.
- */
+import javax.persistence.*;
 
 @Entity
-public class User {
+public class User{
 
     @Id
     @GeneratedValue
@@ -19,7 +14,12 @@ public class User {
     private String password;
     private String firstName;
     private String lastName;
-    private Long iddeck;
+
+    @OneToOne(targetEntity = Deck.class,
+            mappedBy = "deckId",
+            cascade = CascadeType.ALL
+    )
+    private Deck deck;
 
 
     public void setUsername(String username) {
@@ -55,8 +55,12 @@ public class User {
         this.lastName = lastName;
     }
 
-    public Long getIddeck() {
-        return iddeck;
+    public Deck getDeck() {
+        return deck;
+    }
+
+    public void setDeck(Deck deck) {
+        this.deck = deck;
     }
 
     public String getFirstName() {
@@ -67,7 +71,4 @@ public class User {
         return lastName;
     }
 
-    public void setIddeck(Long iddeck) {
-        this.iddeck = iddeck;
-    }
 }
