@@ -29,4 +29,12 @@ public class RoomService {
         }
         return false;
     }
+
+    public boolean closeRoom(Room room){
+        //remove player from room first.
+        room.setUser1(0);
+        room.setUser2(0);
+        roomRepository.delete(room);
+        return true;
+    }
 }

@@ -44,6 +44,7 @@ public class UserService {
 
     public UserWithProfileDto authenticate(String username, String password){
         User findUser = userRepository.findByUsername(username);
+        System.out.println("try loggin in : " +username);
         if(findUser!=null) {
             System.out.println(username);
             System.out.println(password);

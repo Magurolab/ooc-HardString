@@ -21,7 +21,7 @@ public class HandController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/useCard")
-    public ResponseEntity userCard(
+    public ResponseEntity useCard(
             @RequestParam long playerId,
             @RequestParam long cardId
     ){

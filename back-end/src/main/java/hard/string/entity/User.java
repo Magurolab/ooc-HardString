@@ -15,12 +15,9 @@ public class User{
     private String firstName;
     private String lastName;
 
-    @OneToOne(targetEntity = Deck.class,
-            mappedBy = "deckId",
-            cascade = CascadeType.ALL
-    )
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name = "deckId")
     private Deck deck;
-
 
     public void setUsername(String username) {
         this.username = username;

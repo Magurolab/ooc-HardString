@@ -3,10 +3,14 @@ package hard.string.service;
 import hard.string.entity.TempMonster;
 import hard.string.entity.cards.Magic.Magic;
 import hard.string.entity.cards.Monster.Monster;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Random;
 
 public class MagicService {
+
+    @Autowired
+    private MonsterService monsterService;
 
 
     public int[] getEffect(Magic m){
@@ -19,13 +23,13 @@ public class MagicService {
             int i = getRandomEff(eff);
             if(i==0){
                 //heal
-                MonsterService.takeHeal(target,eff[0]);
+                monsterService.takeHeal(target,eff[0]);
             }else if(i ==1){
                 //dmg
-                MonsterService.takeDamage(target,eff[1]);
+                monsterService.takeDamage(target,eff[1]);
             }else if(i ==2){
                 //atkbuf
-                MonsterService.takeAtkBuff(target,eff[2]);
+                monsterService.takeAtkBuff(target,eff[2]);
             }else if(i == 3){
                 drawCard(eff[3]);
             }

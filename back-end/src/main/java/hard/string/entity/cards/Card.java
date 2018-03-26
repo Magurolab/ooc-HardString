@@ -1,20 +1,28 @@
 package hard.string.entity.cards;
 
+import hard.string.entity.Deck;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Teama on 3/10/2018.
  */
 
-//TODO Do we need entity here??
+@Entity
 public class Card {
 
 
     @Id
     @GeneratedValue
-    private String cardId;
+    private Long cardId;
+
+    @ManyToMany(mappedBy = "cards")
+    private List<Deck> decks = new ArrayList<>();
 
     private String name;
 
@@ -30,7 +38,7 @@ public class Card {
         return cost;
     }
 
-    public String getId() {
+    public Long getId() {
         return cardId;
     }
 

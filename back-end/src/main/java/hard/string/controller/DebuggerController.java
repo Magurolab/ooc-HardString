@@ -1,12 +1,15 @@
 package hard.string.controller;
 
+import hard.string.entity.Deck;
 import hard.string.entity.User;
+import hard.string.entity.cards.Card;
+import hard.string.repository.CardRepository;
 import hard.string.repository.UserRepository;
+import hard.string.service.DeckService;
 import hard.string.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +19,7 @@ import java.util.List;
  */
 
 @RestController
-public class UserController {
+public class DebuggerController {
 
     @Autowired
     private UserRepository
@@ -24,6 +27,12 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private DeckService deckService;
+
+    @Autowired
+    private CardRepository cardRepository;
 
     @GetMapping(value = {"/displayAll"})
     public ResponseEntity displayAll(){
@@ -37,6 +46,18 @@ public class UserController {
 
         return ResponseEntity.ok(users);
 
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = {"/addCardtoDeck"})
+    public ResponseEntity addCard(
+            @RequestParam long userId
+    ){
+        User user = userRepository.findById(userId).orElse(null);
+        Card boat =  cardRepository.findById(1L).orElse(null);
+        deckService.addCard(user.getDeck(),boat);
+        deckService.addCard(user.getDeck(),boat);
+
+        return ResponseEntity.ok(user);
     }
 
 }

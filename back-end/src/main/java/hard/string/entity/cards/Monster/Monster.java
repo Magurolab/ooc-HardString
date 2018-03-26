@@ -28,16 +28,6 @@ public class Monster {
     private String type;
 
 
-//    public Monster(Integer cost, Integer hp, Integer atk, Integer id, boolean taunt, boolean canAttack) {
-//        this.cost = cost;
-//        this.hp = hp;
-//        this.atk = atk;
-//        this.id = id;
-//        this.taunt = taunt;
-//        this.canAttack = canAttack;
-//
-//    }
-
 
     public String getName() {
         return name;

@@ -28,18 +28,6 @@ public class Magic{
     private boolean needTarget;
     private boolean randomEff;
 
-    public Magic(String name, int cost){
-        this.name = name;
-        this.cost = cost;
-
-    }
-
-
-    /**
-     * Todo
-     * How would effect work? sub-class of magic card?
-     * How do we keep what magic have what effect?
-     */
 
     public String getName() {
         return name;
@@ -58,9 +46,6 @@ public class Magic{
         return id;
     }
 
-    public void init() {
-        //TODO: apply the effect
-    }
 
     public int getHeal() {
         return heal;
