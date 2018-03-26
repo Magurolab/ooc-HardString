@@ -16,10 +16,10 @@ import javax.persistence.Id;
 public class Magic{
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Long id;
+
     private String name;
     private Integer cost;
-    private Integer id;
     private String type;
     private int heal;
     private int dmg;
@@ -27,6 +27,7 @@ public class Magic{
     private int draw;
     private boolean needTarget;
     private boolean randomEff;
+
 
 
     public String getName() {
@@ -42,7 +43,7 @@ public class Magic{
         return cost;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -71,7 +72,7 @@ public class Magic{
         this.cost = cost;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

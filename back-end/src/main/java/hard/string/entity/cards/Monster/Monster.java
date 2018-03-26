@@ -19,40 +19,34 @@ public class Monster {
      * What will monster have? attribute, attack, etc.
      */
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer id;
+    private Long id;
+
+
+    private Integer cost;
+    private Integer atk;
+    private Integer maxHP;
     private String name;
-    private Integer cost, hp, maxHP ,atk;
     private boolean taunt;
-    private boolean canAttack;
-    private String type;
+    private boolean charge;
 
+    public void setCharge(boolean charge) {
+        this.charge = charge;
+    }
 
+    public boolean isCharge() {
+        return charge;
+    }
 
     public String getName() {
         return name;
-    }
-
-    public String getType() {
-        return type;
     }
 
     public Integer getCost() {
         return cost;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
-    }
-
-    public boolean canAttack(){
-        return  canAttack;
-    }
-
-
-
-    public int getHp() {
-        return hp;
     }
 
     public int getAtk() {
@@ -60,7 +54,7 @@ public class Monster {
     }
 
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -72,10 +66,6 @@ public class Monster {
         this.cost = cost;
     }
 
-    public void setHp(Integer hp) {
-        this.hp = hp;
-    }
-
     public void setAtk(Integer atk) {
         this.atk = atk;
     }
@@ -84,20 +74,9 @@ public class Monster {
         this.taunt = taunt;
     }
 
-    public void setCanAttack(boolean canAttack) {
-        this.canAttack = canAttack;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 
     public boolean isTaunt() {
         return taunt;
-    }
-
-    public boolean isCanAttack() {
-        return canAttack;
     }
 
     public Integer getMaxHP() {

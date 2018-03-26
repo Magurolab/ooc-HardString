@@ -4,6 +4,7 @@ import hard.string.entity.Deck;
 import hard.string.entity.User;
 import hard.string.entity.cards.Card;
 import hard.string.repository.CardRepository;
+import hard.string.repository.DeckRepository;
 import hard.string.repository.UserRepository;
 import hard.string.service.DeckService;
 import hard.string.service.UserService;
@@ -26,13 +27,17 @@ public class DebuggerController {
             userRepository;
 
     @Autowired
+    private DeckRepository deckRepository;
+
+    @Autowired
+    private CardRepository cardRepository;
+
+
+    @Autowired
     private UserService userService;
 
     @Autowired
     private DeckService deckService;
-
-    @Autowired
-    private CardRepository cardRepository;
 
     @GetMapping(value = {"/displayAll"})
     public ResponseEntity displayAll(){
@@ -56,7 +61,9 @@ public class DebuggerController {
         Card boat =  cardRepository.findById(1L).orElse(null);
         deckService.addCard(user.getDeck(),boat);
         deckService.addCard(user.getDeck(),boat);
-
+        System.out.println(user.getDeck().getCards());
+        deckRepository.save(user.getDeck());
+        userRepository.save(user);
         return ResponseEntity.ok(user);
     }
 
