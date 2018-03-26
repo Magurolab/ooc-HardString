@@ -11,14 +11,15 @@ import javax.persistence.*;
 public class TempMonsters {
     //Exclusive for each player
 
+    @Id
     @OneToOne
     @JoinColumn(name = "temp_monsters_owner")
     private Player tempMonstersOwner;
 
-
     @Id
     @Column(name = "temp_monsters_index")
     private int index;
+
 
 //    @OneToOne
 //    @JoinColumn(name = "temp_monsters_monster") //Join with Temp_deck

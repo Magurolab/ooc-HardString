@@ -21,7 +21,6 @@ public class User{
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @OneToOne(mappedBy = "player_idUser")
-    @Column(name = "user_id")
     private long iduser;
     @Column(name = "user_username")
     private String username;

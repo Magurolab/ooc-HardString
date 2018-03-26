@@ -1,5 +1,6 @@
 package hard.string.repository;
 
+import hard.string.entity.Player;
 import hard.string.entity.TempMonsters;
 import hard.string.entity.cards.Card;
 import hard.string.entity.cards.Monster.Monster;
@@ -16,6 +17,6 @@ public interface TempMonstersRepository extends CrudRepository<TempMonsters,Inte
 
     TempMonsters findDistinctByName(String name);
 
-
+    TempMonsters findDistinctByIndexAndTempMonsterOwner(int index, Player p);
 
 }

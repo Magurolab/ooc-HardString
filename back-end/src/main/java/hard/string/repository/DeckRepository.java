@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface DeckRepository extends CrudRepository<Deck,Long>{
 
-    List<Long> findByDeckId(Long deckId);
+    List<Deck> findByDeckId(Long deckId);
 
 }

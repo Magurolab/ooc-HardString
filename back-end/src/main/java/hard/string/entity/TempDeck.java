@@ -14,13 +14,16 @@ import static javax.persistence.GenerationType.TABLE;
 public class TempDeck {
     //Exclusive for each player
 
+    @Id
+    @GeneratedValue
+    private long tempDeckID;
 
     @OneToOne
     @JoinColumn(name = "temp_deck_owner")
     private Player tempDeckOwner;
 
-    @Id
-    @GeneratedValue
+
+
     @Column(name = "temp_deck_index")
     private int index;
     // Generate

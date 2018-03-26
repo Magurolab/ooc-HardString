@@ -1,39 +1,39 @@
-//package hard.string.entity;
-//
-//
-//import javax.persistence.*;
-//
-//
-////Monster on the field for such player
-//@Entity
-//public class MonsterField {
-//    @Id
-//    private int fieldID;
-//    @GeneratedValue
-//
-//    private int monsterNum;
-//
-//
-//    @OneToOne
-//    @JoinColumn(name = "monster_field_owner")
-//    private Player monsterFieldOwner;
-//
-//    @Column(name = "monster_field_temp_monster_id")
-//    private long tempMonsterID;
-//    @OneToOne(mappedBy = "tempMonsterOwner")
-//    private TempMonsters tempMonsters;
-//
-//    //TODO Chaged to static array for position manipulation.
-//    private int tauntNum;
-//    private final int MAXCARD = 6; //1 Player 5 Monster
-//
-//    public MonsterField() {
-//    }
+package hard.string.entity;
+
+
+import javax.persistence.*;
+import java.util.ArrayList;
+
+
+//Monster on the field for such player
+@Entity
+public class MonsterField {
+    @Id
+    private int fieldID;
+    @GeneratedValue
+
+    private int monsterNum;
+
+
+    @OneToOne
+    @JoinColumn(name = "monster_field_owner")
+    private Player monsterFieldOwner;
+
+    @Column(name = "monster_field_temp_monster_id")
+    private long tempMonsterID;
+    @OneToOne(mappedBy = "tempMonsterOwner")
+    private TempMonsters tempMonsters;
+
+    //TODO Chaged to static array for position manipulation.
+    private int tauntNum;
+    private final int MAXCARD = 6; //1 Player 5 Monster
+
+
 //    public MonsterField() {
 //        this.field = new ArrayList<>();
 //        tauntNum = 0;
 //    }
-
+//
 //    private Integer[] getAllSlot(){
 //        return new Integer[] {m0ID,m1ID,m2ID,m3ID,m4ID};
 //    }
@@ -70,7 +70,7 @@
 //
 //    }
 //
-////    @Column(name = "taunt_num", length = 100)
+//    //    @Column(name = "taunt_num", length = 100)
 //    public int getTauntNum(){
 //        return tauntNum;
 //    }
@@ -87,4 +87,4 @@
 //    public void setTauntNum(int tauntNum) {
 //        this.tauntNum = tauntNum;
 //    }
-//}
+}

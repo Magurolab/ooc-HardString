@@ -9,11 +9,12 @@ import javax.persistence.*;
 @Table(name = "temp_hand")
 public class TempHand {
     //Exclusive for each player
-
+    @Id
     @OneToOne
     @JoinColumn(name = "temp_hand_owner")
     private Player tempHandOwner;
 
+    @Id
     @Column(name = "temp_hand_index")
     private int index;
 

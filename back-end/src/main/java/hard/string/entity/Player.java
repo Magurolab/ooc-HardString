@@ -11,6 +11,7 @@ import javax.persistence.*;
 public class Player{
 //    @OneToOne
 //    @JoinColumn(name = "user_id")
+    @Id
     @Column(name = "player_userID")
     private long userID;
 
