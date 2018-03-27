@@ -1,37 +1,25 @@
 package hard.string.entity;
 
-import hard.string.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowire;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
 
 import javax.persistence.*;
-
-/**
- * Created by Teama on 3/12/2018.
- */
 
 @Entity
 public class User{
 
-
-
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    @OneToOne(mappedBy = "player_idUser")
-    private long iduser;
-    @Column(name = "user_username")
+    @GeneratedValue
+    private Long iduser;
+
     private String username;
-    @Column(name = "user_password")
     private String password;
-    @Column(name = "user_name")
-    private String name;
-    @Column(name = "user_deckID")
-    private long deckID;
+    private String firstName;
+    private String lastName;
 
-
+    @OneToOne(targetEntity = Deck.class,
+            mappedBy = "deckId",
+            cascade = CascadeType.ALL
+    )
+    private Deck deck;
 
 
     public void setUsername(String username) {
@@ -40,10 +28,6 @@ public class User{
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public void setIdDeck(Long deckid) {
-        this.deckID = deckid;
     }
 
     public void setIduser(Long iduser) {
@@ -58,19 +42,33 @@ public class User{
         return password;
     }
 
-    public long getIdDeck() {
-        return deckID;
-    }
 
-    public long getIduser() {
+    public Long getIduser() {
         return iduser;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getName() {
-        return name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
+
+    public Deck getDeck() {
+        return deck;
+    }
+
+    public void setDeck(Deck deck) {
+        this.deck = deck;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
 }

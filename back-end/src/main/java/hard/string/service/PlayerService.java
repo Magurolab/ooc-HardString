@@ -1,10 +1,10 @@
 package hard.string.service;
 
-import hard.string.entity.Player;
+import hard.string.entity.*;
 import hard.string.entity.cards.Card;
 import hard.string.repository.MagicRespository;
 import hard.string.repository.PlayerRepository;
-import hard.string.repository.TempMonstersRepository;
+import hard.string.repository.TempMonsterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,14 +17,27 @@ public class PlayerService {
     @Autowired
     private  MagicRespository magicRespository;
     @Autowired
-    private  TempMonstersRepository tempMonstersRepository;
+    private TempMonsterRepository tempMonsterRepository;
 
-//    public static Card drawCard(Player p){
-////        if(p.getDeck().size() != 0){
-////            p.getp.getDeck().remove(0);
-////        }
-//
-//    }
+
+    public void drawCard(Player p){
+        TempDeck deck = p.getTempDeck();
+        p.getTempHand().getHand().add(deck.getCards().pop());
+    }
+
+    public Player initPlayer(long userId, TempDeck tempDeck, TempHand tempHand,
+                             MonsterField monsterField, String username){
+        Player player = new Player();
+        player.setPlayerId(userId);
+        player.setTempDeck(tempDeck);
+        player.setTempHand(tempHand);
+        player.setMonsterField(monsterField);
+        player.setActiveTaunt(0);
+        player.setUsername(username);
+
+
+        return player;
+    }
 
 
 }

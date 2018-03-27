@@ -19,4 +19,5 @@ public interface CardRepository extends CrudRepository<Card,Long> {
     Card findByCardID(Long cardId);
 
 
+
 }

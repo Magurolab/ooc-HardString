@@ -6,26 +6,21 @@ import hard.string.entity.cards.Card;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
-//Player custom deck
 @Entity
-@Table(name = "deck")
 public class Deck {
 
     @Id
     @GeneratedValue
-    private long deckId;
+    private Long deckId;
 
+    @ManyToMany
+    @JoinTable(name = "deck2card",
+            joinColumns = @JoinColumn(name = "deckId"),
+            inverseJoinColumns = @JoinColumn(name = "cardId"))
+    private List<Card> cards = new ArrayList<>();
 
-    private long cardId;
-
-    private int quantity;
-
-    public Deck() {
-    }
-
-    public long getDeckId() {
+    public Long getDeckId() {
         return deckId;
     }
 
@@ -33,13 +28,11 @@ public class Deck {
         this.deckId = deckId;
     }
 
-    public long getCardId() {
-        return cardId;
+    public List<Card> getCards() {
+        return cards;
     }
 
-    public void setCardId(int cardId) {
-        this.cardId = cardId;
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
     }
-
-
 }

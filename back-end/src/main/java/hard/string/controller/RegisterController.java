@@ -1,11 +1,14 @@
 package hard.string.controller;
 
-import com.sun.org.apache.regexp.internal.RE;
+import hard.string.dto.UserWithProfileDto;
 import hard.string.entity.Greeting;
 import hard.string.entity.User;
+import hard.string.repository.DeckRepository;
 import hard.string.repository.UserRepository;
+import hard.string.service.UserService;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,34 +21,40 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 
 @RestController
+@RequestMapping("/register")
 public class RegisterController {
 
     private final AtomicLong counter = new AtomicLong();
 
     @Autowired
-    private UserRepository userRepository;
+    private UserRepository
+            userRepository;
 
-    @GetMapping(value = {"/register"})
-    public List<User> addUser(
+
+    @Autowired
+    private DeckRepository deckRepository;
+
+    @Autowired
+    private UserService userService;
+
+
+
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity addUser(
             @RequestParam String username,
             @RequestParam String password,
-            @RequestParam String name
+            @RequestParam String firstName,
+            @RequestParam String lastName
     ) {
-        User user = new User();
-        user.setIdDeck(counter.incrementAndGet());
-        user.setUsername(username);
-        user.setPassword(password);
-        user.setName(name);
 
-        userRepository.save(user);
-
-        Iterable<User> userIterable = userRepository.findAll();
-
-        List<User> users = new ArrayList<>();
-        for (User c : userIterable) {
-            users.add(c);
+        User user = userService.addUser(username,password,firstName,lastName);
+        if(user == null) {
+            System.out.println(username);
+            return ResponseEntity.badRequest().body("This username already exists");
         }
+        userRepository.save(user);
+        deckRepository.save(user.getDeck());
 
-        return users;
+        return ResponseEntity.ok(new UserWithProfileDto(user));
     }
 }
