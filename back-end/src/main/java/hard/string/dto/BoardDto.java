@@ -2,12 +2,18 @@ package hard.string.dto;
 
 import hard.string.entity.*;
 import hard.string.repository.BoardDBRepository;
+import hard.string.service.MonsterFieldService;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Teama on 3/25/2018.
  */
-public class BoardWithProfileDto {
+public class BoardDto {
+
+    private MonsterFieldService monsterFieldService = new MonsterFieldService();
 
     private int mana1;
     private int mana2;
@@ -24,11 +30,42 @@ public class BoardWithProfileDto {
     private long deck2;
     private String username2;
 
+    //valid space to play monster
+    private List<String> availableMonsterField;
+
+    //valid space to play magic
+    private List<String> availableMagicTarget;
+
     private int turn;
     private boolean gameOver;
 
+    private void createAvailableMonsterField(Player currentPlayer, Player enemyPlayer){
+        availableMonsterField = new ArrayList<>();
+        for(int i = 0; i < 6; i++){
+            if(monsterFieldService.checkMonster(i,currentPlayer.getMonsterField())){
+                availableMonsterField.add(String.valueOf(i)+'P');
+            }
+        }
+    }
 
-    public BoardWithProfileDto(Board board, Player currentPlayer, Player enemyPlayer){
+    private void createAvailableMagicTarget(Player currentPlayer , Player enemyPlayer){
+        availableMagicTarget = new ArrayList<>();
+        for(int i = 0; i < 6; i++){
+            boolean isValid = monsterFieldService.checkMonster(i, currentPlayer.getMonsterField());
+            if(isValid){
+                availableMagicTarget.add(String.valueOf(i)+'P');
+            }
+        }
+        for(int i = 0; i < 6; i++){
+            boolean isValid = monsterFieldService.checkMonster(i, enemyPlayer.getMonsterField());
+            if(isValid){
+                availableMagicTarget.add(String.valueOf(i)+'E');
+            }
+        }
+    }
+
+
+    public BoardDto(Board board, Player currentPlayer, Player enemyPlayer){
         mana1 = board.getMana1();
         mana2 = board.getMana2();
         player1 = currentPlayer.getPlayerId();
@@ -43,6 +80,8 @@ public class BoardWithProfileDto {
         username2 = enemyPlayer.getUsername();
         turn = board.getTurn();
         gameOver = board.isGameIsOver();
+        createAvailableMagicTarget(currentPlayer,enemyPlayer);
+        createAvailableMonsterField(currentPlayer,enemyPlayer);
     }
 
     public int getMana1() {
@@ -95,6 +134,14 @@ public class BoardWithProfileDto {
 
     public TempHand getTempHand1() {
         return tempHand1;
+    }
+
+    public List<String> getAvailableMonsterField() {
+        return availableMonsterField;
+    }
+
+    public List<String> getAvailableMagicTarget() {
+        return availableMagicTarget;
     }
 }
 

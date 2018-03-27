@@ -29,7 +29,6 @@ public class UserService {
         User user = new User();
         User duplicateCheck = userRepository.findByUsername(username);
         if(duplicateCheck!=null){
-//            System.out.println("this user " +duplicateCheck.getUsername() + "already exists");
             return null;
         }
         String hashpassword = HashPassword.hashPassword(password);
@@ -49,10 +48,10 @@ public class UserService {
             System.out.println(username);
             System.out.println(password);
             if (HashPassword.verifyPassword(findUser.getPassword(), password)) {
-//                System.out.println("authenticated!");
                 return new UserWithProfileDto(findUser);
             }
         }
         return null;
     }
+
 }

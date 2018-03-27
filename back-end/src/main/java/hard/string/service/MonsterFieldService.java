@@ -2,7 +2,10 @@ package hard.string.service;
 
 import com.sun.org.apache.bcel.internal.generic.SWITCH;
 import hard.string.entity.MonsterField;
+import hard.string.entity.Player;
 import hard.string.entity.TempMonster;
+import hard.string.entity.cards.Monster.Monster;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,8 +15,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class MonsterFieldService {
 
+    @Autowired
+    private TempMonsterService tempMonsterService;
+
     public TempMonster getMonster(int index, MonsterField monsterField){
         switch(index){
+            case 0:
+                return monsterField.getPlayer();
             case 1:
                 return monsterField.getMonster1();
             case 2:
@@ -25,7 +33,85 @@ public class MonsterFieldService {
             case 5:
                 return monsterField.getMonster5();
             default:
+                //shouldn't go here at all
                 return null;
         }
     }
+
+    public boolean checkMonster(int index, MonsterField monsterField){
+        System.out.println(monsterField == null);
+        switch(index){
+            case 0:
+                return monsterField.getPlayer() != null;
+            case 1:
+                return monsterField.getMonster1() != null;
+            case 2:
+                return monsterField.getMonster2() != null;
+            case 3:
+                return monsterField.getMonster3() != null;
+            case 4:
+                return monsterField.getMonster4() != null;
+            case 5:
+                return monsterField.getMonster5() != null;
+            default:
+                //shouldn't go here at all
+                return false;
+        }
+    }
+
+    public boolean setMonster(int index, MonsterField monsterField,TempMonster tempMonster){
+        switch(index){
+            case 0:
+                monsterField.setPlayer(tempMonster);
+                return true;
+            case 1:
+                monsterField.setMonster1(tempMonster);
+                return true;
+            case 2:
+                monsterField.setMonster2(tempMonster);
+                return true;
+            case 3:
+                monsterField.setMonster3(tempMonster);
+                return true;
+            case 4:
+                monsterField.setMonster4(tempMonster);
+                return true;
+            case 5:
+                monsterField.setMonster5(tempMonster);
+                return true;
+            default:
+                return false;
+        }
+
+    }
+
+    public MonsterField initMonsterField(String name){
+        MonsterField monsterField = new MonsterField();
+        for(int i = 0; i<7;i++){
+            setMonster(i,monsterField,null);
+        }
+        monsterField.setPlayer(tempMonsterService.createPlayer(name));
+        return monsterField;
+    }
+
+    public  boolean addMonster(Player player,long cardId,int index){
+        MonsterField monsterField = player.getMonsterField();
+        TempMonster tempMonster = tempMonsterService.createTempMonster(cardId);
+        //If taunt add counter in Player
+        if(tempMonster.isTaunt()){
+            player.setActiveTaunt(player.getActiveTaunt()+1);
+        }
+        //Put tempMonster in field
+        setMonster(index,monsterField,tempMonster);
+        return true;
+    }
+
+    public boolean removeMonster(int monsterIndex, Player p){
+        if(getMonster(monsterIndex,p.getMonsterField()).isTaunt()){
+            p.setActiveTaunt(p.getActiveTaunt()-1);
+        }
+        setMonster(monsterIndex,p.getMonsterField(),null);
+        return true;
+    }
+
 }

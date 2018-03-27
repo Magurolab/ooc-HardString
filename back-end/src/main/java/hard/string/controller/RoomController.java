@@ -1,8 +1,7 @@
 package hard.string.controller;
 
-import hard.string.dto.RoomWithProfileDto;
+import hard.string.dto.RoomDto;
 import hard.string.entity.Room;
-import hard.string.entity.User;
 import hard.string.repository.RoomRepository;
 import hard.string.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +27,9 @@ public class RoomController {
     @GetMapping(value = "/room")
     public ResponseEntity displayRooms() {
         Iterable<Room> roomsIterable = roomRepository.findAll();
-        List<RoomWithProfileDto> rooms = new ArrayList<>();
+        List<RoomDto> rooms = new ArrayList<>();
         for (Room c : roomsIterable) {
-            rooms.add(new RoomWithProfileDto(c));
+            rooms.add(new RoomDto(c));
         }
         return ResponseEntity.ok(rooms);
     }
@@ -44,7 +43,7 @@ public class RoomController {
         boolean addSuccess = roomService.addUser(selectedRoom,userId);
         if(addSuccess) {
             roomRepository.save(selectedRoom);
-            return ResponseEntity.ok(new RoomWithProfileDto(selectedRoom));
+            return ResponseEntity.ok(new RoomDto(selectedRoom));
         }
         else{
             return ResponseEntity.badRequest().body("Join room fail");
@@ -60,7 +59,7 @@ public class RoomController {
         newRoom.setPlaying(false);
         roomRepository.save(newRoom);
         //redirect player to the room he creates
-        return ResponseEntity.ok(new RoomWithProfileDto(newRoom));
+        return ResponseEntity.ok(new RoomDto(newRoom));
     }
 
 }

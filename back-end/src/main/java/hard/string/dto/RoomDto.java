@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 /**
  * Created by Teama on 3/17/2018.
  */
-public class RoomWithProfileDto {
+public class RoomDto {
 
     @Autowired
     UserService userService;
@@ -48,7 +48,7 @@ public class RoomWithProfileDto {
         return player2;
     }
 
-    public RoomWithProfileDto(Room room){
+    public RoomDto(Room room){
         this.roomId = room.getRoomId();
         int count = 0;
         if(room.getUser1()>0){

@@ -1,13 +1,10 @@
 package hard.string.controller;
 
-import hard.string.dto.BoardWithProfileDto;
-import hard.string.service.MonsterFieldService;
-import hard.string.service.RunningGameService;
+import hard.string.dto.BoardDto;
+import hard.string.service.*;
 import hard.string.entity.*;
 import hard.string.repository.BoardDBRepository;
 import hard.string.repository.MonsterRepository;
-import hard.string.service.BoardService;
-import hard.string.service.MonsterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +27,9 @@ public class BoardController {
     private MonsterService monsterService;
 
     @Autowired
+    private BoardDBService boardDBService;
+
+    @Autowired
     private BoardService boardService;
 
     @Autowired
@@ -42,10 +42,10 @@ public class BoardController {
     public ResponseEntity getBoard(
             @RequestParam Long userId
     ){
-        BoardDB gameId = boardDBRepository.findByPlayer1OrPlayer2(userId,userId);
-        if(gameId != null){
-            Board game = runningGameService.getGame(gameId.getBoardId());
-            return ResponseEntity.ok(new BoardWithProfileDto(game,boardService.getPlayer(userId,game),boardService.getEnemeyPlayer(userId,game)));
+        Long gameId = boardDBService.findBoard(userId);
+        if(gameId > 0){
+            Board game = runningGameService.getGame(gameId);
+            return ResponseEntity.ok(new BoardDto(game,boardService.getPlayer(userId,game),boardService.getEnemeyPlayer(userId,game)));
         }
         else{
             return ResponseEntity.badRequest().body("No game found!");
@@ -66,7 +66,7 @@ public class BoardController {
         TempMonster m1 = monsterFieldService.getMonster(monster1,p1.getMonsterField());
         TempMonster m2 = monsterFieldService.getMonster(monster2,p2.getMonsterField());
 
-        boardService.fight(p1,p2,m1,m2);
-        return ResponseEntity.ok(new BoardWithProfileDto(game,p1,p2));
+        boardService.fight(p1,p2,m1,m2,monster1,monster2);
+        return ResponseEntity.ok(new BoardDto(game,p1,p2));
     }
 }

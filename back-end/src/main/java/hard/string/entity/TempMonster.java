@@ -85,4 +85,9 @@ public class TempMonster {
     public void setCanAttack(boolean canAttack) {
         this.canAttack = canAttack;
     }
+
+    public void setDead(boolean dead) {
+        isDead = dead;
+    }
+
 }

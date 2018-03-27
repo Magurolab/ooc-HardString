@@ -14,7 +14,6 @@ import java.util.List;
 @Repository
 public interface CardRepository extends CrudRepository<Card,Long> {
 
-//    List<Card> findByCardname(String cardName);
-
+    List<Card> findByName(String name);
 
 }

@@ -1,13 +1,12 @@
 package hard.string.controller;
 
-import hard.string.entity.Deck;
-import hard.string.entity.User;
+import hard.string.dto.BoardDto;
+import hard.string.entity.*;
 import hard.string.entity.cards.Card;
 import hard.string.repository.CardRepository;
 import hard.string.repository.DeckRepository;
 import hard.string.repository.UserRepository;
-import hard.string.service.DeckService;
-import hard.string.service.UserService;
+import hard.string.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,8 +22,7 @@ import java.util.List;
 public class DebuggerController {
 
     @Autowired
-    private UserRepository
-            userRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private DeckRepository deckRepository;
@@ -32,12 +30,23 @@ public class DebuggerController {
     @Autowired
     private CardRepository cardRepository;
 
-
     @Autowired
     private UserService userService;
 
     @Autowired
     private DeckService deckService;
+
+    @Autowired
+    private TempDeckService tempDeckService;
+
+    @Autowired
+    private TempHandService tempHandService;
+
+    @Autowired
+    private PlayerService playerService;
+
+    @Autowired
+    private MonsterFieldService monsterFieldService;
 
     @GetMapping(value = {"/displayAll"})
     public ResponseEntity displayAll(){
@@ -65,6 +74,36 @@ public class DebuggerController {
         deckRepository.save(user.getDeck());
         userRepository.save(user);
         return ResponseEntity.ok(user);
+    }
+
+    @RequestMapping(value = {"/fakeGame"})
+    public ResponseEntity fakeGame(){
+        User user1 = userService.addUser("Boat","1234","Boat","Doge");
+        User user2 = userService.addUser("Ply","1234","Plyton","Doggo");
+        user1.setDeck(deckService.customDeck());
+        user2.setDeck(deckService.customDeck());
+        userRepository.save(user1);
+        deckRepository.save(user1.getDeck());
+        userRepository.save(user2);
+        deckRepository.save(user2.getDeck());
+        TempHand t1 = tempHandService.initTempHand();
+        TempHand t2 = tempHandService.initTempHand();
+        MonsterField m1 = monsterFieldService.initMonsterField(user1.getFirstName());
+        MonsterField m2 = monsterFieldService.initMonsterField(user2.getFirstName());
+        Player p1 = playerService.initPlayer(user1.getIduser(),tempDeckService.makeTempDeck(user1.getDeck()),t1,m1,user1.getUsername());
+        Player p2 = playerService.initPlayer(user2.getIduser(),tempDeckService.makeTempDeck(user2.getDeck()),t2,m2,user2.getUsername());
+        for(int i = 0; i<4;i++){
+            playerService.drawCard(p1);
+            playerService.drawCard(p2);
+        }
+        Board  b = new Board();
+        b.setGameIsOver(false);
+        b.setMana1(1);
+        b.setMana2(1);
+        b.setPlayer1(p1);
+        b.setPlayer2(p2);
+        b.setTurn(1);
+        return ResponseEntity.ok(new BoardDto(b,p1,p2));
     }
 
 }

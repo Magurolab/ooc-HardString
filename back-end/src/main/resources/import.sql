@@ -43,7 +43,7 @@ INSERT INTO `hardstring`.`monster` (`id`, `cost`, `atk`, `maxhp`, `name`, `taunt
 
 INSERT INTO `hardstring`.`magic` (`id`, `cost`, `name`, `atk_buff`,  `dmg`, `draw`, `heal`, `need_target`, `random_eff`) VALUES ((SELECT card_id FROM `hardstring`.`card` WHERE card.name='Flex tape'),7,'Flex tape', 0, 0, 0, 20, TRUE, FALSE);
 INSERT INTO `hardstring`.`magic` (`id`, `cost`, `name`, `atk_buff`,  `dmg`, `draw`, `heal`, `need_target`, `random_eff`) VALUES ((SELECT card_id FROM `hardstring`.`card` WHERE card.name='Sun ultra'),4,'Sun ultra', 0, 3, 0, 0, TRUE, FALSE);
-INSERT INTO `hardstring`.`magic` (`id`, `cost`, `name`, `atk_buff`,  `dmg`, `draw`, `heal`, `need_target`, `random_eff`) VALUES ((SELECT card_id FROM `hardstring`.`card` WHERE card.name='Blue pay'),4,'Blue pay', 2, 0, 2, 2, TRUE, TRUE);
+INSERT INTO `hardstring`.`magic` (`id`, `cost`, `name`, `atk_buff`,  `dmg`, `draw`, `heal`, `need_target`, `random_eff`) VALUES ((SELECT card_id FROM `hardstring`.`card` WHERE card.name='Blue pay'),4,'Blue pay', 2, 2, 0, 2, TRUE, TRUE);
 INSERT INTO `hardstring`.`magic` (`id`, `cost`, `name`, `atk_buff`,  `dmg`, `draw`, `heal`, `need_target`, `random_eff`) VALUES ((SELECT card_id FROM `hardstring`.`card` WHERE card.name='Hanoi'),5,'Hanoi', 0, 0, 0, 0, FALSE , FALSE);
 INSERT INTO `hardstring`.`magic` (`id`, `cost`, `name`, `atk_buff`,  `dmg`, `draw`, `heal`, `need_target`, `random_eff`) VALUES ((SELECT card_id FROM `hardstring`.`card` WHERE card.name='3DPrinter'),3,'3DPrinter', 0, 0, 2, 0, TRUE, FALSE);
 INSERT INTO `hardstring`.`magic` (`id`, `cost`, `name`, `atk_buff`,  `dmg`, `draw`, `heal`, `need_target`, `random_eff`) VALUES ((SELECT card_id FROM `hardstring`.`card` WHERE card.name='Chocchip'),3,'Chocchip', 2, 0, 0, 0, TRUE, FALSE);
