@@ -2,10 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import {Grid, Paper} from 'material-ui'
-import Card, { CardActions, CardContent } from 'material-ui/Card';
+// import Card, { CardActions, CardContent } from 'material-ui/Card';
 
 import Field from './Field/Field.js';
 import Sidebar from './Sidebar/Sidebar.js';
+import Hand from './Hand/Hand.js';
 
 
 const styles = theme => ({
@@ -38,15 +39,20 @@ class Board extends React.Component{
             <div className={classes.root}>
                 <Grid container spacing={12}>
                     <Grid item xs={12} >
+
                         <Field/>
+
                     </Grid>
                 </Grid>
 
                 <div><br/><br/></div>
 
                 <Grid container spacing={12} className={classes.g}>
-                    
+
                 <Sidebar/>
+
+                    <Hand/>
+
                 </Grid>
             </div>
         );
