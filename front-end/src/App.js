@@ -14,6 +14,7 @@ class App extends Component {
         <MuiThemeProvider theme = { theme }>
             <Router>
                 <Route exact path="/" exact component={ Board } />
+
             </Router>
         </MuiThemeProvider>
     );
