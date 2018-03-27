@@ -5,7 +5,12 @@ import {Grid, Paper} from 'material-ui'
 // import Card, { CardActions, CardContent } from 'material-ui/Card';
 
 import Field from './Field/Field.js';
+
 import Hand from './Hand/Hand.js';
+
+import Sidebar from './Sidebar/Sidebar.js';
+
+
 
 
 const styles = theme => ({
@@ -36,6 +41,7 @@ class Board extends React.Component{
         const { classes } = this.props;
         return (
             <div className={classes.root}>
+               <Sidebar/>
                 <Grid container spacing={12}>
                     <Grid item xs={12} >
 
@@ -48,7 +54,9 @@ class Board extends React.Component{
 
                 <Grid container spacing={12} className={classes.g}>
 
+
                     <Hand/>
+
 
                 </Grid>
             </div>
