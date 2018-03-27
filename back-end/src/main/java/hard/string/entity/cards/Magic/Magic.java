@@ -20,7 +20,7 @@ public class Magic{
 
     private String name;
     private Integer cost;
-    private String type;
+
     private int heal;
     private int dmg;
     private int atkBuff;
@@ -32,11 +32,6 @@ public class Magic{
 
     public String getName() {
         return name;
-    }
-
-
-    public String getType() {
-        return type;
     }
 
     public Integer getCost() {
@@ -74,10 +69,6 @@ public class Magic{
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public void setHeal(int heal) {
