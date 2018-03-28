@@ -65,7 +65,6 @@ public class BoardController {
         Player p2 = boardService.getPlayer(player2,game);
         TempMonster m1 = monsterFieldService.getMonster(monster1,p1.getMonsterField());
         TempMonster m2 = monsterFieldService.getMonster(monster2,p2.getMonsterField());
-
         boardService.fight(p1,p2,m1,m2,monster1,monster2);
         return ResponseEntity.ok(new BoardDto(game,p1,p2));
     }

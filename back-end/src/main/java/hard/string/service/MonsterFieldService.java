@@ -1,6 +1,5 @@
 package hard.string.service;
 
-import com.sun.org.apache.bcel.internal.generic.SWITCH;
 import hard.string.entity.MonsterField;
 import hard.string.entity.Player;
 import hard.string.entity.TempMonster;
@@ -39,7 +38,6 @@ public class MonsterFieldService {
     }
 
     public boolean checkMonster(int index, MonsterField monsterField){
-        System.out.println(monsterField == null);
         switch(index){
             case 0:
                 return monsterField.getPlayer() != null;

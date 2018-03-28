@@ -22,6 +22,8 @@ public class TempMonster {
 
     private boolean isDead;
 
+    private String path;
+
     public int getIndex() {
         return index;
     }
@@ -90,4 +92,15 @@ public class TempMonster {
         isDead = dead;
     }
 
+    public boolean isDead() {
+        return isDead;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
 }

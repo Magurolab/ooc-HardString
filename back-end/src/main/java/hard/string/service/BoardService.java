@@ -3,6 +3,7 @@ package hard.string.service;
 
 import hard.string.entity.Board;
 import hard.string.entity.Player;
+import hard.string.entity.cards.Card;
 import org.springframework.beans.factory.annotation.Autowired;
 import hard.string.entity.TempMonster;
 import org.springframework.stereotype.Service;
@@ -15,20 +16,10 @@ public class BoardService {
     @Autowired
     private MonsterFieldService monsterFieldService = new MonsterFieldService();
 
-    //TODO Return values of both the monster (What else??)
-    //[0] == monsterA
-    //[1] == monsterB
-
-    //[x][] == {health,atk,?isDead?}
-
     public boolean fight(Player pA ,Player pB, TempMonster mA,TempMonster mB,int indexA,int indexB) {
-
-
 
         if (pA.getPlayerId() != pB.getPlayerId()) {
             //if player try to attack monster on the same side, we'll not allow that
-
-
             if (pA.getActiveTaunt() == 0 || mB.isTaunt()) {
                 //doing an attack
                 tempMonstersService.takeDamage(mA, mB.getAtk());
@@ -61,12 +52,6 @@ public class BoardService {
     }
 
 
-
-    //Switch turn
-    //Return Player legitimate for playing cards
-    //TODO Ask if they want names or object or username
-
-
     public Player endTurn(Board b){
         if(b.getTurn() == 1){
             //Add one mana to P1
@@ -84,6 +69,17 @@ public class BoardService {
         }
     }
 
+    public boolean isValidTurn(Player p, Board b){
+        //if player1
+        int turn = b.getTurn();
+        if(p.equals(b.getPlayer1()) && turn == 1){
+            return true;
+        }
+        else if(p.equals(b.getPlayer2()) && turn == 2){
+            return true;
+        }
+        return false;
+    }
 
 
 
@@ -105,15 +101,15 @@ public class BoardService {
 
     //Return True if player is legitimate for using this card
 
-    public  boolean canPlayThisCard(Board game,int pNum,int manaCost){
-
+    public  boolean canPlayThisCard(Board game, Card card, Player p){
         //Check if it's the player turn.
-        if(game.getTurn() == pNum){
+        if(isValidTurn(p,game)){
             //Check if the player have enough mana
-            if(pNum ==1){
-                return (game.getMana1()-manaCost)>=0;
+            int playerNum = getPlayerNum(game,p);
+            if(playerNum==1){
+                return (game.getMana1()-card.getCost())>=0;
             }else{
-                return (game.getMana2()-manaCost)>=0;
+                return (game.getMana2()-card.getCost())>=0;
             }
         }else {
             //Not a player turn

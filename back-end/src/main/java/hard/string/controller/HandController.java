@@ -58,6 +58,13 @@ public class HandController {
         }
     }
 
+    /**
+     * Check if player can play the card
+     * @param playerId id of the current player
+     * @param cardId card that is going to be play
+     * @param index index on the board that the card is going to
+     * @return response code, and the updated board
+     */
     @RequestMapping(method = RequestMethod.POST, value = "/useCard")
     public ResponseEntity useCard(
             @RequestParam long playerId,
@@ -66,22 +73,28 @@ public class HandController {
     ){
         Card playedCard = cardRepository.findById(cardId).orElse(null);
         Board board = runningGameService.getGame(boardDBService.findBoard(playerId));
+        Player currentPlayer = boardService.getPlayer(playerId,board);
+        Player enemyPlayer = boardService.getEnemeyPlayer(playerId,board);
+        //check if the card is valid in database
         if(playedCard!=null){
-            char side = index.charAt(index.length()-1);
-            int in = Integer.valueOf(index.subSequence(0,index.length()-1).toString());
-            if(side=='P'){
-                tempHandService.playCard(board,boardService.getPlayer(playerId,board),playedCard,in,true);
+            //check if player is able to play this card
+            if(boardService.canPlayThisCard(board,playedCard,currentPlayer)) {
+                char side = index.charAt(index.length() - 1);
+                int in = Integer.valueOf(index.subSequence(0, index.length() - 1).toString());
+                if (side == 'P') {
+                    tempHandService.playCard(board, currentPlayer, playedCard, in, true);
+                    return ResponseEntity.ok().body(new BoardDto(board,currentPlayer,enemyPlayer));
+                } else if (side == 'E') {
+                    tempHandService.playCard(board, currentPlayer, playedCard, in, false);
+                    return ResponseEntity.ok().body(new BoardDto(board,currentPlayer,enemyPlayer));
+                } else {
+                    //shouldn't go here
+                    return ResponseEntity.badRequest().body("Something weird happen");
+                }
             }
-            else if(side=='E'){
-                tempHandService.playCard(board,boardService.getPlayer(playerId,board),playedCard,in,false);
-            }
-            else{
-                //shouldn't go here
-                return ResponseEntity.badRequest().body("Invalid card!");
-            }
+            return ResponseEntity.badRequest().body("Invalid turn!");
         }
-
-        return null;
+        return ResponseEntity.badRequest().body("Not a valid card");
     }
 
 }

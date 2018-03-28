@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 public class BoardDBService {
 
     @Autowired
-    BoardDBRepository boardDBRepository;
+    private BoardDBRepository boardDBRepository;
 
     public long findBoard(Long playerId){
         BoardDB boardDB = boardDBRepository.findByPlayer1OrPlayer2(playerId,playerId);

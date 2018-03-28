@@ -27,7 +27,6 @@ public class DeckService {
     public Deck customDeck(){
         Deck d = new Deck();
         Iterable<Card> allCards = cardRepository.findAll();
-        List<Card> cards = new ArrayList<>();
         for(Card c:allCards){
             d.getCards().add(c);
         }

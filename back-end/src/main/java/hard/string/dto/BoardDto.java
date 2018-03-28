@@ -1,9 +1,7 @@
 package hard.string.dto;
 
 import hard.string.entity.*;
-import hard.string.repository.BoardDBRepository;
 import hard.string.service.MonsterFieldService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,17 +16,17 @@ public class BoardDto {
     private int mana1;
     private int mana2;
 
-    private long player1;
-    private MonsterField field1;
-    private TempHand tempHand1;
-    private long deck1;
-    private String username1;
+    private long currentPlayer;
+    private MonsterField currentField;
+    private TempHand currentHand;
+    private long currentDeck;
+    private String yourUsername;
 
-    private long player2;
-    private MonsterField field2;
-    private int tempHand2;
-    private long deck2;
-    private String username2;
+    private long enemyPlayer;
+    private MonsterField enemyField;
+    private int enemyHand;
+    private long enemyDeck;
+    private String enemyUsername;
 
     //valid space to play monster
     private List<String> availableMonsterField;
@@ -39,21 +37,15 @@ public class BoardDto {
     private int turn;
     private boolean gameOver;
 
-    private void createAvailableMonsterField(Player currentPlayer, Player enemyPlayer){
+    private void createField(Player currentPlayer, Player enemyPlayer){
         availableMonsterField = new ArrayList<>();
-        for(int i = 0; i < 6; i++){
-            if(monsterFieldService.checkMonster(i,currentPlayer.getMonsterField())){
-                availableMonsterField.add(String.valueOf(i)+'P');
-            }
-        }
-    }
-
-    private void createAvailableMagicTarget(Player currentPlayer , Player enemyPlayer){
         availableMagicTarget = new ArrayList<>();
         for(int i = 0; i < 6; i++){
-            boolean isValid = monsterFieldService.checkMonster(i, currentPlayer.getMonsterField());
-            if(isValid){
+            if(monsterFieldService.checkMonster(i,currentPlayer.getMonsterField())){
                 availableMagicTarget.add(String.valueOf(i)+'P');
+            }
+            else{
+                availableMonsterField.add(String.valueOf(i)+'P');
             }
         }
         for(int i = 0; i < 6; i++){
@@ -64,24 +56,22 @@ public class BoardDto {
         }
     }
 
-
     public BoardDto(Board board, Player currentPlayer, Player enemyPlayer){
         mana1 = board.getMana1();
         mana2 = board.getMana2();
-        player1 = currentPlayer.getPlayerId();
-        player2 = enemyPlayer.getPlayerId();
-        field1 = currentPlayer.getMonsterField();
-        field2 = enemyPlayer.getMonsterField();
-        tempHand1 = currentPlayer.getTempHand();
-        tempHand2 = enemyPlayer.getTempHand().getHand().size();
-        deck1 = currentPlayer.getTempDeck().getCards().size();
-        deck2 = enemyPlayer.getTempDeck().getCards().size();
-        username1 = currentPlayer.getUsername();
-        username2 = enemyPlayer.getUsername();
+        this.currentPlayer = currentPlayer.getPlayerId();
+        this.enemyPlayer = enemyPlayer.getPlayerId();
+        currentField = currentPlayer.getMonsterField();
+        enemyField = enemyPlayer.getMonsterField();
+        currentHand = currentPlayer.getTempHand();
+        enemyHand = enemyPlayer.getTempHand().getHand().size();
+        currentDeck = currentPlayer.getTempDeck().getCards().size();
+        enemyDeck = enemyPlayer.getTempDeck().getCards().size();
+        yourUsername = currentPlayer.getUsername();
+        enemyUsername = enemyPlayer.getUsername();
         turn = board.getTurn();
         gameOver = board.isGameIsOver();
-        createAvailableMagicTarget(currentPlayer,enemyPlayer);
-        createAvailableMonsterField(currentPlayer,enemyPlayer);
+        createField(currentPlayer,enemyPlayer);
     }
 
     public int getMana1() {
@@ -96,44 +86,44 @@ public class BoardDto {
         return turn;
     }
 
-    public long getPlayer2() {
-        return player2;
+    public long getEnemyPlayer() {
+        return enemyPlayer;
     }
 
-    public long getPlayer1() {
-        return player1;
+    public long getCurrentPlayer() {
+        return currentPlayer;
     }
 
-    public int getTempHand2() {
-        return tempHand2;
+    public int getEnemyHand() {
+        return enemyHand;
     }
 
-    public long getDeck1() {
-        return deck1;
+    public long getCurrentDeck() {
+        return currentDeck;
     }
 
-    public long getDeck2() {
-        return deck2;
+    public long getEnemyDeck() {
+        return enemyDeck;
     }
 
-    public MonsterField getField1() {
-        return field1;
+    public MonsterField getCurrentField() {
+        return currentField;
     }
 
-    public MonsterField getField2() {
-        return field2;
+    public MonsterField getEnemyField() {
+        return enemyField;
     }
 
-    public String getUsername1() {
-        return username1;
+    public String getYourUsername() {
+        return yourUsername;
     }
 
-    public String getUsername2() {
-        return username2;
+    public String getEnemyUsername() {
+        return enemyUsername;
     }
 
-    public TempHand getTempHand1() {
-        return tempHand1;
+    public TempHand getCurrentHand() {
+        return currentHand;
     }
 
     public List<String> getAvailableMonsterField() {

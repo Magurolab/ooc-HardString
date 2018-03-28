@@ -24,8 +24,8 @@ public class TempHandService {
 
 
     public boolean playCard(Board b, Player player, Card c, int indexTarget , boolean friendlyTarget){
-
-        if(!boardService.canPlayThisCard(b,boardService.getPlayerNum(b,player),c.getCost())){
+        //Doesn't have this card in the first place?
+        if(!player.getTempHand().getHand().contains(c)){
             return false;
         }
         MonsterField monsterField;
@@ -37,9 +37,9 @@ public class TempHandService {
 
         boardService.usedMana(b,boardService.getPlayerNum(b,player),c.getCost());
 
-        if(c.getType().equals("magic")){
+        if(c.getType().equals("Magic")){
             return playMagic(player,c,monsterFieldService.getMonster(indexTarget,monsterField));
-        }else if (c.getType().equals("monster")){
+        }else if (c.getType().equals("Monster")){
             return playMonster(player,c,indexTarget);
         }else{
             return false;
