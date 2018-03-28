@@ -60,6 +60,11 @@ public class DebuggerController {
 
     private Board board;
 
+    /**
+     * initialize fake board for debugging
+     * @return board
+     */
+
     private Board createFakeboard(){
         //assuming that user"Boat" is the currentPlayer
         User user1 = userService.addUser("Boat","1234","Boat","Doge");
@@ -90,7 +95,10 @@ public class DebuggerController {
         return b;
     }
 
-    //pass
+    /**
+     * display all registered users
+     * @return list of users
+     */
     @GetMapping(value = {"/displayall"})
     public ResponseEntity displayAll(){
         Iterable<User> userIterable = userRepository.findAll();
@@ -105,7 +113,11 @@ public class DebuggerController {
 
     }
 
-    //pass
+    /**
+     * call this to add card to user deck
+     * @param userId id of the login user
+     * @return response code and updated user
+     */
     @RequestMapping(method = RequestMethod.POST, value = {"/addcardtodeck"})
     public ResponseEntity addCard(
             @RequestParam long userId
@@ -120,11 +132,21 @@ public class DebuggerController {
         return ResponseEntity.ok(user);
     }
 
+    /**
+     * call this to create fake game, do this only once
+     * @return board
+     */
+
     @RequestMapping(value = {"/fakegame"})
     public ResponseEntity fakeGame(){
         board = createFakeboard();
         return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()));
     }
+
+    /**
+     * display all status of the active board for debugging
+     * @return board
+     */
 
     @RequestMapping(value = {"/showboard"})
     public ResponseEntity showBoard(){
@@ -145,7 +167,10 @@ public class DebuggerController {
         return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()));
     }
 
-    //pass
+    /**
+     * Set monsters for both side of the field
+     * @return board
+     */
     @RequestMapping(value = {"/testsetmonster"})
     public ResponseEntity testSetMonster(){
         Player p1 = board.getPlayer1();
@@ -159,7 +184,10 @@ public class DebuggerController {
         return ResponseEntity.ok(new BoardDto(board,p1,p2));
     }
 
-    //pass
+    /**
+     * Attempt to make monsters set by setMonster function to attack
+     * @return board
+     */
     @RequestMapping(value = {"/testattack"})
     public ResponseEntity testAttackMonster(){
         boardService.fight(board.getPlayer1(),board.getPlayer2(),board.getPlayer1().getMonsterField().getMonster1(),
@@ -167,14 +195,20 @@ public class DebuggerController {
         return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()));
     }
 
-    //pass
+    /**
+     * End turn of the current player, this does not draw card for another player.
+     * @return board
+     */
     @RequestMapping(value = {"/testendturn"})
     public ResponseEntity testEndTurn(){
         boardService.endTurn(board);
         return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()));
     }
 
-    //pass
+    /**
+     * Draw card for the player of that turn
+     * @return board
+     */
     @RequestMapping(value = {"/testdraw"})
     public ResponseEntity testDraw(){
         int turn = board.getTurn();
@@ -187,11 +221,21 @@ public class DebuggerController {
         return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()));
     }
 
+    /**
+     * return current player mana, in this case we assume that the current player is player1
+     * @return mana
+     */
+
     @RequestMapping(method = RequestMethod.GET, value={"/currentmana"})
     public ResponseEntity getCurrentMana(
     ){
         return ResponseEntity.ok(board.getMana1());
     }
+
+    /**
+     *  return enemy player mana, in this case we assume that the enemy player is player2
+     * @return mana
+     */
 
     @RequestMapping(method = RequestMethod.GET, value={"/enemymana"})
     public ResponseEntity getEnemyMana(
@@ -199,11 +243,21 @@ public class DebuggerController {
         return ResponseEntity.ok(board.getMana2());
     }
 
+    /**
+     * return current player mosnterfield, in this case we assume that the current player is player1
+     * @return monsterfield
+     */
+
     @RequestMapping(method = RequestMethod.GET, value={"/currentmonsterfield"})
     public ResponseEntity getCurrentMonsterField(
     ){
         return ResponseEntity.ok(board.getPlayer1().getMonsterField());
     }
+
+    /**
+     * return enemy player monsterfield, in this case we assume that the enemy player is player2
+     * @return monsterfield
+     */
 
     @RequestMapping(method = RequestMethod.GET, value={"/enemymonsterfield"})
     public ResponseEntity getEnemyMonsterField(
@@ -211,29 +265,47 @@ public class DebuggerController {
         return ResponseEntity.ok(board.getPlayer2().getMonsterField());
     }
 
+    /**
+     * return current player deck.size(), in this case we assume that the current player is player1
+     * @return size of deck
+     */
+
+
     @RequestMapping(method = RequestMethod.GET, value={"/currentdeck"})
     public ResponseEntity getCurrentDeck(
     ){
         return ResponseEntity.ok(board.getPlayer1().getTempDeck().getCards().size());
     }
 
+    /**
+     * return enemy player deck.size(), in this case we assume that the current player is player2
+     * @return size of deck
+     */
+
     @RequestMapping(method = RequestMethod.GET, value={"/enemydeck"})
     public ResponseEntity getEnemyDeck(
-            @RequestParam Long userId
     ){
         return ResponseEntity.ok(board.getPlayer2().getTempDeck().getCards().size());
     }
 
+    /**
+     * Return valid monster field to be play by current player, in this case we assume that the current player is player1
+     * @return list of valid monsterfield index under our agreement
+     */
+
     @RequestMapping(method = RequestMethod.GET, value={"/validmonsterfield"})
     public ResponseEntity getValidMonsterField(
-            @RequestParam Long userId
     ){
         return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()).getAvailableMonsterField());
     }
 
+    /**
+     * Return valid magic target to be play by current player, in this case we assume that the current player is player1
+     * @return list of valid magic target index under our agreement
+     */
+
     @RequestMapping(method = RequestMethod.GET, value={"/validmagictaget"})
     public ResponseEntity getValidMagicTarget(
-            @RequestParam Long userId
     ){
         return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()).getAvailableMagicTarget());
     }
