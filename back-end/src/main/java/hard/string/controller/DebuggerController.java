@@ -96,7 +96,9 @@ public class DebuggerController {
     }
 
     /**
-     * display all registered users
+     * <b>/debug/displayall
+     * </b>
+     * - display all registered users
      * @return list of users
      */
     @GetMapping(value = {"/displayall"})
@@ -114,7 +116,8 @@ public class DebuggerController {
     }
 
     /**
-     * call this to add card to user deck
+     * <b>/debug/addcardtodeck</b>
+     * - call this to add card to user deck (POST METHOD)
      * @param userId id of the login user
      * @return response code and updated user
      */
@@ -133,7 +136,8 @@ public class DebuggerController {
     }
 
     /**
-     * call this to create fake game, do this only once
+     * <b>/debug/fakegame</b>
+     * - call this to create fake game, do this only once
      * @return board
      */
 
@@ -144,7 +148,8 @@ public class DebuggerController {
     }
 
     /**
-     * display all status of the active board for debugging
+     * <b>/debug/showboard</b>
+     * - display all status of the active board for debugging
      * @return board
      */
 
@@ -153,7 +158,11 @@ public class DebuggerController {
         return ResponseEntity.ok().body(board);
     }
 
-    //call this once to create a fake board
+    /**
+     * <b>/debug/playmonsterfromhand</b>
+     * - play monster from hand, this will magically add monster card to hand to guarantee a successful summon
+     * @return board
+     */
     @RequestMapping(value = {"/playmonsterfromhand"})
     public ResponseEntity playMonsterFromHand(){
         Card gift = cardRepository.findByName("Gift");
@@ -168,7 +177,8 @@ public class DebuggerController {
     }
 
     /**
-     * Set monsters for both side of the field
+     * <b>/debug/testsetmonster</b>
+     * - Set monsters for both side of the field
      * @return board
      */
     @RequestMapping(value = {"/testsetmonster"})
@@ -185,7 +195,8 @@ public class DebuggerController {
     }
 
     /**
-     * Attempt to make monsters set by setMonster function to attack
+     * <b>/debug/testattack</b>
+     * - Attempt to make monsters set by setMonster function to attack
      * @return board
      */
     @RequestMapping(value = {"/testattack"})
@@ -196,7 +207,8 @@ public class DebuggerController {
     }
 
     /**
-     * End turn of the current player, this does not draw card for another player.
+     * <b>/debug/testendturn</b>
+     * - End turn of the current player, this does not draw card for another player.
      * @return board
      */
     @RequestMapping(value = {"/testendturn"})
@@ -206,7 +218,8 @@ public class DebuggerController {
     }
 
     /**
-     * Draw card for the player of that turn
+     * <b>/debug/testdraw</b>
+     * - Draw card for the player of that turn
      * @return board
      */
     @RequestMapping(value = {"/testdraw"})
@@ -222,7 +235,8 @@ public class DebuggerController {
     }
 
     /**
-     * return current player mana, in this case we assume that the current player is player1
+     * <b>/debug/currentmana</b>
+     * - Return current player mana, in this case we assume that the current player is player1
      * @return mana
      */
 
@@ -233,7 +247,8 @@ public class DebuggerController {
     }
 
     /**
-     *  return enemy player mana, in this case we assume that the enemy player is player2
+     * <b>/debug/enemymana</b>
+     * - Return enemy player mana, in this case we assume that the enemy player is player2
      * @return mana
      */
 
@@ -244,7 +259,8 @@ public class DebuggerController {
     }
 
     /**
-     * return current player mosnterfield, in this case we assume that the current player is player1
+     * <b>/debug/currentmonsterfield</b>
+     * - Return current player mosnterfield, in this case we assume that the current player is player1
      * @return monsterfield
      */
 
@@ -255,7 +271,8 @@ public class DebuggerController {
     }
 
     /**
-     * return enemy player monsterfield, in this case we assume that the enemy player is player2
+     * <b>/debug/enemymonsterfield</b>
+     * - Return enemy player monsterfield, in this case we assume that the enemy player is player2
      * @return monsterfield
      */
 
@@ -266,7 +283,8 @@ public class DebuggerController {
     }
 
     /**
-     * return current player deck.size(), in this case we assume that the current player is player1
+     * <b>/debug/currentdeck</b>
+     * - Return current player deck.size(), in this case we assume that the current player is player1
      * @return size of deck
      */
 
@@ -278,7 +296,8 @@ public class DebuggerController {
     }
 
     /**
-     * return enemy player deck.size(), in this case we assume that the current player is player2
+     * <b>/debug/enemydeck</b>
+     * - Return enemy player deck.size(), in this case we assume that the current player is player2
      * @return size of deck
      */
 
@@ -289,7 +308,8 @@ public class DebuggerController {
     }
 
     /**
-     * Return valid monster field to be play by current player, in this case we assume that the current player is player1
+     * <b>/debug/validmonsterfield</b>
+     * - Return valid monster field to be play by current player, in this case we assume that the current player is player1
      * @return list of valid monsterfield index under our agreement
      */
 
@@ -300,11 +320,12 @@ public class DebuggerController {
     }
 
     /**
-     * Return valid magic target to be play by current player, in this case we assume that the current player is player1
+     * <b>/debug/validmagictarget</b>
+     * - Return valid magic target to be play by current player, in this case we assume that the current player is player1
      * @return list of valid magic target index under our agreement
      */
 
-    @RequestMapping(method = RequestMethod.GET, value={"/validmagictaget"})
+    @RequestMapping(method = RequestMethod.GET, value={"/validmagictarget"})
     public ResponseEntity getValidMagicTarget(
     ){
         return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()).getAvailableMagicTarget());
