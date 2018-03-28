@@ -19,6 +19,7 @@ import java.util.List;
  */
 
 @RestController
+@RequestMapping("/debug")
 public class DebuggerController {
 
     @Autowired
@@ -186,6 +187,55 @@ public class DebuggerController {
         return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()));
     }
 
+    @RequestMapping(method = RequestMethod.GET, value={"/currentmana"})
+    public ResponseEntity getCurrentMana(
+    ){
+        return ResponseEntity.ok(board.getMana1());
+    }
 
+    @RequestMapping(method = RequestMethod.GET, value={"/enemymana"})
+    public ResponseEntity getEnemyMana(
+    ){
+        return ResponseEntity.ok(board.getMana2());
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value={"/currentmonsterfield"})
+    public ResponseEntity getCurrentMonsterField(
+    ){
+        return ResponseEntity.ok(board.getPlayer1().getMonsterField());
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value={"/enemymonsterfield"})
+    public ResponseEntity getEnemyMonsterField(
+    ){
+        return ResponseEntity.ok(board.getPlayer2().getMonsterField());
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value={"/currentdeck"})
+    public ResponseEntity getCurrentDeck(
+    ){
+        return ResponseEntity.ok(board.getPlayer1().getTempDeck().getCards().size());
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value={"/enemydeck"})
+    public ResponseEntity getEnemyDeck(
+            @RequestParam Long userId
+    ){
+        return ResponseEntity.ok(board.getPlayer2().getTempDeck().getCards().size());
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value={"/validmonsterfield"})
+    public ResponseEntity getValidMonsterField(
+            @RequestParam Long userId
+    ){
+        return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()).getAvailableMonsterField());
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value={"/validmagictaget"})
+    public ResponseEntity getValidMagicTarget(
+            @RequestParam Long userId
+    ){
+        return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()).getAvailableMagicTarget());
+    }
 
 }

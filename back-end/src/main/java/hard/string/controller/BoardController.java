@@ -108,7 +108,7 @@ public class BoardController {
         Board board = runningGameService.getGame(gameId);
         Player p = boardService.getPlayer(userId,board);
         if(board.getPlayer1().equals(p)){
-            ResponseEntity.ok(board.getMana1());
+            return ResponseEntity.ok(board.getMana1());
         }
         return ResponseEntity.ok(board.getMana2());
     }
@@ -121,7 +121,7 @@ public class BoardController {
         Board board = runningGameService.getGame(gameId);
         Player p = boardService.getPlayer(userId,board);
         if(board.getPlayer1().equals(p)){
-            ResponseEntity.ok(board.getMana2());
+            return ResponseEntity.ok(board.getMana2());
         }
         return ResponseEntity.ok(board.getMana1());
     }
