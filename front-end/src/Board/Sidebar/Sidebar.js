@@ -12,11 +12,9 @@ import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 import { mailFolderListItems, otherMailFolderListItems } from './tileData';
 
+const drawerWidth = 240;
 
 const styles = theme => ({
-    root:{
-        flexGrow:1
-    },
 
 });
 
@@ -24,8 +22,14 @@ function Sidebar(props){
 
     const { classes } = props;
     return(
-        <div >
+           <div>
+               hi
 
-        </div>
-    );
+           </div>
+          );
 }
+
+Sidebar.propTypes = {
+    classes: PropTypes.object.isRequired,
+  };
+  export default withStyles(styles)(Sidebar);
