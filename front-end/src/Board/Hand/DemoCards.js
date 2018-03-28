@@ -14,6 +14,32 @@ const DemoCards = [
         author: 'PLY',
         featured: true,
     },
+    {
+        img: PAN,
+        title: 'DDOS',
+        author: 'PLY',
+        cols: 2,
+        featured: true,
+    },
+    {
+        img: GEM,
+        title: 'GEM',
+        author: 'PLY',
+        featured: true,
+    },
+    {
+        img: PAN,
+        title: 'DDOS',
+        author: 'PLY',
+        cols: 2,
+        featured: true,
+    },
+    {
+        img: GEM,
+        title: 'GEM',
+        author: 'PLY',
+        featured: true,
+    },
 
 ];
 

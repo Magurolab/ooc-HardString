@@ -8,54 +8,63 @@ import MailIcon from 'material-ui-icons/Mail';
 import DeleteIcon from 'material-ui-icons/Delete';
 import ReportIcon from 'material-ui-icons/Report';
 
-export const mailFolderListItems = (
+export var mailFolderListItems = (
   <div>
+      <ListItem text>
+          DECK:10/10
+      </ListItem>
+      <ListItem text>
+          MANA : 10/10
+      </ListItem>
+      <ListItem text>
+          HEALTH: 10/10
+      </ListItem>
     <ListItem button>
       <ListItemIcon>
         <InboxIcon />
       </ListItemIcon>
-      <ListItemText primary="Inbox" />
+      <ListItemText primary="ENDTURN" />
     </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <StarIcon />
-      </ListItemIcon>
-      <ListItemText primary="Starred" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <SendIcon />
-      </ListItemIcon>
-      <ListItemText primary="Send mail" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <DraftsIcon />
-      </ListItemIcon>
-      <ListItemText primary="Drafts" />
-    </ListItem>
+    {/*<ListItem button>*/}
+      {/*<ListItemIcon>*/}
+        {/*<StarIcon />*/}
+      {/*</ListItemIcon>*/}
+      {/*<ListItemText primary="Starred" />*/}
+    {/*</ListItem>*/}
+    {/*<ListItem button>*/}
+      {/*<ListItemIcon>*/}
+        {/*<SendIcon />*/}
+      {/*</ListItemIcon>*/}
+      {/*<ListItemText primary="Send mail" />*/}
+    {/*</ListItem>*/}
+    {/*<ListItem button>*/}
+      {/*<ListItemIcon>*/}
+        {/*<DraftsIcon />*/}
+      {/*</ListItemIcon>*/}
+      {/*<ListItemText primary="Drafts" />*/}
+    {/*</ListItem>*/}
   </div>
 );
 
-export const otherMailFolderListItems = (
+export var otherMailFolderListItems = (
   <div>
-    <ListItem button>
-      <ListItemIcon>
-        <MailIcon />
-      </ListItemIcon>
-      <ListItemText primary="All mail" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <DeleteIcon />
-      </ListItemIcon>
-      <ListItemText primary="Trash" />
-    </ListItem>
     <ListItem button>
       <ListItemIcon>
         <ReportIcon />
       </ListItemIcon>
-      <ListItemText primary="Spam" />
+      <ListItemText primary="Rage Quit" />
     </ListItem>
+    {/*<ListItem button>*/}
+      {/*<ListItemIcon>*/}
+        {/*<DeleteIcon />*/}
+      {/*</ListItemIcon>*/}
+      {/*<ListItemText primary="Trash" />*/}
+    {/*</ListItem>*/}
+    {/*<ListItem button>*/}
+      {/*<ListItemIcon>*/}
+        {/*<ReportIcon />*/}
+      {/*</ListItemIcon>*/}
+      {/*<ListItemText primary="Spam" />*/}
+    {/*</ListItem>*/}
   </div>
 );
