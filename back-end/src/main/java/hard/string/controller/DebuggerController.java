@@ -132,7 +132,7 @@ public class DebuggerController {
     }
 
     //call this once to create a fake board
-    @RequestMapping(value = {"/playMonsterFromHand"})
+    @RequestMapping(value = {"/playmonsterfromhand"})
     public ResponseEntity playMonsterFromHand(){
         Card gift = cardRepository.findByName("Gift");
         System.out.println("Current mana " + board.getMana1());
@@ -146,7 +146,7 @@ public class DebuggerController {
     }
 
     //pass
-    @RequestMapping(value = {"/testSetMonster"})
+    @RequestMapping(value = {"/testsetmonster"})
     public ResponseEntity testSetMonster(){
         Player p1 = board.getPlayer1();
         Player p2 = board.getPlayer2();
@@ -160,7 +160,7 @@ public class DebuggerController {
     }
 
     //pass
-    @RequestMapping(value = {"/testAttack"})
+    @RequestMapping(value = {"/testattack"})
     public ResponseEntity testAttackMonster(){
         boardService.fight(board.getPlayer1(),board.getPlayer2(),board.getPlayer1().getMonsterField().getMonster1(),
                 board.getPlayer2().getMonsterField().getMonster2(),1,2);
