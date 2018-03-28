@@ -3,7 +3,6 @@ package hard.string.controller;
 import hard.string.dto.BoardDto;
 import hard.string.entity.*;
 import hard.string.entity.cards.Card;
-import hard.string.entity.cards.Monster.Monster;
 import hard.string.repository.CardRepository;
 import hard.string.repository.DeckRepository;
 import hard.string.repository.UserRepository;
@@ -60,7 +59,6 @@ public class DebuggerController {
 
     private Board board;
 
-
     private Board createFakeboard(){
         //assuming that user"Boat" is the currentPlayer
         User user1 = userService.addUser("Boat","1234","Boat","Doge");
@@ -91,7 +89,8 @@ public class DebuggerController {
         return b;
     }
 
-    @GetMapping(value = {"/displayAll"})
+    //pass
+    @GetMapping(value = {"/displayall"})
     public ResponseEntity displayAll(){
         Iterable<User> userIterable = userRepository.findAll();
 
@@ -105,7 +104,8 @@ public class DebuggerController {
 
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = {"/addCardtoDeck"})
+    //pass
+    @RequestMapping(method = RequestMethod.POST, value = {"/addcardtodeck"})
     public ResponseEntity addCard(
             @RequestParam long userId
     ){
@@ -119,10 +119,15 @@ public class DebuggerController {
         return ResponseEntity.ok(user);
     }
 
-    @RequestMapping(value = {"/fakeGame"})
+    @RequestMapping(value = {"/fakegame"})
     public ResponseEntity fakeGame(){
         board = createFakeboard();
         return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()));
+    }
+
+    @RequestMapping(value = {"/showboard"})
+    public ResponseEntity showBoard(){
+        return ResponseEntity.ok().body(board);
     }
 
     //call this once to create a fake board
@@ -139,6 +144,7 @@ public class DebuggerController {
         return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()));
     }
 
+    //pass
     @RequestMapping(value = {"/testSetMonster"})
     public ResponseEntity testSetMonster(){
         Player p1 = board.getPlayer1();
@@ -152,12 +158,34 @@ public class DebuggerController {
         return ResponseEntity.ok(new BoardDto(board,p1,p2));
     }
 
+    //pass
     @RequestMapping(value = {"/testAttack"})
     public ResponseEntity testAttackMonster(){
         boardService.fight(board.getPlayer1(),board.getPlayer2(),board.getPlayer1().getMonsterField().getMonster1(),
                 board.getPlayer2().getMonsterField().getMonster2(),1,2);
         return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()));
     }
+
+    //pass
+    @RequestMapping(value = {"/testendturn"})
+    public ResponseEntity testEndTurn(){
+        boardService.endTurn(board);
+        return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()));
+    }
+
+    //pass
+    @RequestMapping(value = {"/testdraw"})
+    public ResponseEntity testDraw(){
+        int turn = board.getTurn();
+        if(turn==1) {
+            playerService.drawCard(board.getPlayer1());
+        }
+        else{
+            playerService.drawCard(board.getPlayer2());
+        }
+        return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()));
+    }
+
 
 
 }

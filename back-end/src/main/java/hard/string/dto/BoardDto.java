@@ -13,8 +13,8 @@ public class BoardDto {
 
     private MonsterFieldService monsterFieldService = new MonsterFieldService();
 
-    private int mana1;
-    private int mana2;
+    private int currentPlayerMana;
+    private int enemyPlayerMana;
 
     private long currentPlayer;
     private MonsterField currentField;
@@ -57,8 +57,8 @@ public class BoardDto {
     }
 
     public BoardDto(Board board, Player currentPlayer, Player enemyPlayer){
-        mana1 = board.getMana1();
-        mana2 = board.getMana2();
+        currentPlayerMana = board.getMana1();
+        enemyPlayerMana = board.getMana2();
         this.currentPlayer = currentPlayer.getPlayerId();
         this.enemyPlayer = enemyPlayer.getPlayerId();
         currentField = currentPlayer.getMonsterField();
@@ -74,12 +74,12 @@ public class BoardDto {
         createField(currentPlayer,enemyPlayer);
     }
 
-    public int getMana1() {
-        return mana1;
+    public int getCurrentPlayerMana() {
+        return currentPlayerMana;
     }
 
-    public int getMana2() {
-        return mana2;
+    public int getEnemyPlayerMana() {
+        return enemyPlayerMana;
     }
 
     public int getTurn() {

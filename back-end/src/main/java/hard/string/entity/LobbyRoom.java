@@ -9,7 +9,7 @@ import javax.persistence.Id;
  */
 
 @Entity
-public class Room {
+public class LobbyRoom {
 
     @Id
     @GeneratedValue

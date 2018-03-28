@@ -87,7 +87,7 @@ public class BoardService {
     //TODO Ask them if they prefer integer or object as player argument.(if obj, put mana in Player)(Not possible if Player is not Entity)
     //Set the new remaining mana.
     //Return the remaining mana.
-    public  int usedMana(Board game,int pNum,int manaCost){
+    public int usedMana(Board game,int pNum,int manaCost){
         if(pNum==1){
             game.setMana1(game.getMana1()-manaCost);
             return game.getMana1();
@@ -96,6 +96,13 @@ public class BoardService {
             return game.getMana2();
         }
 
+    }
+
+    public void isGameEnd(Board game){
+        if(game.getPlayer1().getMonsterField().getPlayer().getHp() == 0 ||
+                game.getPlayer2().getMonsterField().getPlayer().getHp() == 0){
+            game.setGameIsOver(true);
+        }
     }
 
 

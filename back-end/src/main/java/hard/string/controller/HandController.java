@@ -51,7 +51,8 @@ public class HandController {
         Long gameId = boardDBService.findBoard(playerId);
         if(gameId > 0){
             Board game = runningGameService.getGame(gameId);
-            return ResponseEntity.ok(new BoardDto(game,boardService.getPlayer(playerId,game),boardService.getEnemeyPlayer(playerId,game)));
+//            return ResponseEntity.ok(new BoardDto(game,boardService.getPlayer(playerId,game),boardService.getEnemeyPlayer(playerId,game)));
+            return ResponseEntity.ok(boardService.getPlayer(playerId,game).getTempHand().getHand());
         }
         else{
             return ResponseEntity.badRequest().body("No game found!");
@@ -65,7 +66,7 @@ public class HandController {
      * @param index index on the board that the card is going to
      * @return response code, and the updated board
      */
-    @RequestMapping(method = RequestMethod.POST, value = "/useCard")
+    @RequestMapping(method = RequestMethod.POST, value = "/usecard")
     public ResponseEntity useCard(
             @RequestParam long playerId,
             @RequestParam long cardId,
@@ -83,9 +84,11 @@ public class HandController {
                 int in = Integer.valueOf(index.subSequence(0, index.length() - 1).toString());
                 if (side == 'P') {
                     tempHandService.playCard(board, currentPlayer, playedCard, in, true);
+                    boardService.isGameEnd(board);
                     return ResponseEntity.ok().body(new BoardDto(board,currentPlayer,enemyPlayer));
                 } else if (side == 'E') {
                     tempHandService.playCard(board, currentPlayer, playedCard, in, false);
+                    boardService.isGameEnd(board);
                     return ResponseEntity.ok().body(new BoardDto(board,currentPlayer,enemyPlayer));
                 } else {
                     //shouldn't go here

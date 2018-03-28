@@ -35,8 +35,10 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/login", "/logout", "/register",
-                        "/fakeGame", "/playMonsterFromHand",
-                        "/testSetMonster", "/testAttack").permitAll()
+                        "/fakegame", "/playmonsterfromhand",
+                        "/testsetmonster", "/testattack",
+                        "/testdraw","/testendturn",
+                        "/showboard").permitAll()
                 .antMatchers("/**").authenticated()
                 .and()
                 .formLogin().loginProcessingUrl("/login")
