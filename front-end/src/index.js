@@ -10,8 +10,6 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 const sty = {
-    minWidth: "100%",
-    minHeight: "100%"
 
 };
 

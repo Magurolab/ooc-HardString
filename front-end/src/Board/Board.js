@@ -25,11 +25,7 @@ const styles = theme => ({
     paper: {
         padding: 20, marginTop: 10, marginButton: 10, marginLeft: 5, marginRight:5,
     },
-    card: {
-        height: "50%",
-        width: "80%",
-        margin: "0 auto",
-    },
+
     g: {
         display: "inline-block",
     },
@@ -77,6 +73,7 @@ class Board extends React.Component{
                     {/*</Toolbar>*/}
                 {/*</AppBar>*/}
                 <Drawer
+                    anchor='relative-right'
                     variant="permanent"
                     classes={{
                         paper: classes.drawerPaper,
