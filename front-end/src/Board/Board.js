@@ -2,21 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import {Grid, Paper} from 'material-ui'
-// import Card, { CardActions, CardContent } from 'material-ui/Card';
-
-
 import Drawer from 'material-ui/Drawer';
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
 import List from 'material-ui/List';
-import { MenuItem } from 'material-ui/Menu';
-import TextField from 'material-ui/TextField';
-import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
-
 import Field from './Field/Field.js';
-import Sidebar from './Sidebar/Sidebar.js';
 import Hand from './Hand/Hand.js';
+
 import {mailFolderListItems, otherMailFolderListItems} from "./Sidebar/tileData";
 
 const drawerWidth = 240;

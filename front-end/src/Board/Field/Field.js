@@ -55,37 +55,8 @@ function Field(props){
                     </Grid>
                 </div>
 
-
-                {/*<Grid container spacing={12}>*/}
-                    {/*<Grid item xs={12} >*/}
-
-                        {/*<div className="flex-container">*/}
-                            {/*<div>1</div>*/}
-                            {/*<div>2</div>*/}
-                            {/*<div>3</div>*/}
-                            {/*<div>4</div>*/}
-                            {/*<div>5</div>*/}
-
-                        {/*</div>*/}
-
-                    {/*</Grid>*/}
-                {/*</Grid>*/}
-
-
-                {/*<Grid Grid item xs={12}>*/}
-
-                    {/*<div className="flex-container">*/}
-                        {/*<div>1</div>*/}
-                        {/*<div>2</div>*/}
-                        {/*<div>3</div>*/}
-                        {/*<div>4</div>*/}
-                        {/*<div>5</div>*/}
-
-                    {/*</div>*/}
-
-                {/*</Grid>*/}
-
             </Paper>
+
         );
 
 }
