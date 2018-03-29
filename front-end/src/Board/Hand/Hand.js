@@ -24,10 +24,10 @@ const styles = theme => ({
         transform: 'translateZ(0)',
     },
     card: {
-        maxWidth: 250,
+        maxWidth: '8vw',
     },
     media: {
-        height: 330,
+        height: '12vw',
     },
 });
 
@@ -40,29 +40,24 @@ function Hand(props) {
         <div className={classes.root}>
             <GridList className={classes.gridList} cellHeight={400} cols={3}>
                 {DemoCards.map(tile => (
-                    <GridListTile cols={0.7}>
+                    <GridListTile cols={0.5}>
+
                     <Card className={classes.card}>
                         <CardMedia
                         className={classes.media}
                         image={tile.img}
+                        title={tile.title+"\nattack "+
+                        tile.attack+"\nhealth "+
+                        tile.health}
 
-                        title={tile.title}/>
-                    <CardContent>
-                        {/*<Typography gutterBottom variant="headline" component="h2">*/}
-                            {/*Lizard*/}
-                        {/*</Typography>*/}
-                        {/*<Typography component="p">*/}
-                            {/*Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging*/}
-                            {/*across all continents except Antarctica*/}
-                        {/*</Typography>*/}
-                    </CardContent>
+                        />
                     <CardActions>
                     <Button size="small" color="primary">
                     Summon
                     </Button>
-                    <Button size="small" color="primary">
-                    Learn More
-                    </Button>
+                    {/*<Button size="small" color="primary">*/}
+                    {/*Info*/}
+                    {/*</Button>*/}
                     </CardActions>
                     </Card>
                     </GridListTile>
