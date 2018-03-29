@@ -18,10 +18,15 @@ const styles = theme => ({
 
     field: {
         padding: 20, marginTop: 10, marginButton: 10, marginLeft: 5, marginRight:5,
+
         // minhight: 330,
         // minwidth: 600,
         // display: "flex",
     },
+
+
+
+
 
 
 
@@ -39,7 +44,7 @@ function Field(props){
 
                 {/*{DemoCardsInField[1].img}*/}
                 {/*<img src={DemoCardsInField[1].img}/>*/}
-                <div>
+                <div className="grid-holder-enemy">
                     <Grid container spacing={12}>
                         <Grid item ys={12} >
 
@@ -88,7 +93,7 @@ function Field(props){
                     </Grid>
                 </div>
                 <br/> <br/> <br/>
-                <div>
+                <div className = "grid-holder-frinedly">
                     <Grid container spacing={12}>
                         <Grid item ys={12} >
 
