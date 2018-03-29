@@ -4,6 +4,7 @@ import { withStyles } from 'material-ui/styles';
 import GridList, { GridListTile, GridListTileBar } from 'material-ui/GridList';
 
 import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
+
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 
@@ -22,7 +23,12 @@ const styles = theme => ({
         // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
         transform: 'translateZ(0)',
     },
-
+    card: {
+        maxWidth: 250,
+    },
+    media: {
+        height: 330,
+    },
 });
 
 
@@ -32,23 +38,33 @@ function Hand(props) {
 
     return (
         <div className={classes.root}>
-            <GridList className={classes.gridList} cols={2.5}>
+            <GridList className={classes.gridList} cellHeight={400} cols={3}>
                 {DemoCards.map(tile => (
-                    <GridListTile key={tile.img}>
-                        <img src={tile.img} alt={tile.title} />
-                        <GridListTileBar
-                            title={tile.title}
-                            classes={{
-                                root: classes.titleBar,
-                                title: classes.title,
-                            }}
-                            actionIcon={
+                    <GridListTile cols={0.7}>
+                    <Card className={classes.card}>
+                        <CardMedia
+                        className={classes.media}
+                        image={tile.img}
 
-                                <Button size="small" color="primary">
-                                summon!
-                                </Button>
-                            }
-                        />
+                        title={tile.title}/>
+                    <CardContent>
+                        {/*<Typography gutterBottom variant="headline" component="h2">*/}
+                            {/*Lizard*/}
+                        {/*</Typography>*/}
+                        {/*<Typography component="p">*/}
+                            {/*Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging*/}
+                            {/*across all continents except Antarctica*/}
+                        {/*</Typography>*/}
+                    </CardContent>
+                    <CardActions>
+                    <Button size="small" color="primary">
+                    Summon
+                    </Button>
+                    <Button size="small" color="primary">
+                    Learn More
+                    </Button>
+                    </CardActions>
+                    </Card>
                     </GridListTile>
                 ))}
             </GridList>
