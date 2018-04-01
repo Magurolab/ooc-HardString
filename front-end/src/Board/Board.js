@@ -8,7 +8,8 @@ import {Grid, Paper} from 'material-ui'
 import Drawer from 'material-ui/Drawer';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
-import List from 'material-ui/List';
+import List, {ListItem, ListItemIcon, ListItemText} from 'material-ui/List';
+import InboxIcon from 'material-ui-icons/MoveToInbox';
 import { MenuItem } from 'material-ui/Menu';
 import TextField from 'material-ui/TextField';
 import Typography from 'material-ui/Typography';
@@ -53,87 +54,192 @@ const styles = theme => ({
     },
     // toolbar: theme.mixins.toolbar,
 });
+function TurnBar(props){
+    const {turn} = props;
+    return (
+        <ListItem text >
+            {turn ? "Your Turn" : "Other Turn"}
+        </ListItem>
+    )
+}
+
+function DeckBar(props){
+    const {deck, maxDeck} = props;
+    return (
+        <ListItem text>
+            DECK: {deck}/{maxDeck}
+        </ListItem>
+    )
+}
+
+function ManaBar(props){
+    const {mana, maxMana} = props;
+    return (
+        <ListItem text>
+            MANA : {mana}/{maxMana}
+        </ListItem>
+    )
+}
+
+function HealthBar(props) {
+    const {health, maxHealth} = props;
+    return (
+        <ListItem text>
+            HEALTH: {health}/{maxHealth}
+        </ListItem>
+    )
+}
+
+function EndTern(props) {
+    const { onClick } = props;
+    return (
+        <ListItem button onClick={onClick}>
+            <ListItemIcon>
+                <InboxIcon />
+            </ListItemIcon>
+            <ListItemText primary="ENDTURN" />
+        </ListItem>
+    )
+}
+
+function StatusBar(props){
+    const {endTurn, deck, maxDeck, health, maxHealth, mana, maxMana, turn} = props;
+    return (
+        <div>
+            <TurnBar turn={turn}/>
+            <DeckBar deck={deck} maxDeck={maxDeck}/>
+            <ManaBar mana={mana} maxMana={maxMana} />
+            <HealthBar health={health} maxHealth={maxHealth} />
+            <EndTern onClick={endTurn} />
+        </div>
+    )
+}
 
 
 class Board extends React.Component{
 
     constructor(props){
         super(props);
-        this.state = {open: true};
+        this.state = {
+            open: true,
+            id: undefined,
+            name: "",
+            deck: 0,
+            maxDeck: 30,
+            mana: 0,
+            maxMana: 10,
+            health: 0,
+            maxHealth: 10,
+            intervalPointer: undefined,
+            dead: undefined
+        };
     }
 
-    initBoard = () => {
-        BoardAPI.initBoard().catch(e => console.log(e))
+    onRageQuit = () => {
+
     };
+
+    onEndTurn = () => {
+
+    };
+
+    initBoard = () => {
+        // BoardAPI.fakeGame().catch(e => {alert("init Baord failed"); console.log(e); } )
+    };
+
+    componentWillMount(){
+        this.getBoard();
+    }
+
+    componentDidMount(){
+        this.state.intervalPointer = setInterval(this.getBoard, 3000);
+    }
+
+    componentWillUnmount(){
+        clearInterval(this.state.intervalPointer);
+    }
 
     getBoard = () =>{
         BoardAPI.showBoard()
-            .then(({data, status}) => console.log(data))
+            .then(({data, status}) => {
+                console.log(data);
+                // a, b = [aa, bb]
+                // const mana = data.currentPlayerMana
+                const { currentPlayerMana: mana, currentDeck, currentField: {player: {hp, maxHP, name, index, dead}}} = data;
+
+                this.setState(({
+                    mana,
+                    health: hp,
+                    maxHealth: maxHP,
+                    name,
+                    id: index,
+                    dead,
+                    deck: currentDeck,
+                    turn: false
+
+                }));
+            })
             .catch((e) => {
                 alert("Shit happens in Show board");
                 console.log(e);
             })
     };
 
-    render(){
-        return (
-            <div>
-                <button onClick={this.getBoard} > Get Board</button>
-                <button onClick={this.initBoard}> Init</button>
-
-            </div>
-            )
-
-    }
-
     // render(){
-    //     const { classes } = this.props;
     //     return (
-    //         <div className={classes.root}>
-    //             {/*<AppBar position="absolute" className={classes.appBar}>*/}
-    //                 {/*<Toolbar>*/}
-    //                     {/*<Typography variant="title" color="inherit" noWrap>*/}
-    //                         {/*Clipped drawer*/}
-    //                     {/*</Typography>*/}
-    //                 {/*</Toolbar>*/}
-    //             {/*</AppBar>*/}
-    //             <Drawer
-    //                 anchor='relative-right'
-    //                 variant="permanent"
-    //                 classes={{
-    //                     paper: classes.drawerPaper,
-    //                 }}
-    //             >
-    //                 <div className={classes.toolbar} />
-    //                 <List>{mailFolderListItems}</List>
-    //                 <Divider />
-    //                 <List>{otherMailFolderListItems}</List>
-    //             </Drawer>
-    //             <main className={classes.content}>
-    //                 <div className={classes.toolbar} />
+    //         <div>
+    //             <button onClick={this.getBoard} > Get Board</button>
+    //             <button onClick={this.initBoard}> Init</button>
     //
-    //
-    //                     <Grid container spacing={12}>
-    //                         <Grid item xs={12} >
-    //
-    //                          <Field/>
-    //
-    //                         </Grid>
-    //                     </Grid>
-    //
-    //                     <div><br/><br/></div>
-    //
-    //                     <Grid container spacing={12} className={classes.g}>
-    //
-    //                         <Hand/>
-    //
-    //                     </Grid>
-    //             </main>
     //         </div>
+    //         )
     //
-    //
-    //     );
     // }
+
+    render(){
+        const { classes } = this.props;
+        return (
+            <div className={classes.root}>
+
+                <Drawer
+                    anchor='relative-right'
+                    variant="permanent"
+                    classes={{
+                        paper: classes.drawerPaper,
+                    }}
+                >
+                    <div className={classes.toolbar} />
+                    <List>
+                        <StatusBar endTurn={this.onEndTurn()} {...this.state}  />
+                    </List>
+                    <Divider />
+                    <List>{otherMailFolderListItems}</List>
+                </Drawer>
+                <main className={classes.content}>
+                    <div className={classes.toolbar} />
+
+
+                        <Grid container spacing={12}>
+                            <Grid item xs={12} >
+
+                             <Field/>
+
+                            </Grid>
+                        </Grid>
+
+                        <div><br/><br/></div>
+
+                        <Grid container spacing={12} className={classes.g}>
+
+                            <Hand/>
+
+                        </Grid>
+                </main>
+            </div>
+
+
+        );
+    }
 }
 
 Board.propTypes = {
