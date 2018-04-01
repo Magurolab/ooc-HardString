@@ -9,7 +9,6 @@ import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 
 import DemoCards from './DemoCards.js';
-import DropDownIndex from "./DropDown/dropDown";
 
 const styles = theme => ({
     root: {
@@ -56,9 +55,6 @@ function Hand(props) {
                     <Button size="small" color="primary">
                     Summon
                     </Button>
-                        <div>
-                            <DropDownIndex/>
-                        </div>
                     {/*<Button size="small" color="primary">*/}
                     {/*Info*/}
                     {/*</Button>*/}
