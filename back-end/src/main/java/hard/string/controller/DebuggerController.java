@@ -155,7 +155,7 @@ public class DebuggerController {
 
     @RequestMapping(value = {"/showboard"})
     public ResponseEntity showBoard(){
-        return ResponseEntity.ok().body(board);
+        return ResponseEntity.ok().body(new BoardDto(board,board.getPlayer1(),board.getPlayer2()));
     }
 
     /**
