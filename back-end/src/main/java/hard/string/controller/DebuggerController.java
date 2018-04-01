@@ -342,7 +342,13 @@ public class DebuggerController {
     @RequestMapping(method = RequestMethod.GET, value={"/turn"})
     public ResponseEntity getTurn(
     ){
-        return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()).getTurn());
+        return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()).isTurn());
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value={"/gameover"})
+    public ResponseEntity getGameover(
+    ){
+        return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()).isGameOver());
     }
 
 }

@@ -85,8 +85,12 @@ public class BoardDto {
         return enemyPlayerMana;
     }
 
-    public boolean getTurn() {
+    public boolean isTurn() {
         return turn;
+    }
+
+    public boolean isGameOver() {
+        return gameOver;
     }
 
     public long getEnemyPlayer() {
