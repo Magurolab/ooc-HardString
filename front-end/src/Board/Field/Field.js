@@ -60,36 +60,42 @@ function Field(props){
                                     title = {"ATK :"+ DemoCardsInField[0].atk +"\n HP :"+ DemoCardsInField[0].hp}
                                     classes={classes}
                                     empty = {DemoCardsInField[0].img == null}
+                                    enemy = {true}
                                 /></div>
                                 <div><CardInField
                                     img = {DemoCardsInField[1].img}
                                     title = {"ATK :"+ DemoCardsInField[1].atk +"\n HP :"+ DemoCardsInField[1].hp}
                                     classes={classes}
                                     empty = {DemoCardsInField[1].img == null}
+                                    enemy = {true}
                                 /></div>
                                 <div><CardInField
                                     img = {DemoCardsInField[2].img}
                                     title = {"ATK :"+ DemoCardsInField[2].atk +"\n HP :"+ DemoCardsInField[2].hp}
                                     classes={classes}
                                     empty = {DemoCardsInField[2].img == null}
+                                    enemy = {true}
                                 /></div>
                                 <div><CardInField
                                     img = {DemoCardsInField[3].img}
                                     title = {"ATK :"+ DemoCardsInField[3].atk +"\n HP :"+ DemoCardsInField[3].hp}
                                     classes={classes}
                                     empty = {DemoCardsInField[3].img == null}
+                                    enemy = {true}
                                 /></div>
                                 <div><CardInField
                                     img = {DemoCardsInField[4].img}
                                     title = {"ATK :"+ DemoCardsInField[4].atk +"\n HP :"+ DemoCardsInField[4].hp}
                                     classes={classes}
                                     empty = {DemoCardsInField[4].img == null}
+                                    enemy = {true}
                                 /></div>
                                 <div><CardInField
                                     img = {DemoCardsInField[5].img}
                                     title = {"ATK :"+ DemoCardsInField[5].atk +"\n HP :"+ DemoCardsInField[5].hp}
                                     classes={classes}
                                     empty = {DemoCardsInField[5].img == null}
+                                    enemy = {true}
                                 /></div>
 
                             </div>
@@ -108,36 +114,42 @@ function Field(props){
                                     title = {"ATK :"+ DemoCardsInFieldE[0].atk +"\n HP :"+ DemoCardsInFieldE[0].hp}
                                     classes={classes}
                                     empty = {DemoCardsInFieldE[0].img == null}
+                                    enemy = {false}
                                 /></div>
                                 <div><CardInField
                                     img = {DemoCardsInFieldE[1].img}
                                     title = {"ATK :"+ DemoCardsInFieldE[1].atk +"\n HP :"+ DemoCardsInFieldE[1].hp}
                                     classes={classes}
                                     empty = {DemoCardsInFieldE[1].img == null}
+                                    enemy = {false}
                                 /></div>
                                 <div><CardInField
                                     img = {DemoCardsInFieldE[2].img}
                                     title = {"ATK :"+ DemoCardsInFieldE[2].atk +"\n HP :"+ DemoCardsInFieldE[2].hp}
                                     classes={classes}
                                     empty = {DemoCardsInFieldE[2].img == null}
+                                    enemy = {false}
                                 /></div>
                                 <div><CardInField
                                     img = {DemoCardsInFieldE[3].img}
                                     title = {"ATK :"+ DemoCardsInFieldE[3].atk +"\n HP :"+ DemoCardsInFieldE[3].hp}
                                     classes={classes}
                                     empty = {DemoCardsInFieldE[3].img == null}
+                                    enemy = {false}
                                 /></div>
                                 <div><CardInField
                                     img = {DemoCardsInFieldE[4].img}
                                     title = {"ATK :"+ DemoCardsInFieldE[4].atk +"\n HP :"+ DemoCardsInFieldE[4].hp}
                                     classes={classes}
                                     empty = {DemoCardsInFieldE[4].img == null}
+                                    enemy = {false}
                                 /></div>
                                 <div><CardInField
                                     img = {DemoCardsInFieldE[5].img}
                                     title = {"ATK :"+ DemoCardsInFieldE[5].atk +"\n HP :"+ DemoCardsInFieldE[5].hp}
                                     classes={classes}
                                     empty = {DemoCardsInFieldE[5].img == null}
+                                    enemy = {false}
                                 /></div>
 
                             </div>

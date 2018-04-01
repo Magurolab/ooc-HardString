@@ -55,7 +55,6 @@ function Hand(props) {
                     <Button size="small" color="primary">
                     Summon
                     </Button>
-
                     {/*<Button size="small" color="primary">*/}
                     {/*Info*/}
                     {/*</Button>*/}

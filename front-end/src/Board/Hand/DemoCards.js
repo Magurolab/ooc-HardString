@@ -1,8 +1,9 @@
 import PAN from './cards_img/cardf.png'
 import GEM from './cards_img/gem.jpg'
+import dodge from  '../cards_img/Alpadoge.png'
 const DemoCards = [
     {
-        img: PAN,
+        img: dodge,
         title: 'DDOS',
         author: 'PLY',
         cols: 2,

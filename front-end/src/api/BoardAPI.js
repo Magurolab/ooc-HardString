@@ -12,6 +12,10 @@ class BoardAPI {
         return axios.get("/debug/showboard")
             .then(({data, status}) => ({data, status}))
     }
+
+    attack(){
+        return axios.post()
+    }
 }
 
 export default new BoardAPI()
