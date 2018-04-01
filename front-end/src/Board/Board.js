@@ -13,6 +13,7 @@ import { MenuItem } from 'material-ui/Menu';
 import TextField from 'material-ui/TextField';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
+import BoardAPI from '../api/BoardAPI'; // import
 
 import Field from './Field/Field.js';
 import Sidebar from './Sidebar/Sidebar.js';
@@ -61,54 +62,78 @@ class Board extends React.Component{
         this.state = {open: true};
     }
 
+    initBoard = () => {
+        BoardAPI.initBoard().catch(e => console.log(e))
+    };
+
+    getBoard = () =>{
+        BoardAPI.showBoard()
+            .then(({data, status}) => console.log(data))
+            .catch((e) => {
+                alert("Shit happens in Show board");
+                console.log(e);
+            })
+    };
+
     render(){
-        const { classes } = this.props;
         return (
-            <div className={classes.root}>
-                {/*<AppBar position="absolute" className={classes.appBar}>*/}
-                    {/*<Toolbar>*/}
-                        {/*<Typography variant="title" color="inherit" noWrap>*/}
-                            {/*Clipped drawer*/}
-                        {/*</Typography>*/}
-                    {/*</Toolbar>*/}
-                {/*</AppBar>*/}
-                <Drawer
-                    anchor='relative-right'
-                    variant="permanent"
-                    classes={{
-                        paper: classes.drawerPaper,
-                    }}
-                >
-                    <div className={classes.toolbar} />
-                    <List>{mailFolderListItems}</List>
-                    <Divider />
-                    <List>{otherMailFolderListItems}</List>
-                </Drawer>
-                <main className={classes.content}>
-                    <div className={classes.toolbar} />
+            <div>
+                <button onClick={this.getBoard} > Get Board</button>
+                <button onClick={this.initBoard}> Init</button>
 
-
-                        <Grid container spacing={12}>
-                            <Grid item xs={12} >
-
-                             <Field/>
-
-                            </Grid>
-                        </Grid>
-
-                        <div><br/><br/></div>
-
-                        <Grid container spacing={12} className={classes.g}>
-
-                            <Hand/>
-
-                        </Grid>
-                </main>
             </div>
+            )
 
-
-        );
     }
+
+    // render(){
+    //     const { classes } = this.props;
+    //     return (
+    //         <div className={classes.root}>
+    //             {/*<AppBar position="absolute" className={classes.appBar}>*/}
+    //                 {/*<Toolbar>*/}
+    //                     {/*<Typography variant="title" color="inherit" noWrap>*/}
+    //                         {/*Clipped drawer*/}
+    //                     {/*</Typography>*/}
+    //                 {/*</Toolbar>*/}
+    //             {/*</AppBar>*/}
+    //             <Drawer
+    //                 anchor='relative-right'
+    //                 variant="permanent"
+    //                 classes={{
+    //                     paper: classes.drawerPaper,
+    //                 }}
+    //             >
+    //                 <div className={classes.toolbar} />
+    //                 <List>{mailFolderListItems}</List>
+    //                 <Divider />
+    //                 <List>{otherMailFolderListItems}</List>
+    //             </Drawer>
+    //             <main className={classes.content}>
+    //                 <div className={classes.toolbar} />
+    //
+    //
+    //                     <Grid container spacing={12}>
+    //                         <Grid item xs={12} >
+    //
+    //                          <Field/>
+    //
+    //                         </Grid>
+    //                     </Grid>
+    //
+    //                     <div><br/><br/></div>
+    //
+    //                     <Grid container spacing={12} className={classes.g}>
+    //
+    //                         <Hand/>
+    //
+    //                     </Grid>
+    //             </main>
+    //         </div>
+    //
+    //
+    //     );
+    // }
 }
 
 Board.propTypes = {
