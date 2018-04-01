@@ -37,12 +37,16 @@ public class BoardDto {
     //valid space to play magic
     private List<String> availableMagicTarget;
 
+    //valid attack target
+    private List<String> availableAttackTarget;
+
     private boolean turn;
     private boolean gameOver;
 
     private void createField(Player currentPlayer, Player enemyPlayer){
         availableMonsterField = new ArrayList<>();
         availableMagicTarget = new ArrayList<>();
+        availableAttackTarget = new ArrayList<>();
         for(int i = 0; i < 6; i++){
             if(monsterFieldService.checkMonster(i,currentPlayer.getMonsterField())){
                 availableMagicTarget.add(String.valueOf(i)+'P');
@@ -55,6 +59,7 @@ public class BoardDto {
             boolean isValid = monsterFieldService.checkMonster(i, enemyPlayer.getMonsterField());
             if(isValid){
                 availableMagicTarget.add(String.valueOf(i)+'E');
+                availableAttackTarget.add(String.valueOf(i)+'E');
             }
         }
     }
@@ -75,6 +80,10 @@ public class BoardDto {
         turn = boardService.isValidTurn(currentPlayer,board);
         gameOver = board.isGameIsOver();
         createField(currentPlayer,enemyPlayer);
+    }
+
+    public List<String> getAvailableAttackTarget() {
+        return availableAttackTarget;
     }
 
     public int getCurrentPlayerMana() {

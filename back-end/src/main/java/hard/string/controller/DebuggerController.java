@@ -335,6 +335,18 @@ public class DebuggerController {
     }
 
     /**
+     * <b>/debug/validattacktarget</b>
+     * - Return valid attack target to be attack by current player, in this case we assume that the current player is player1
+     * @return list of valid attack target index under our agreement
+     */
+
+    @RequestMapping(method = RequestMethod.GET, value={"/validattacktarget"})
+    public ResponseEntity getValidAttackTarget(
+    ){
+        return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()).getAvailableAttackTarget());
+    }
+
+    /**
      * <b>/debug/turn</b>
      * - Return turn of that player, true if it is and false otherwise
      * @return boolean
@@ -345,6 +357,11 @@ public class DebuggerController {
         return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()).isTurn());
     }
 
+    /**
+     * <b>/debug/gameover</b>
+     * - Return state of the game, false if game is not over, true otherwise
+     * @return boolean
+     */
     @RequestMapping(method = RequestMethod.GET, value={"/gameover"})
     public ResponseEntity getGameover(
     ){
