@@ -6,18 +6,15 @@ import {Grid, Paper} from 'material-ui'
 
 
 import Drawer from 'material-ui/Drawer';
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
+
 import List, {ListItem, ListItemIcon, ListItemText} from 'material-ui/List';
 import InboxIcon from 'material-ui-icons/MoveToInbox';
-import { MenuItem } from 'material-ui/Menu';
-import TextField from 'material-ui/TextField';
-import Typography from 'material-ui/Typography';
+
 import Divider from 'material-ui/Divider';
 import BoardAPI from '../api/BoardAPI'; // import
 
 import Field from './Field/Field.js';
-import Sidebar from './Sidebar/Sidebar.js';
+
 import Hand from './Hand/Hand.js';
 import {mailFolderListItems, otherMailFolderListItems} from "./Sidebar/tileData";
 
@@ -165,7 +162,7 @@ class Board extends React.Component{
                 console.log(data);
                 // a, b = [aa, bb]
                 // const mana = data.currentPlayerMana
-                const { currentPlayerMana: mana, currentDeck, currentField: {player: {hp, maxHP, name, index, dead}}} = data;
+                const { turn:turn,currentPlayerMana: mana, currentDeck, currentField: {player: {hp, maxHP, name, index, dead}}} = data;
 
                 this.setState(({
                     mana,
@@ -175,7 +172,7 @@ class Board extends React.Component{
                     id: index,
                     dead,
                     deck: currentDeck,
-                    turn: false
+                    turn: turn
 
                 }));
             })
