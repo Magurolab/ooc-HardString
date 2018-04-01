@@ -17,17 +17,20 @@ const styles = theme => ({
         justifyContent: 'space-around',
         overflow: 'hidden',
         backgroundColor: theme.palette.background.paper,
+
     },
     gridList: {
+        width: 1350,
+        height: 450,
         flexWrap: 'nowrap',
         // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
         transform: 'translateZ(0)',
     },
     card: {
-        maxWidth: '8vw',
+        maxWidth: '14vw',
     },
     media: {
-        height: '12vw',
+        height: '18vw',
     },
 });
 
@@ -38,9 +41,9 @@ function Hand(props) {
 
     return (
         <div className={classes.root}>
-            <GridList className={classes.gridList} cellHeight={400} cols={3}>
+            <GridList className={classes.gridList} cellHeight={400} cols={5.1}>
                 {DemoCards.map(tile => (
-                    <GridListTile cols={0.5}>
+                    <GridListTile cols={0.8}>
 
                     <Card className={classes.card}>
                         <CardMedia
