@@ -1,4 +1,4 @@
-package hard.string.Hashing;
+package hard.string.hashing;
 
 import org.mindrot.jbcrypt.BCrypt;
 

@@ -1,15 +1,47 @@
 package hard.string.entity.cards;
 
+import hard.string.entity.Deck;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Teama on 3/10/2018.
  */
 
+@Entity
+public class Card {
 
-public interface Card {
 
-    String getName();
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long cardId;
 
-    Integer getCost();
+    @ManyToMany(mappedBy = "cards")
+    private List<Deck> decks = new ArrayList<>();
 
-    Integer getId();
+    private String name;
+
+    private String type;
+
+    private Integer cost;
+
+    private String path;
+
+    public String getName(){
+        return name;
+    }
+
+    public Integer getCost() {
+        return cost;
+    }
+
+    public Long getId() {
+        return cardId;
+    }
+
+    public String getType() {
+        return type;
+    }
 }
