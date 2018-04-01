@@ -1,6 +1,7 @@
 package hard.string.dto;
 
 import hard.string.entity.*;
+import hard.string.service.BoardService;
 import hard.string.service.MonsterFieldService;
 
 import java.util.ArrayList;
@@ -10,6 +11,8 @@ import java.util.List;
  * Created by Teama on 3/25/2018.
  */
 public class BoardDto {
+
+    private BoardService boardService = new BoardService();
 
     private MonsterFieldService monsterFieldService = new MonsterFieldService();
 
@@ -34,7 +37,7 @@ public class BoardDto {
     //valid space to play magic
     private List<String> availableMagicTarget;
 
-    private int turn;
+    private boolean turn;
     private boolean gameOver;
 
     private void createField(Player currentPlayer, Player enemyPlayer){
@@ -69,7 +72,7 @@ public class BoardDto {
         enemyDeck = enemyPlayer.getTempDeck().getCards().size();
         yourUsername = currentPlayer.getUsername();
         enemyUsername = enemyPlayer.getUsername();
-        turn = board.getTurn();
+        turn = boardService.isValidTurn(currentPlayer,board);
         gameOver = board.isGameIsOver();
         createField(currentPlayer,enemyPlayer);
     }
@@ -82,7 +85,7 @@ public class BoardDto {
         return enemyPlayerMana;
     }
 
-    public int getTurn() {
+    public boolean getTurn() {
         return turn;
     }
 
@@ -133,5 +136,7 @@ public class BoardDto {
     public List<String> getAvailableMagicTarget() {
         return availableMagicTarget;
     }
+
+
 }
 

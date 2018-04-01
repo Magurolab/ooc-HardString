@@ -58,7 +58,7 @@ public class DebuggerController {
     @Autowired
     private MonsterService monsterService;
 
-    private Board board;
+    private Board board = null;
 
     /**
      * initialize fake board for debugging
@@ -155,6 +155,9 @@ public class DebuggerController {
 
     @RequestMapping(value = {"/showboard"})
     public ResponseEntity showBoard(){
+        if(board == null){
+            board = createFakeboard();
+        }
         return ResponseEntity.ok().body(new BoardDto(board,board.getPlayer1(),board.getPlayer2()));
     }
 
@@ -329,6 +332,17 @@ public class DebuggerController {
     public ResponseEntity getValidMagicTarget(
     ){
         return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()).getAvailableMagicTarget());
+    }
+
+    /**
+     * <b>/debug/turn</b>
+     * - Return turn of that player, true if it is and false otherwise
+     * @return boolean
+     */
+    @RequestMapping(method = RequestMethod.GET, value={"/turn"})
+    public ResponseEntity getTurn(
+    ){
+        return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()).getTurn());
     }
 
 }
