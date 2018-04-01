@@ -37,7 +37,7 @@ const DemoCards = [
         featured: true,
     },
     {
-        img: PAN,
+        img: dodge,
         title: 'DDOS',
         author: 'PLY',
         cols: 2,

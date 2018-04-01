@@ -31,7 +31,10 @@ const styles = theme => ({
     media: {
 
         minHeight: '8vw',
+        height: '196px', //The size is fixed.
+        // height:'4vw', //Resizable but look shity when does.
         minWidth: ' 4vw',
+
 
     },
     text:{
@@ -67,6 +70,7 @@ class CardField extends React.Component {
 
         <div className={root}>
 
+            {/*boolean ? (true) : (false)*/}
             {empty ? (
                 <Card className={classes.card}>
                     <CardMedia
@@ -98,6 +102,7 @@ class CardField extends React.Component {
                     image={img}
                     title={title}
                     key={title}
+
                 />
                 <CardContent className = "text">
                     <Typography gutterBottom variant="headline" component="h2">
