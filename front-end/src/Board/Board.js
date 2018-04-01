@@ -51,6 +51,11 @@ const styles = theme => ({
         // padding: theme.spacing.unit * 3,
         minWidth: 0, // So the Typography noWrap works
     },
+    field_holder: {
+        display: 'flex',
+        flexWrap: 'nowrap',
+        flexGrow: 1,
+    },
     // toolbar: theme.mixins.toolbar,
 });
 
@@ -75,65 +80,65 @@ class Board extends React.Component{
             })
     };
 
-    render(){
-        return (
-            <div>
-                <button onClick={this.getBoard} > Get Board</button>
-                <button onClick={this.initBoard}> Init</button>
-
-            </div>
-            )
-
-    }
-
     // render(){
-    //     const { classes } = this.props;
     //     return (
-    //         <div className={classes.root}>
-    //             {/*<AppBar position="absolute" className={classes.appBar}>*/}
-    //                 {/*<Toolbar>*/}
-    //                     {/*<Typography variant="title" color="inherit" noWrap>*/}
-    //                         {/*Clipped drawer*/}
-    //                     {/*</Typography>*/}
-    //                 {/*</Toolbar>*/}
-    //             {/*</AppBar>*/}
-    //             <Drawer
-    //                 anchor='relative-right'
-    //                 variant="permanent"
-    //                 classes={{
-    //                     paper: classes.drawerPaper,
-    //                 }}
-    //             >
-    //                 <div className={classes.toolbar} />
-    //                 <List>{mailFolderListItems}</List>
-    //                 <Divider />
-    //                 <List>{otherMailFolderListItems}</List>
-    //             </Drawer>
-    //             <main className={classes.content}>
-    //                 <div className={classes.toolbar} />
+    //         <div>
+    //             <button onClick={this.getBoard} > Get Board</button>
+    //             <button onClick={this.initBoard}> Init</button>
     //
-    //
-    //                     <Grid container spacing={12}>
-    //                         <Grid item xs={12} >
-    //
-    //                          <Field/>
-    //
-    //                         </Grid>
-    //                     </Grid>
-    //
-    //                     <div><br/><br/></div>
-    //
-    //                     <Grid container spacing={12} className={classes.g}>
-    //
-    //                         <Hand/>
-    //
-    //                     </Grid>
-    //             </main>
     //         </div>
+    //         )
     //
-    //
-    //     );
     // }
+
+    render(){
+        const { classes } = this.props;
+        return (
+            <div className={classes.root}>
+                {/*<AppBar position="absolute" className={classes.appBar}>*/}
+                    {/*<Toolbar>*/}
+                        {/*<Typography variant="title" color="inherit" noWrap>*/}
+                            {/*Clipped drawer*/}
+                        {/*</Typography>*/}
+                    {/*</Toolbar>*/}
+                {/*</AppBar>*/}
+                <Drawer
+                    anchor='relative-right'
+                    variant="permanent"
+                    classes={{
+                        paper: classes.drawerPaper,
+                    }}
+                >
+                    <div className={classes.toolbar} />
+                    <List>{mailFolderListItems}</List>
+                    <Divider />
+                    <List>{otherMailFolderListItems}</List>
+                </Drawer>
+                <main className={classes.content}>
+                    <div className={classes.toolbar} />
+
+
+                        <Grid className = "field_holder" container spacing={12} >
+                            <Grid item xs={12} >
+
+                             <Field/>
+
+                            </Grid>
+                        </Grid>
+
+                        <div><br/><br/></div>
+
+                        <Grid container spacing={12} className={classes.g}>
+
+                            <Hand/>
+
+                        </Grid>
+                </main>
+            </div>
+
+
+        );
+    }
 }
 
 Board.propTypes = {

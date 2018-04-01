@@ -2,7 +2,7 @@ import NULL from './cards_img/cardf.png'
 import GEM from './cards_img/gem.jpg'
 const DemoCardsInField = [
     {
-        img: NULL,
+        img: null,
         title: '',
         atk: '',
         hp:'',
@@ -16,7 +16,7 @@ const DemoCardsInField = [
         empty: false,
     },
     {
-        img: NULL,
+        img: null,
         title: 'DDOS',
         atk: '10',
         hp:'10',
@@ -30,7 +30,7 @@ const DemoCardsInField = [
         empty: false,
     },
     {
-        img: NULL,
+        img: null,
         title: 'DDOS',
         atk: '10',
         hp:'10',

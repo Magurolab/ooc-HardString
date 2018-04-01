@@ -8,6 +8,7 @@ import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import DemoCards from "../../Hand/DemoCards";
 
+import Menu, { MenuItem } from 'material-ui/Menu';
 
 const styles = theme => ({
     root: {
@@ -15,38 +16,90 @@ const styles = theme => ({
         flexWrap: 'wrap',
         justifyContent: 'space-around',
         overflow: 'hidden',
+        textAlign: 'center',
         backgroundColor: theme.palette.background.paper,
     },
     card: {
-        maxWidth: 345,
+
+
+        minHeight:'100px',
+        minWidth:'100%',
+
+
 
     },
     media: {
-        height: 200,
+
+        minHeight: '8vw',
+        minWidth: ' 4vw',
+
+    },
+    text:{
+        align: 'center',
+
+    },
+    button:{
+        align: 'center',
     },
 });
 
 
 class CardField extends React.Component {
 
-    // const { classes } = props;
-    // const {hp} = {hp:this.prop.hp};
+    state = {
+        anchorEl: null,
+    };
+
+    handleClick = event => {
+        this.setState({ anchorEl: event.currentTarget });
+    };
+
+    handleClose = () => {
+        this.setState({ anchorEl: null });
+    };
     render(){
         // console.log(this.props);
-        const {img, classes, title, empty} = this.props;
+        const { anchorEl } = this.state;
+        const {img, classes, title, empty, enemy} = this.props;
 
         // console.log("Idex:",idex );
     return (
 
         <div className={root}>
-            {empty ? (""):(<Card className={classes.card}>
+
+            {empty ? (
+                <Card className={classes.card}>
+                    <CardMedia
+                        className={classes.media}
+                        // image={img}
+                        // title={title}
+                        // key={title}
+                    />
+                    <CardContent className = "text">
+                        <Typography gutterBottom variant="headline" component="h2">
+
+                        </Typography>
+                        <Typography component="p">
+                            EMPTY
+                            SLOT
+                            {/*{title}*/}
+                        </Typography>
+                    </CardContent>
+                    <CardActions className = "button">
+                        {/*<Button size="small" color="primary">*/}
+                            {/*Attack*/}
+                        {/*</Button>*/}
+
+                    </CardActions>
+                </Card>
+            ):(<Card className={classes.card}>
                 <CardMedia
                     className={classes.media}
                     image={img}
                     title={title}
                     key={title}
                 />
-                <CardContent>
+                <CardContent className = "text">
                     <Typography gutterBottom variant="headline" component="h2">
 
                     </Typography>
@@ -54,10 +107,36 @@ class CardField extends React.Component {
                         {title}
                     </Typography>
                 </CardContent>
-                <CardActions>
-                    <Button size="small" color="primary">
-                        Attack
-                    </Button>
+                <CardActions className = "button">
+                    {enemy ? (""):(
+                        <Button
+                            aria-owns={anchorEl ? 'simple-menu' : null}
+                            aria-haspopup="true"
+                            onClick={this.handleClick}
+                        >
+                            Attack
+                        </Button>
+
+
+                    )}
+                    {/*<Button*/}
+                        {/*aria-owns={anchorEl ? 'simple-menu' : null}*/}
+                        {/*aria-haspopup="true"*/}
+                        {/*onClick={this.handleClick}*/}
+                    {/*>*/}
+                        {/*Attack*/}
+                    {/*</Button>*/}
+                    <Menu
+                        id="simple-menu"
+                        anchorEl={anchorEl}
+                        open={Boolean(anchorEl)}
+                        onClose={this.handleClose}
+                    >
+                        // TODO: make it fetch data of attackable monster from enemy board
+                        <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+                        <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                        <MenuItem onClick={this.handleClose}>Logout</MenuItem>
+                    </Menu>
 
                 </CardActions>
             </Card>)}
@@ -67,33 +146,6 @@ class CardField extends React.Component {
 }
 
 
-
-// class CardInField extends React.Component{
-//     constructor(props){
-//         super();
-//         this.state = {
-//             index: 0,
-//             img: NULL,
-//             title:"EMPTY",
-//             atk: '',
-//             hp: '',
-//         };
-//         // this.handelChange = this.handelChange.bind(this);
-//     }
-//     render(){
-//         return (
-//
-//
-//                 < CardInField  img = {this.state.img} title ={this.state.title} hp={this.state.hp} atk = {this.state.atk} />
-//
-//
-//         )
-//     }
-//
-//
-//
-//
-// }
 
 CardField.propTypes = {
     classes: PropTypes.object.isRequired

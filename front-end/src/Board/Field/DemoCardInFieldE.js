@@ -2,11 +2,10 @@ import PAN from './cards_img/cardf.png'
 import GEM from './cards_img/gem.jpg'
 const DemoCardsInField = [
     {
-        img: PAN,
+        img: null,
         title: 'PA PAN',
         atk: '',
         hp:'',
-        empty: false,
     },
     {
         img: GEM,
