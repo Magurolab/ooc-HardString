@@ -246,7 +246,7 @@ public class DebuggerController {
     @RequestMapping(method = RequestMethod.GET, value={"/currentmana"})
     public ResponseEntity getCurrentMana(
     ){
-        return ResponseEntity.ok(board.getMana1());
+        return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()).getCurrentPlayerMana());
     }
 
     /**
@@ -258,7 +258,7 @@ public class DebuggerController {
     @RequestMapping(method = RequestMethod.GET, value={"/enemymana"})
     public ResponseEntity getEnemyMana(
     ){
-        return ResponseEntity.ok(board.getMana2());
+        return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()).getEnemyPlayerMana());
     }
 
     /**
@@ -366,6 +366,17 @@ public class DebuggerController {
     public ResponseEntity getGameover(
     ){
         return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()).isGameOver());
+    }
+
+    /**
+     * <b>/debug/getcurrenthand</b>
+     * - Return current hand of the current player, assuming player 1
+     * @return list of cards
+     */
+    @RequestMapping
+    public ResponseEntity getCurrentHand()
+    {
+        return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()).getCurrentHand());
     }
 
 }

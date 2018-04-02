@@ -1,6 +1,7 @@
 package hard.string.dto;
 
 import hard.string.entity.*;
+import hard.string.entity.cards.Card;
 import hard.string.service.BoardService;
 import hard.string.service.MonsterFieldService;
 
@@ -21,7 +22,7 @@ public class BoardDto {
 
     private long currentPlayer;
     private MonsterField currentField;
-    private TempHand currentHand;
+    private List<CardDto> currentHand;
     private long currentDeck;
     private String yourUsername;
 
@@ -42,6 +43,13 @@ public class BoardDto {
 
     private boolean turn;
     private boolean gameOver;
+
+    private void crateCurrentHand(TempHand tempHand){
+        for(Card c: tempHand.getHand()){
+            CardDto temp = new CardDto(c);
+            currentHand.add(temp);
+        }
+    }
 
     private void createField(Player currentPlayer, Player enemyPlayer){
         availableMonsterField = new ArrayList<>();
@@ -71,7 +79,7 @@ public class BoardDto {
         this.enemyPlayer = enemyPlayer.getPlayerId();
         currentField = currentPlayer.getMonsterField();
         enemyField = enemyPlayer.getMonsterField();
-        currentHand = currentPlayer.getTempHand();
+        crateCurrentHand(currentPlayer.getTempHand());
         enemyHand = enemyPlayer.getTempHand().getHand().size();
         currentDeck = currentPlayer.getTempDeck().getCards().size();
         enemyDeck = enemyPlayer.getTempDeck().getCards().size();
@@ -138,7 +146,7 @@ public class BoardDto {
         return enemyUsername;
     }
 
-    public TempHand getCurrentHand() {
+    public List<CardDto> getCurrentHand() {
         return currentHand;
     }
 

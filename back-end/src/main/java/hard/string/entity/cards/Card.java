@@ -27,8 +27,6 @@ public class Card {
 
     private Integer cost;
 
-    private String path;
-
     public String getName(){
         return name;
     }
