@@ -13,6 +13,8 @@ import InboxIcon from 'material-ui-icons/MoveToInbox';
 import Divider from 'material-ui/Divider';
 import BoardAPI from '../api/BoardAPI'; // import
 
+
+
 import Field from './Field/Field.js';
 
 import Hand from './Hand/Hand.js';
@@ -132,8 +134,10 @@ class Board extends React.Component{
             maxMana: 10,
             health: 0,
             maxHealth: 10,
+            currentHand: [],
             intervalPointer: undefined,
-            dead: undefined
+            dead: undefined,
+
         };
     }
 
@@ -167,7 +171,7 @@ class Board extends React.Component{
                 console.log(data);
                 // a, b = [aa, bb]
                 // const mana = data.currentPlayerMana
-                const { turn:turn ,currentPlayerMana: mana, currentDeck, currentField: {player: {hp, maxHP, name, index, dead}}} = data;
+                const { currentHand:{ hand }, turn:turn , currentPlayerMana: mana, currentDeck, currentField: {player: {hp, maxHP, name, index, dead}}} = data;
 
                 this.setState(({
                     mana,
@@ -177,7 +181,9 @@ class Board extends React.Component{
                     id: index,
                     dead,
                     deck: currentDeck,
-                    turn: turn
+                    turn: turn,
+                    currentHand: hand,
+
 
                 }));
             })
@@ -234,7 +240,8 @@ class Board extends React.Component{
 
                         <Grid container spacing={12} className={classes.g}>
 
-                            <Hand/>
+                            {console.log(this.state.currentHand)}
+                            <Hand hand={this.state.currentHand}/>
 
                         </Grid>
                 </main>

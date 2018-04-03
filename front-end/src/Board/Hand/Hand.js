@@ -2,13 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import GridList, { GridListTile, GridListTileBar } from 'material-ui/GridList';
-
 import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
-
 import Button from 'material-ui/Button';
-import Typography from 'material-ui/Typography';
-
-import DemoCards from './DemoCards.js';
+import ImageMapper from '../../ImageMapper';
 
 const styles = theme => ({
     root: {
@@ -37,21 +33,24 @@ const styles = theme => ({
 
 
 function Hand(props) {
-    const { classes } = props;
-
+    const { classes, hand } = props;
+    console.log(hand);
     return (
         <div className={classes.root}>
             <GridList className={classes.gridList} cellHeight={400} cols={5.1}>
-                {DemoCards.map(tile => (
+                {hand.map(tile => (
                     <GridListTile cols={0.8}>
 
                     <Card className={classes.card}>
                         <CardMedia
-                        className={classes.media}
-                        image={tile.img}
-                        title={tile.title+"\nattack "+
-                        tile.attack+"\nhealth "+
-                        tile.health}
+                            className={classes.media}
+                            // image={"../cards_img/" +tile.name+".png"}
+                            image={ImageMapper["3DPrinter"]}
+                            title={tile.name+"\nattack "+
+                        // tile.attack+
+                        "\nhealth "
+                        // + tile.health
+                        }
 
                         />
                     <CardActions>
