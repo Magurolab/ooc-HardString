@@ -8,7 +8,6 @@ import hard.string.repository.MonsterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sun.misc.Request;
 
 /**
  * Created by Teama on 3/24/2018.
@@ -23,6 +22,9 @@ public class BoardController {
 
     @Autowired
     private MonsterRepository monsterRepository;
+
+    @Autowired
+    private CardService cardService;
 
     @Autowired
     private MonsterService monsterService;
@@ -49,7 +51,8 @@ public class BoardController {
         Long gameId = boardDBService.findBoard(userId);
         if(gameId > 0){
             Board game = runningGameService.getGame(gameId);
-            return ResponseEntity.ok(new BoardDto(game,boardService.getPlayer(userId,game),boardService.getEnemeyPlayer(userId,game)));
+            return ResponseEntity.ok(new BoardDto(game,boardService.getPlayer(userId,game),boardService.getEnemeyPlayer(userId,game)
+                    ,boardService,monsterFieldService,cardService));
         }
         else{
             return ResponseEntity.badRequest().body("No game found!");
@@ -76,7 +79,8 @@ public class BoardController {
             TempMonster m2 = monsterFieldService.getMonster(monster2, p2.getMonsterField());
             boardService.fight(p1, p2, m1, m2, monster1, monster2);
             boardService.isGameEnd(board);
-            return ResponseEntity.ok(new BoardDto(board, p1, p2));
+            return ResponseEntity.ok(new BoardDto(board, p1, p2
+                    ,boardService,monsterFieldService,cardService));
         }
         else{
             return ResponseEntity.badRequest().body("Not your turn");
@@ -95,7 +99,8 @@ public class BoardController {
             boardService.endTurn(board);
             Player enemyPlayer = boardService.getEnemeyPlayer(userId, board);
             playerService.drawCard(enemyPlayer);
-            return ResponseEntity.ok(new BoardDto(board, currentPlayer, enemyPlayer));
+            return ResponseEntity.ok(new BoardDto(board, currentPlayer, enemyPlayer
+                    ,boardService,monsterFieldService,cardService));
         }
         return ResponseEntity.badRequest().body("Not your fucking turn you twat");
     }
@@ -174,7 +179,8 @@ public class BoardController {
         Board board = runningGameService.getGame(gameId);
         Player p1 = boardService.getPlayer(userId,board);
         Player p2 = boardService.getEnemeyPlayer(userId,board);
-        return ResponseEntity.ok(new BoardDto(board,p1,p2).getAvailableMonsterField());
+        return ResponseEntity.ok(new BoardDto(board,p1,p2
+                ,boardService,monsterFieldService,cardService).getAvailableMonsterField());
     }
 
     @RequestMapping(method = RequestMethod.GET, value={"/validmagictaget"})
@@ -185,7 +191,8 @@ public class BoardController {
         Board board = runningGameService.getGame(gameId);
         Player p1 = boardService.getPlayer(userId,board);
         Player p2 = boardService.getEnemeyPlayer(userId,board);
-        return ResponseEntity.ok(new BoardDto(board,p1,p2).getAvailableMagicTarget());
+        return ResponseEntity.ok(new BoardDto(board,p1,p2
+                ,boardService,monsterFieldService,cardService).getAvailableMagicTarget());
     }
 
 }

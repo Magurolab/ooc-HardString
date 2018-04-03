@@ -24,4 +24,5 @@ public class RunningGameService {
     public Board getGame(Long key){
         return runningGame.get(key);
     }
+
 }

@@ -3,7 +3,10 @@ package hard.string.dto;
 import hard.string.entity.*;
 import hard.string.entity.cards.Card;
 import hard.string.service.BoardService;
+import hard.string.service.CardService;
 import hard.string.service.MonsterFieldService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,19 +14,16 @@ import java.util.List;
 /**
  * Created by Teama on 3/25/2018.
  */
+
 public class BoardDto {
-
-    private BoardService boardService = new BoardService();
-
-    private MonsterFieldService monsterFieldService = new MonsterFieldService();
 
     private int currentPlayerMana;
     private int enemyPlayerMana;
 
     private long currentPlayer;
     private MonsterField currentField;
-//    private List<CardDto> currentHand;
-    private TempHand currentHand;
+    private List<CardDto> currentHand;
+//    private TempHand currentHand;
     private long currentDeck;
     private String yourUsername;
 
@@ -45,17 +45,11 @@ public class BoardDto {
     private boolean turn;
     private boolean gameOver;
 
-//    private void crateCurrentHand(TempHand tempHand){
-//        currentHand = new ArrayList<>();
-//        for(Card c: tempHand.getHand()){
-//            System.out.println("Creating CardDTO from card ID : " + c.getId());
-//            CardDto temp = new CardDto(c);
-//            System.out.println("Success");
-//            currentHand.add(temp);
-//        }
-//    }
+    private void createCurrentHand(TempHand tempHand, CardService cardService){
+        currentHand = cardService.createHandDto(tempHand);
+    }
 
-    private void createField(Player currentPlayer, Player enemyPlayer){
+    private void createField(Player currentPlayer, Player enemyPlayer, MonsterFieldService monsterFieldService){
         availableMonsterField = new ArrayList<>();
         availableMagicTarget = new ArrayList<>();
         availableAttackTarget = new ArrayList<>();
@@ -76,15 +70,18 @@ public class BoardDto {
         }
     }
 
-    public BoardDto(Board board, Player currentPlayer, Player enemyPlayer){
+    public BoardDto(Board board, Player currentPlayer, Player enemyPlayer,
+                    BoardService boardService,
+                    MonsterFieldService monsterFieldService,
+                    CardService cardService){
         currentPlayerMana = board.getMana1();
         enemyPlayerMana = board.getMana2();
         this.currentPlayer = currentPlayer.getPlayerId();
         this.enemyPlayer = enemyPlayer.getPlayerId();
         currentField = currentPlayer.getMonsterField();
         enemyField = enemyPlayer.getMonsterField();
-//        crateCurrentHand(currentPlayer.getTempHand());
-        currentHand = currentPlayer.getTempHand();
+        createCurrentHand(currentPlayer.getTempHand(),cardService);
+//        currentHand = currentPlayer.getTempHand();
         enemyHand = enemyPlayer.getTempHand().getHand().size();
         currentDeck = currentPlayer.getTempDeck().getCards().size();
         enemyDeck = enemyPlayer.getTempDeck().getCards().size();
@@ -92,7 +89,7 @@ public class BoardDto {
         enemyUsername = enemyPlayer.getUsername();
         turn = boardService.isValidTurn(currentPlayer,board);
         gameOver = board.isGameIsOver();
-        createField(currentPlayer,enemyPlayer);
+        createField(currentPlayer,enemyPlayer,monsterFieldService);
     }
 
     public List<String> getAvailableAttackTarget() {
@@ -151,14 +148,14 @@ public class BoardDto {
         return enemyUsername;
     }
 
-//    public List<CardDto> getCurrentHand() {
-//        return currentHand;
-//    }
-
-
-    public TempHand getCurrentHand() {
+    public List<CardDto> getCurrentHand() {
         return currentHand;
     }
+
+
+//    public TempHand getCurrentHand() {
+//        return currentHand;
+//    }
 
     public List<String> getAvailableMonsterField() {
         return availableMonsterField;

@@ -33,6 +33,10 @@ public class HandController {
     private MagicRepository magicRepository;
 
     @Autowired
+    private MonsterFieldService monsterFieldService;
+    @Autowired
+    private CardService cardService;
+    @Autowired
     private BoardDBService boardDBService;
     @Autowired
     private TempMonsterService tempMonsterService;
@@ -85,11 +89,13 @@ public class HandController {
                 if (side == 'P') {
                     tempHandService.playCard(board, currentPlayer, playedCard, in, true);
                     boardService.isGameEnd(board);
-                    return ResponseEntity.ok().body(new BoardDto(board,currentPlayer,enemyPlayer));
+                    return ResponseEntity.ok().body(new BoardDto(board,currentPlayer,enemyPlayer
+                            ,boardService,monsterFieldService,cardService));
                 } else if (side == 'E') {
                     tempHandService.playCard(board, currentPlayer, playedCard, in, false);
                     boardService.isGameEnd(board);
-                    return ResponseEntity.ok().body(new BoardDto(board,currentPlayer,enemyPlayer));
+                    return ResponseEntity.ok().body(new BoardDto(board,currentPlayer,enemyPlayer
+                            ,boardService,monsterFieldService,cardService));
                 } else {
                     //shouldn't go here
                     return ResponseEntity.badRequest().body("Something weird happen");

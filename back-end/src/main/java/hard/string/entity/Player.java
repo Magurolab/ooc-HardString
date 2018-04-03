@@ -1,11 +1,13 @@
 package hard.string.entity;
 
 import hard.string.entity.cards.Monster.Monster;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 
 
 
+@Component
 public class Player{
 
     //playerId == userId

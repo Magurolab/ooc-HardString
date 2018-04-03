@@ -17,8 +17,6 @@ import org.springframework.stereotype.Service;
 
 public class CardDto {
 
-    private TempMonsterService tempMonsterService = new TempMonsterService();
-
     private Long cardId;
 
     private String name;
@@ -31,23 +29,13 @@ public class CardDto {
 
     private Integer hp;
 
-    public CardDto(Card c){
-        this.cardId = c.getId();
-        this.name = c.getName();
-        this.type = c.getType();
-        this.cost = c.getCost();
-        System.out.println(type);
-        if(type.equals("Magic")){
-            this.attack = 0;
-            this.hp = 0;
-        }
-        else{
-            System.out.println(type.equals("Monster") + " Monster");
-            System.out.println(cardId);
-            TempMonster temp = tempMonsterService.createTempMonster(cardId);
-            this.attack = temp.getAtk();
-            this.hp = temp.getMaxHP();
-        }
+    public CardDto(Card c, Integer attack, Integer hp){
+        cardId = c.getId();
+        name = c.getName();
+        type = c.getType();
+        this.attack = attack;
+        this.hp = hp;
+        cost = c.getCost();
     }
 
     public Integer getCost() {

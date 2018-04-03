@@ -2,9 +2,11 @@ package hard.string.entity;
 
 
 import hard.string.entity.cards.Card;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class TempHand {
 
     private List<Card> hand;

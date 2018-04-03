@@ -3,14 +3,13 @@ package hard.string.dto;
 import hard.string.entity.LobbyRoom;
 import hard.string.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by Teama on 3/17/2018.
  */
-public class RoomDto {
 
-    @Autowired
-    UserService userService;
+public class RoomDto {
 
     private Long roomId;
 
@@ -49,16 +48,16 @@ public class RoomDto {
     }
 
     public RoomDto(LobbyRoom lobbyRoom){
-        this.roomId = lobbyRoom.getRoomId();
-        int count = 0;
-        if(lobbyRoom.getUser1()>0){
-            this.setPlayer1(userService.findDuelist(lobbyRoom.getUser1()).getFirstName());
-            count++;
-        }
-        if(lobbyRoom.getUser2()>0){
-            this.setPlayer2(userService.findDuelist(lobbyRoom.getUser2()).getFirstName());
-            count++;
-        }
-        this.size = count;
+//        this.roomId = lobbyRoom.getRoomId();
+//        int count = 0;
+//        if(lobbyRoom.getUser1()>0){
+//            this.setPlayer1(userService.findDuelist(lobbyRoom.getUser1()).getFirstName());
+//            count++;
+//        }
+//        if(lobbyRoom.getUser2()>0){
+//            this.setPlayer2(userService.findDuelist(lobbyRoom.getUser2()).getFirstName());
+//            count++;
+//        }
+//        this.size = count;
     }
 }

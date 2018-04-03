@@ -12,9 +12,9 @@ import org.springframework.stereotype.Service;
 public class BoardService {
 
     @Autowired
-    private TempMonsterService tempMonstersService = new TempMonsterService();
+    private TempMonsterService tempMonstersService;
     @Autowired
-    private MonsterFieldService monsterFieldService = new MonsterFieldService();
+    private MonsterFieldService monsterFieldService;
 
     public boolean fight(Player pA ,Player pB, TempMonster mA,TempMonster mB,int indexA,int indexB) {
 

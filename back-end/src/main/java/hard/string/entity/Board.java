@@ -1,8 +1,13 @@
 package hard.string.entity;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+
 /**
  * Created by Teama on 3/25/2018.
  */
+
+@Component
 public class Board {
 
     private int mana1;

@@ -5,6 +5,7 @@ import hard.string.entity.*;
 import hard.string.entity.cards.Card;
 import hard.string.repository.CardRepository;
 import hard.string.repository.DeckRepository;
+import hard.string.repository.MonsterRepository;
 import hard.string.repository.UserRepository;
 import hard.string.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,12 @@ public class DebuggerController {
 
     @Autowired
     private CardRepository cardRepository;
+
+    @Autowired
+    private MonsterRepository monsterRepository;
+
+    @Autowired
+    private CardService cardService;
 
     @Autowired
     private UserService userService;
@@ -146,7 +153,7 @@ public class DebuggerController {
     @RequestMapping(value = {"/fakegame"})
     public ResponseEntity fakeGame(){
         board = createFakeboard();
-        return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()));
+        return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2(),boardService,monsterFieldService,cardService));
     }
 
     /**
@@ -160,7 +167,7 @@ public class DebuggerController {
         if(board == null){
             board = createFakeboard();
         }
-        return ResponseEntity.ok().body(new BoardDto(board,board.getPlayer1(),board.getPlayer2()));
+        return ResponseEntity.ok().body(new BoardDto(board,board.getPlayer1(),board.getPlayer2(),boardService,monsterFieldService,cardService));
     }
 
     /**
@@ -178,7 +185,7 @@ public class DebuggerController {
         tempHandService.playCard(board,board.getPlayer1(),gift,1,true);
         System.out.println("After played " + board.getMana1());
         System.out.println("Current hand size " + board.getPlayer1().getTempHand().getHand().size());
-        return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()));
+        return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2(),boardService,monsterFieldService,cardService));
     }
 
     /**
@@ -196,7 +203,7 @@ public class DebuggerController {
         TempMonster m2 = tempMonsterService.createTempMonster(gift.getId());
         board.getPlayer1().getMonsterField().setMonster1(m1);
         board.getPlayer2().getMonsterField().setMonster2(m2);
-        return ResponseEntity.ok(new BoardDto(board,p1,p2));
+        return ResponseEntity.ok(new BoardDto(board,p1,p2,boardService,monsterFieldService,cardService));
     }
 
     /**
@@ -208,7 +215,7 @@ public class DebuggerController {
     public ResponseEntity testAttackMonster(){
         boardService.fight(board.getPlayer1(),board.getPlayer2(),board.getPlayer1().getMonsterField().getMonster1(),
                 board.getPlayer2().getMonsterField().getMonster2(),1,2);
-        return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()));
+        return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2(),boardService,monsterFieldService,cardService));
     }
 
     /**
@@ -219,7 +226,7 @@ public class DebuggerController {
     @RequestMapping(value = {"/testendturn"})
     public ResponseEntity testEndTurn(){
         boardService.endTurn(board);
-        return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()));
+        return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2(),boardService,monsterFieldService,cardService));
     }
 
     /**
@@ -236,7 +243,7 @@ public class DebuggerController {
         else{
             playerService.drawCard(board.getPlayer2());
         }
-        return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()));
+        return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2(),boardService,monsterFieldService,cardService));
     }
 
     /**
@@ -248,7 +255,7 @@ public class DebuggerController {
     @RequestMapping(method = RequestMethod.GET, value={"/currentmana"})
     public ResponseEntity getCurrentMana(
     ){
-        return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()).getCurrentPlayerMana());
+        return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2(),boardService,monsterFieldService,cardService).getCurrentPlayerMana());
     }
 
     /**
@@ -260,7 +267,7 @@ public class DebuggerController {
     @RequestMapping(method = RequestMethod.GET, value={"/enemymana"})
     public ResponseEntity getEnemyMana(
     ){
-        return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()).getEnemyPlayerMana());
+        return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2(),boardService,monsterFieldService,cardService).getEnemyPlayerMana());
     }
 
     /**
@@ -321,7 +328,7 @@ public class DebuggerController {
     @RequestMapping(method = RequestMethod.GET, value={"/validmonsterfield"})
     public ResponseEntity getValidMonsterField(
     ){
-        return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()).getAvailableMonsterField());
+        return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2(),boardService,monsterFieldService,cardService).getAvailableMonsterField());
     }
 
     /**
@@ -333,7 +340,7 @@ public class DebuggerController {
     @RequestMapping(method = RequestMethod.GET, value={"/validmagictarget"})
     public ResponseEntity getValidMagicTarget(
     ){
-        return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()).getAvailableMagicTarget());
+        return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2(),boardService,monsterFieldService,cardService).getAvailableMagicTarget());
     }
 
     /**
@@ -345,7 +352,7 @@ public class DebuggerController {
     @RequestMapping(method = RequestMethod.GET, value={"/validattacktarget"})
     public ResponseEntity getValidAttackTarget(
     ){
-        return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()).getAvailableAttackTarget());
+        return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2(),boardService,monsterFieldService,cardService).getAvailableAttackTarget());
     }
 
     /**
@@ -356,7 +363,7 @@ public class DebuggerController {
     @RequestMapping(method = RequestMethod.GET, value={"/turn"})
     public ResponseEntity getTurn(
     ){
-        return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()).isTurn());
+        return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2(),boardService,monsterFieldService,cardService).isTurn());
     }
 
     /**
@@ -367,7 +374,7 @@ public class DebuggerController {
     @RequestMapping(method = RequestMethod.GET, value={"/gameover"})
     public ResponseEntity getGameover(
     ){
-        return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()).isGameOver());
+        return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2(),boardService,monsterFieldService,cardService).isGameOver());
     }
 
     /**
@@ -378,7 +385,17 @@ public class DebuggerController {
     @RequestMapping(method = RequestMethod.GET, value={"/getcurrenthand"})
     public ResponseEntity getCurrentHand()
     {
-        return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()).getCurrentHand());
+        return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2(),boardService,monsterFieldService,cardService).getCurrentHand());
     }
 
+    @RequestMapping(method = RequestMethod.GET, value={"/monsterRepo"})
+    public ResponseEntity getMonsterRepo(
+            @RequestParam(required = false) Long id
+    )
+    {
+        if(id != null){
+            return ResponseEntity.ok(monsterRepository.findById(id).orElse(null));
+        }
+        return ResponseEntity.ok(monsterRepository.findAll());
+    }
 }
