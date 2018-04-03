@@ -16,14 +16,14 @@ const styles = theme => ({
 
     },
     gridList: {
-        width: 1350,
+        width: 1600,
         height: 450,
         flexWrap: 'nowrap',
         // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
         transform: 'translateZ(0)',
     },
     card: {
-        maxWidth: '14vw',
+        maxWidth: '15vw',
     },
     media: {
         height: '18vw',
@@ -45,7 +45,7 @@ function Hand(props) {
                         <CardMedia
                             className={classes.media}
                             // image={"../cards_img/" +tile.name+".png"}
-                            image={ImageMapper["3DPrinter"]}
+                            image={ImageMapper[tile.name]}
                             title={tile.name+"\nattack "+
                         // tile.attack+
                         "\nhealth "

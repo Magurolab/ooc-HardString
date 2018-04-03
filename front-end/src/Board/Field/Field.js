@@ -13,6 +13,7 @@ import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import GridList, { GridListTile } from 'material-ui/GridList';
 // import tileData from './tileData';
+import ImageMapper from '../../ImageMapper';
 
 const styles = theme => ({
 

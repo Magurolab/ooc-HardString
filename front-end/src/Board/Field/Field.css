@@ -31,10 +31,10 @@
 }
 
 .grid-holder-enemy {
-     /*text-align: center;*/
+     text-align: center;
      margin: 5px 5% 5px 5%;
  }
 .grid-holder-friendly {
-    /*text-align: center;*/
-    margin: 5px 3% 5px 3%;
+    text-align: center;
+    margin: 5px 5% 5px 5%;
 }
