@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import sun.misc.Request;
 
 /**
  * Created by Teama on 3/29/2018.
@@ -21,9 +22,18 @@ public class RoomController {
     @Autowired
     private LobbyRoomRepository lobbyRoomRepository;
 
-    @RequestMapping(method = RequestMethod.POST, value = "/read")
+
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity room(
+            @RequestParam Long userId
+    ){
+        LobbyRoom room = lobbyRoomRepository.findByRoomId(userId);
+        return ResponseEntity.ok().body("replace this with something useful");
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "ready")
     public ResponseEntity ready(
-            @RequestParam Long user,
+            @RequestParam Long userId,
             @RequestParam Long roomId
     )
     {
