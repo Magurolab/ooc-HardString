@@ -5,10 +5,8 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MonsterRepository extends CrudRepository<Monster,String>{
+public interface MonsterRepository extends CrudRepository<Monster,Long>{
 
     Monster findMonsterByName(String name);
-
-    Monster findById(Long Id);
 
 }

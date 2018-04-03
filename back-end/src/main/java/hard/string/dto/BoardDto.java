@@ -22,7 +22,8 @@ public class BoardDto {
 
     private long currentPlayer;
     private MonsterField currentField;
-    private List<CardDto> currentHand;
+//    private List<CardDto> currentHand;
+    private TempHand currentHand;
     private long currentDeck;
     private String yourUsername;
 
@@ -44,12 +45,15 @@ public class BoardDto {
     private boolean turn;
     private boolean gameOver;
 
-    private void crateCurrentHand(TempHand tempHand){
-        for(Card c: tempHand.getHand()){
-            CardDto temp = new CardDto(c);
-            currentHand.add(temp);
-        }
-    }
+//    private void crateCurrentHand(TempHand tempHand){
+//        currentHand = new ArrayList<>();
+//        for(Card c: tempHand.getHand()){
+//            System.out.println("Creating CardDTO from card ID : " + c.getId());
+//            CardDto temp = new CardDto(c);
+//            System.out.println("Success");
+//            currentHand.add(temp);
+//        }
+//    }
 
     private void createField(Player currentPlayer, Player enemyPlayer){
         availableMonsterField = new ArrayList<>();
@@ -79,7 +83,8 @@ public class BoardDto {
         this.enemyPlayer = enemyPlayer.getPlayerId();
         currentField = currentPlayer.getMonsterField();
         enemyField = enemyPlayer.getMonsterField();
-        crateCurrentHand(currentPlayer.getTempHand());
+//        crateCurrentHand(currentPlayer.getTempHand());
+        currentHand = currentPlayer.getTempHand();
         enemyHand = enemyPlayer.getTempHand().getHand().size();
         currentDeck = currentPlayer.getTempDeck().getCards().size();
         enemyDeck = enemyPlayer.getTempDeck().getCards().size();
@@ -146,7 +151,12 @@ public class BoardDto {
         return enemyUsername;
     }
 
-    public List<CardDto> getCurrentHand() {
+//    public List<CardDto> getCurrentHand() {
+//        return currentHand;
+//    }
+
+
+    public TempHand getCurrentHand() {
         return currentHand;
     }
 

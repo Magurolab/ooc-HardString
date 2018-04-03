@@ -85,6 +85,8 @@ public class DebuggerController {
             playerService.drawCard(p1);
             playerService.drawCard(p2);
         }
+        System.out.println(p1.getTempHand().getHand().size());
+        System.out.println(p2.getTempHand().getHand().size());
         Board  b = new Board();
         b.setGameIsOver(false);
         b.setMana1(1);
@@ -373,7 +375,7 @@ public class DebuggerController {
      * - Return current hand of the current player, assuming player 1
      * @return list of cards
      */
-    @RequestMapping
+    @RequestMapping(method = RequestMethod.GET, value={"/getcurrenthand"})
     public ResponseEntity getCurrentHand()
     {
         return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2()).getCurrentHand());
