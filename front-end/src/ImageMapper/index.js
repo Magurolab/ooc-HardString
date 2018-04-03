@@ -29,7 +29,7 @@ export default {
     "Fat this guy again":Fatthisguyagain,
     "DDos guy":DDosguy,
     "AddDrop":AddDrop,
-    "Alphadoge":Alpadoge,
+    "Alpadoge":Alpadoge,
     "Babe":Babe,
     "icsh>":icsh,
     "HW Token":HWToken,

@@ -4,6 +4,8 @@ import createMuiTheme from 'material-ui/styles/createMuiTheme';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Board from './Board/Board.js';
 import './index.css';
+import './App.css';
+
 const theme = createMuiTheme();
 
 
@@ -13,9 +15,10 @@ class App extends Component {
     return (
         <MuiThemeProvider theme = { theme }>
             <Router>
-
-                <Route exact path="/" exact component={ Board } />
-
+                <div className={"hugeBoy"}>
+                    <Route exact path="/login" exact component={ Board } />
+                    <Route exact path="/" exact component={ Board } />
+                </div>
             </Router>
         </MuiThemeProvider>
     );
