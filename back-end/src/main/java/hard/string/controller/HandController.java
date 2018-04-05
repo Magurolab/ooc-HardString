@@ -93,21 +93,19 @@ public class HandController {
         if(playedCard!=null){
             //check if player is able to play this card
             if(boardService.canPlayThisCard(board,playedCard,currentPlayer)) {
+                System.out.println("String sent: "+index);
+                System.out.println("String size : " + index.length());
+                System.out.println("Stripped : " + index.charAt(index.length() -1));
                 char side = index.charAt(index.length() - 1);
                 int in = Integer.valueOf(index.subSequence(0, index.length() - 1).toString());
                 if (side == 'P') {
                     tempHandService.playCard(board, currentPlayer, playedCard, in, true);
-                    if (boardService.isGameEnd(board)){
-
-                        //do something with the game
-                    }
+                    boardService.gameEndHandler(board);
                     return ResponseEntity.ok().body(new BoardDto(board,currentPlayer,enemyPlayer
                             ,boardService,monsterFieldService,cardService));
                 } else if (side == 'E') {
                     tempHandService.playCard(board, currentPlayer, playedCard, in, false);
-
-                    boardService.isGameEnd(board);
-
+                    boardService.gameEndHandler(board);
                     return ResponseEntity.ok().body(new BoardDto(board,currentPlayer,enemyPlayer
                             ,boardService,monsterFieldService,cardService));
                 } else {
