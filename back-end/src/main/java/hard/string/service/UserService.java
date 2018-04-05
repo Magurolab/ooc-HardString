@@ -36,6 +36,7 @@ public class UserService {
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setPassword(hashpassword);
+        user.setElo(1000);
         Deck deck = new Deck();
         user.setDeck(deck);
         return user;

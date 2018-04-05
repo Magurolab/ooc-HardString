@@ -9,6 +9,7 @@ import hard.string.service.UserService;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,8 +38,7 @@ public class RegisterController {
     @Autowired
     private UserService userService;
 
-
-
+    @Transactional
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity addUser(
             @RequestParam String username,

@@ -25,7 +25,7 @@ public class TempHandService {
 
     public boolean playCard(Board b, Player player, Card c, int indexTarget , boolean friendlyTarget){
         //Doesn't have this card in the first place?
-        if(!player.getTempHand().getHand().contains(c)){
+        if(!havethisInHand(player,c)){
             return false;
         }
         MonsterField monsterField;
@@ -58,8 +58,20 @@ public class TempHandService {
     }
 
     private boolean playMonster(Player p,Card c,int index){
-        p.getTempHand().getHand().remove(c);
-        return monsterFieldService.addMonster(p,c.getId(),index);
+        if(monsterFieldService.getMonster(index,p.getMonsterField())==null) {
+            p.getTempHand().getHand().remove(c);
+            return monsterFieldService.addMonster(p, c.getId(), index);
+        }
+        return false;
+    }
+
+    private boolean havethisInHand(Player p, Card c){
+        for(Card temp: p.getTempHand().getHand()){
+            if(temp.getId().equals(c.getId())) {
+                return true;
+            }
+        }
+        return false;
     }
 
 

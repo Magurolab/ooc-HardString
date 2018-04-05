@@ -21,7 +21,6 @@ public class FailAuthhentication extends SimpleUrlAuthenticationFailureHandler {
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-
         IOUtils.write(new ResponseLogin().toString(), response.getWriter());
     }
 }

@@ -14,6 +14,7 @@ public class User{
     private String password;
     private String firstName;
     private String lastName;
+    private Integer elo;
 
     @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "deckId")
@@ -68,4 +69,11 @@ public class User{
         return lastName;
     }
 
+    public Integer getElo() {
+        return elo;
+    }
+
+    public void setElo(Integer elo) {
+        this.elo = elo;
+    }
 }

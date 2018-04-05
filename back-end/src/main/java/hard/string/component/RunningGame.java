@@ -11,7 +11,7 @@ import java.util.HashMap;
 @Component
 public final class RunningGame {
 
-    private HashMap<Long,Board> game = new HashMap<>();
+    private HashMap<Long,Board> game;
 
     private static volatile RunningGame instance = null;
 

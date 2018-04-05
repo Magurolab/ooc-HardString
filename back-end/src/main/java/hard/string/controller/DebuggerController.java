@@ -189,6 +189,50 @@ public class DebuggerController {
     }
 
     /**
+     * <b>/debug/playcard</b>
+     * play the card specified, on the specific index that we agreed on. (1P = index1, your field, 3E = index 3, enemy field)
+     * @param currentPlayer
+     * @param cardId
+     * @param index
+     * @return board
+     */
+    @RequestMapping(value = {"/playcard"})
+    public ResponseEntity playcard(
+            @RequestParam long currentPlayer,
+            @RequestParam long cardId,
+            @RequestParam String index){
+        Card playedCard = cardRepository.findById(cardId).orElse(null);
+        Player current = boardService.getPlayer(currentPlayer,board);
+        Player enemy = boardService.getEnemeyPlayer(currentPlayer,board);
+        //check if the card is valid in database
+        if(playedCard!=null){
+            //check if player is able to play this card
+            if(boardService.canPlayThisCard(board,playedCard,current)) {
+                char side = index.charAt(index.length() - 1);
+                int in = Integer.valueOf(index.subSequence(0, index.length() - 1).toString());
+                if (side == 'P') {
+                    System.out.println("Play on your own field");
+                    tempHandService.playCard(board, current, playedCard, in, true);
+                    boardService.isGameEnd(board);
+                    return ResponseEntity.ok().body(new BoardDto(board,current,enemy
+                            ,boardService,monsterFieldService,cardService));
+                } else if (side == 'E') {
+                    System.out.println("Play on enemy field");
+                    tempHandService.playCard(board, current, playedCard, in, false);
+                    boardService.isGameEnd(board);
+                    return ResponseEntity.ok().body(new BoardDto(board,current,enemy
+                            ,boardService,monsterFieldService,cardService));
+                } else {
+                    //shouldn't go here
+                    return ResponseEntity.badRequest().body("Something weird happen");
+                }
+            }
+            return ResponseEntity.badRequest().body("Invalid turn!");
+        }
+        return ResponseEntity.badRequest().body("Not a valid card");
+    }
+
+    /**
      * <b>/debug/testsetmonster</b>
      * - Set monsters for both side of the field
      * @return board
@@ -388,7 +432,13 @@ public class DebuggerController {
         return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2(),boardService,monsterFieldService,cardService).getCurrentHand());
     }
 
-    @RequestMapping(method = RequestMethod.GET, value={"/monsterRepo"})
+    /**
+     * <b>/debug/monsterrepo</b>
+     * - Return the whole repository of monster, or the specific data of that monster id if id is not null
+     * @param(Long id)
+     * @return monster(s)
+     */
+    @RequestMapping(method = RequestMethod.GET, value={"/monsterrepo"})
     public ResponseEntity getMonsterRepo(
             @RequestParam(required = false) Long id
     )

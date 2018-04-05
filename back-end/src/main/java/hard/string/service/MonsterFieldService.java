@@ -95,6 +95,7 @@ public class MonsterFieldService {
     public  boolean addMonster(Player player,long cardId,int index){
         MonsterField monsterField = player.getMonsterField();
         TempMonster tempMonster = tempMonsterService.createTempMonster(cardId);
+        tempMonster.setIndex(index);
         //If taunt add counter in Player
         if(tempMonster.isTaunt()){
             player.setActiveTaunt(player.getActiveTaunt()+1);

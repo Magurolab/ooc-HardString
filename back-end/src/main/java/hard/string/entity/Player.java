@@ -7,7 +7,6 @@ import javax.persistence.*;
 
 
 
-@Component
 public class Player{
 
     //playerId == userId
