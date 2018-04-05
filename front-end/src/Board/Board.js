@@ -126,8 +126,10 @@ class Board extends React.Component{
             intervalPointer: undefined,
             dead: undefined,
             currentField: undefined,
+            enemyField: undefined,
             availableMagicTarget:[],
             availableMonsterField:[],
+            availableAttackTarget:[],
 
 
         };
@@ -163,7 +165,16 @@ class Board extends React.Component{
                 // console.log(data);
                 // a, b = [aa, bb]
                 // const mana = data.currentPlayerMana
-                const { availableMagicTarget,availableMonsterField,currentField, currentHand: hand , turn:turn , currentPlayerMana: mana, currentDeck} = data;
+                const { availableMagicTarget,
+                    availableMonsterField,
+                    currentField,
+                    currentHand: hand ,
+                    turn:turn ,
+                    currentPlayerMana: mana,
+                    currentDeck,
+                    enemyField,
+                    availableAttackTarget
+                } = data;
 
                 const { player: { maxHP, name, dead, hp } } = currentField;
 
@@ -176,9 +187,11 @@ class Board extends React.Component{
                     deck: currentDeck,
                     turn: turn,
                     currentHand: hand,
+                    enemyField,
                     currentField,
                     availableMagicTarget,
                     availableMonsterField,
+                    availableAttackTarget,
 
 
                 }), () => console.log("state", this.state));
@@ -191,7 +204,7 @@ class Board extends React.Component{
 
     render(){
         const { classes } = this.props;
-        console.log(this.state.currentField);
+        console.log("Field",this.state.currentField);
         return (
             <div className={classes.root}>
                 <Drawer
@@ -217,7 +230,12 @@ class Board extends React.Component{
 
                             <Grid item xs={12} >
 
-                             <Field currentField={this.state.currentField} />
+                            <Field currentField={this.state.currentField}
+                                   enemyField = {this.state.enemyField}
+                                   availableAttackTarget = {this.state.availableAttackTarget}
+                                   availableMagicTarget = {this.state.availableMagicTarget}
+
+                            />
 
                             </Grid>
                         </Grid>

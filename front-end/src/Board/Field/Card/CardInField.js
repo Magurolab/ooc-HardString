@@ -51,6 +51,7 @@ class CardField extends React.Component {
 
     state = {
         anchorEl: null,
+        field: null,
     };
 
     handleClick = event => {
@@ -63,9 +64,13 @@ class CardField extends React.Component {
     render(){
         // console.log(this.props);
         const { anchorEl } = this.state;
-        const {monsterInfo} = this.props;
-        const {img, classes, title, empty, enemy} = monsterInfo;
-
+        const {monsterInfo , classes, availableAttackTarget, availableMagicTarget} = this.props;
+        if(monsterInfo === undefined){
+            return(<div>Card Loading..</div>);
+        }
+        const {img, title, empty, enemy} = monsterInfo;
+        console.log("MonsterInfo", monsterInfo);
+        console.log(img);
         // console.log("Idex:",idex );
     return (
 
@@ -76,9 +81,9 @@ class CardField extends React.Component {
                 <Card className={classes.card}>
                     <CardMedia
                         className={classes.media}
-                        // image={img}
-                        // title={title}
-                        // key={title}
+                        image={""}
+                        title={""}
+                        key={""}
                     />
                     <CardContent className = "text">
                         <Typography gutterBottom variant="headline" component="h2">
