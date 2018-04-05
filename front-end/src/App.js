@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Board from './Board/Board.js';
 import Login from './Login/Login.js';
 import Register from './Register/Register.js';
+import Ready from './Ready.js';
 import './index.css';
 import './App.css';
 import LoginAPI from "./api/LoginAPI.js";
@@ -26,11 +27,23 @@ function MyAuthProvider(props) {
 
 function MyAuthRoute(props) {
     return (
+        <MuiThemeProvider theme = { theme }>
+            <Router>
+                <div className={"hugeBoy"}>
+                    <Route exact path="/login" component={ Login } />
+                    <Route exact path="/" component={ Board } />
+                    <Route exact path="/register" component={ Register } />
+                    <Route exact path="/ready" component={ Ready }/>
+                </div>
+            </Router>
+        </MuiThemeProvider>
+    );
+  }
         <AuthRoute
             loginRoute="/login"
             {...props}
         />
-    )
+
 }
 
 class App extends Component {
