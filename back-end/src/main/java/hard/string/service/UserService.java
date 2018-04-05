@@ -50,9 +50,12 @@ public class UserService {
         if(findUser!=null) {
             System.out.println(username);
             System.out.println(password);
+            System.out.println("Attempting match password..");
             if (HashPassword.verifyPassword(findUser.getPassword(), password)) {
+                System.out.println("login success");
                 return new UserWithProfileDto(findUser);
             }
+            System.out.println("Password mismatched");
         }
         return null;
     }

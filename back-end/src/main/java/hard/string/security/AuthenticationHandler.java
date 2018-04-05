@@ -23,6 +23,7 @@ public class AuthenticationHandler implements AuthenticationProvider {
         String password = authentication.getCredentials().toString();
         UserWithProfileDto userWithProfileDto = userService.authenticate(username,password);
         if (userWithProfileDto!=null){
+            System.out.println("Success");
             return new UsernamePasswordAuthenticationToken(userWithProfileDto, null, new ArrayList<>());
         }
         return null;
