@@ -33,12 +33,12 @@ const styles = theme => ({
 
 
 function Hand(props) {
-    const { classes, hand } = props;
-    console.log(hand);
+    const { classes, hand: currentHand } = props;
+    console.log("hand", currentHand.map(e => console.log(e)));
     return (
         <div className={classes.root}>
             <GridList className={classes.gridList} cellHeight={400} cols={5.1}>
-                {hand.map(tile => (
+                { currentHand.map(tile => (
                     <GridListTile cols={0.8}>
 
                     <Card className={classes.card}>
@@ -71,6 +71,7 @@ function Hand(props) {
 
 Hand.propTypes = {
     classes: PropTypes.object.isRequired,
+    hand: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(Hand);

@@ -18,7 +18,7 @@ import ImageMapper from '../../ImageMapper';
 const styles = theme => ({
 
     field: {
-        padding: 20, marginTop: 10, marginButton: 10, marginLeft: 5, marginRight:5,
+        padding: 20, marginTop: 10, marginButton: 10, marginLeft: 5, marginRight: 5,
 
         display: 'flex',
         flexWrap: 'wrap',
@@ -35,15 +35,14 @@ const styles = theme => ({
 
 
 function Field(props){
+    const { classes, currentField} = props;
+    console.log("props", props);
+    console.log(currentField === undefined ? "Not Working" : "Working");
 
-    const { classes } = props;
         return(
 
             <Paper className={ classes.field } >
 
-
-                {/*{DemoCardsInField[1].img}*/}
-                {/*<img src={DemoCardsInField[1].img}/>*/}
                 <div className="grid-holder-enemy">
                     <Grid container spacing={12}>
                         <Grid item ys={12} >
@@ -152,37 +151,6 @@ function Field(props){
                         </Grid>
                     </Grid>
                 </div>
-
-
-                {/*<Grid container spacing={12}>*/}
-                    {/*<Grid item xs={12} >*/}
-
-                        {/*<div className="flex-container">*/}
-                            {/*<div>1</div>*/}
-                            {/*<div>2</div>*/}
-                            {/*<div>3</div>*/}
-                            {/*<div>4</div>*/}
-                            {/*<div>5</div>*/}
-
-                        {/*</div>*/}
-
-                    {/*</Grid>*/}
-                {/*</Grid>*/}
-
-
-                {/*<Grid Grid item xs={12}>*/}
-
-                    {/*<div className="flex-container">*/}
-                        {/*<div>1</div>*/}
-                        {/*<div>2</div>*/}
-                        {/*<div>3</div>*/}
-                        {/*<div>4</div>*/}
-                        {/*<div>5</div>*/}
-
-                    {/*</div>*/}
-
-                {/*</Grid>*/}
-
             </Paper>
         );
 

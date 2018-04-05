@@ -1,24 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
-import {Grid, Paper} from 'material-ui'
-// import Card, { CardActions, CardContent } from 'material-ui/Card';
-
-
+import {Grid} from 'material-ui'
 import Drawer from 'material-ui/Drawer';
-
 import List, {ListItem, ListItemIcon, ListItemText} from 'material-ui/List';
 import InboxIcon from 'material-ui-icons/MoveToInbox';
-
 import Divider from 'material-ui/Divider';
 import BoardAPI from '../api/BoardAPI'; // import
-
-
-
 import Field from './Field/Field.js';
-
 import Hand from './Hand/Hand.js';
-import {mailFolderListItems, otherMailFolderListItems} from "./Sidebar/tileData";
+import {otherMailFolderListItems} from "./Sidebar/tileData";
 
 const drawerWidth = 240;
 const styles = theme => ({
@@ -39,17 +30,13 @@ const styles = theme => ({
         position: 'relative',
         display: 'flex',
     },
-    appBar: {
-        // zIndex: theme.zIndex.drawer + 1,
-    },
+
     drawerPaper: {
         position: 'relative',
         width: drawerWidth,
     },
     content: {
         flexGrow: 1,
-        // backgroundColor: theme.palette.background.default,
-        // padding: theme.spacing.unit * 3,
         minWidth: 0, // So the Typography noWrap works
     },
     field_holder: {
@@ -57,7 +44,7 @@ const styles = theme => ({
         flexWrap: 'nowrap',
         flexGrow: 1,
     },
-    // toolbar: theme.mixins.toolbar,
+
 });
 function TurnBar(props){
     const {turn} = props;
@@ -138,6 +125,7 @@ class Board extends React.Component{
             currentHand: [],
             intervalPointer: undefined,
             dead: undefined,
+            currentField: undefined,
 
         };
     }
@@ -169,24 +157,24 @@ class Board extends React.Component{
     getBoard = () =>{
         BoardAPI.showBoard()
             .then(({data, status}) => {
-                console.log(data);
+                // console.log(data);
                 // a, b = [aa, bb]
                 // const mana = data.currentPlayerMana
-                const { currentHand:{ hand }, turn:turn , currentPlayerMana: mana, currentDeck, currentField: {player: {hp, maxHP, name, index, dead}}} = data;
+                const { currentField, currentHand: hand , turn:turn , currentPlayerMana: mana, currentDeck} = data;
+
+                const { player: { maxHP, name, dead, hp } } = currentField;
 
                 this.setState(({
                     mana,
                     health: hp,
                     maxHealth: maxHP,
-                    name,
-                    id: index,
-                    dead,
+                    name: name,
+                    dead: dead,
                     deck: currentDeck,
                     turn: turn,
                     currentHand: hand,
-
-
-                }));
+                    currentField,
+                }), () => console.log("state", this.state));
             })
             .catch((e) => {
                 // alert("Shit happens in Show board");
@@ -194,19 +182,9 @@ class Board extends React.Component{
             })
     };
 
-    // render(){
-    //     return (
-    //         <div>
-    //             <button onClick={this.getBoard} > Get Board</button>
-    //             <button onClick={this.initBoard}> Init</button>
-    //
-    //         </div>
-    //         )
-    //
-    // }
-
     render(){
         const { classes } = this.props;
+        console.log(this.state.currentField);
         return (
             <div className={classes.root}>
                 <Drawer
@@ -232,7 +210,7 @@ class Board extends React.Component{
 
                             <Grid item xs={12} >
 
-                             <Field/>
+                             <Field currentField={this.state.currentField} />
 
                             </Grid>
                         </Grid>
@@ -241,7 +219,7 @@ class Board extends React.Component{
 
                         <Grid container spacing={12} className={classes.g}>
 
-                            {console.log(this.state.currentHand)}
+                            {/*{console.log(this.state.currentHand)}*/}
                             <Hand hand={this.state.currentHand}/>
 
                         </Grid>
