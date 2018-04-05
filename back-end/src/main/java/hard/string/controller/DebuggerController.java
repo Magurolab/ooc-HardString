@@ -213,13 +213,11 @@ public class DebuggerController {
                 if (side == 'P') {
                     System.out.println("Play on your own field");
                     tempHandService.playCard(board, current, playedCard, in, true);
-                    boardService.isGameEnd(board);
                     return ResponseEntity.ok().body(new BoardDto(board,current,enemy
                             ,boardService,monsterFieldService,cardService));
                 } else if (side == 'E') {
                     System.out.println("Play on enemy field");
                     tempHandService.playCard(board, current, playedCard, in, false);
-                    boardService.isGameEnd(board);
                     return ResponseEntity.ok().body(new BoardDto(board,current,enemy
                             ,boardService,monsterFieldService,cardService));
                 } else {

@@ -3,13 +3,19 @@ package hard.string.service;
 
 import hard.string.entity.Board;
 import hard.string.entity.Player;
+import hard.string.entity.User;
 import hard.string.entity.cards.Card;
+import hard.string.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import hard.string.entity.TempMonster;
 import org.springframework.stereotype.Service;
 
 @Service
 public class BoardService {
+
+    @Autowired
+    private UserRepository userRepository;
+
 
     @Autowired
     private TempMonsterService tempMonstersService;
@@ -28,7 +34,9 @@ public class BoardService {
 //                monB hp -= monA atk
                 if (tempMonstersService.isDead(mA)) {
                     //remove monster if it dead
-                    monsterFieldService.removeMonster(indexA,pA);
+                    if(indexA != 0) {
+                        monsterFieldService.removeMonster(indexA, pA);
+                    }
 //                    monsterFieldService.setMonster(indexA,pA.getMonsterField(),null);
 //                    a.remove(mA);
                 } else {
@@ -37,7 +45,9 @@ public class BoardService {
                 }
                 if (tempMonstersService.isDead(mB)) {
                     //remove monster if it dead
-                    monsterFieldService.removeMonster(indexB,pB);
+                    if(indexB != 0) {
+                        monsterFieldService.removeMonster(indexB, pB);
+                    }
 //                    monsterFieldService.setMonster(indexB,pB.getMonsterField(),null);
 //                    b.remove(mB);
                 }
@@ -101,11 +111,44 @@ public class BoardService {
 
     }
 
-    public void isGameEnd(Board game){
+    public boolean isGameEnd(Board game){
         if(game.getPlayer1().getMonsterField().getPlayer().getHp() == 0 ||
                 game.getPlayer2().getMonsterField().getPlayer().getHp() == 0){
             game.setGameIsOver(true);
+            return true;
         }
+        return false;
+    }
+
+    public void gameEnd(Board game){
+        TempMonster p1 = game.getPlayer1().getMonsterField().getPlayer();
+        TempMonster p2 = game.getPlayer2().getMonsterField().getPlayer();
+        User winner = null;
+        User loser = null;
+        //player 1 lost
+        if(p1.getHp() <= 0){
+            winner = userRepository.findById(game.getPlayer1().getPlayerId()).orElse(null);
+            loser = userRepository.findById(game.getPlayer2().getPlayerId()).orElse(null);
+        }
+        else if(p2.getHp() <= 0){
+            winner = userRepository.findById(game.getPlayer2().getPlayerId()).orElse(null);
+            loser = userRepository.findById(game.getPlayer1().getPlayerId()).orElse(null);
+        }
+        if(winner != null && loser != null) {
+            winner.setElo(winner.getElo() + 20);
+            loser.setElo(loser.getElo() - 10);
+            userRepository.save(winner);
+            userRepository.save(loser);
+        }
+        //player 2 lost
+    }
+
+    public boolean gameEndHandler(Board b){
+        if(isGameEnd(b)){
+            gameEnd(b);
+
+        }
+        return false;
     }
 
 

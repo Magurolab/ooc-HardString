@@ -1,6 +1,7 @@
 package hard.string.security;
 
 import hard.string.dto.UserWithProfileDto;
+import hard.string.entity.User;
 import hard.string.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;

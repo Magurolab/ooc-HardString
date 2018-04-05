@@ -1,12 +1,14 @@
 package hard.string.controller;
 
 import hard.string.dto.BoardDto;
+import hard.string.dto.UserWithProfileDto;
 import hard.string.service.*;
 import hard.string.entity.*;
 import hard.string.repository.BoardDBRepository;
 import hard.string.repository.MonsterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -46,12 +48,13 @@ public class BoardController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity getBoard(
-            @RequestParam Long userId
+            Authentication authentication
     ){
-        Long gameId = boardDBService.findBoard(userId);
+        UserWithProfileDto currentUser = (UserWithProfileDto) authentication.getPrincipal();
+        Long gameId = boardDBService.findBoard(currentUser.getUserId());
         if(gameId > 0){
             Board game = runningGameService.getGame(gameId);
-            return ResponseEntity.ok(new BoardDto(game,boardService.getPlayer(userId,game),boardService.getEnemeyPlayer(userId,game)
+            return ResponseEntity.ok(new BoardDto(game,boardService.getPlayer(currentUser.getUserId(),game),boardService.getEnemeyPlayer(currentUser.getUserId(),game)
                     ,boardService,monsterFieldService,cardService));
         }
         else{
@@ -61,27 +64,30 @@ public class BoardController {
 
     @RequestMapping(method = RequestMethod.POST, value = {"/attack"})
     public ResponseEntity attack(
-            @RequestParam Long player,
+            Authentication authentication,
             @RequestParam int currentmonster,
             @RequestParam String enemymonster
     ){
-        long gameId = boardDBRepository.findByPlayer1OrPlayer2(player,player).getBoardId();
+        UserWithProfileDto userWithProfileDto = (UserWithProfileDto) authentication.getPrincipal();
+        long gameId = boardDBRepository.findByPlayer1OrPlayer2(userWithProfileDto.getUserId(),userWithProfileDto.getUserId()).getBoardId();
         Board board = runningGameService.getGame(gameId);
         boolean valid;
-        valid = boardService.isValidTurn(boardService.getPlayer(player,board),board);
+        valid = boardService.isValidTurn(boardService.getPlayer(userWithProfileDto.getUserId(),board),board);
         //if the turn is valid
         if(valid) {
             //get currentPlayer
-            Player p1 = boardService.getPlayer(player,board);
+            Player p1 = boardService.getPlayer(userWithProfileDto.getUserId(),board);
             //get enemyPlayer
-            Player p2 = boardService.getEnemeyPlayer(player,board);
+            Player p2 = boardService.getEnemeyPlayer(userWithProfileDto.getUserId(),board);
             char side = enemymonster.charAt(enemymonster.length() - 1);
             int in = Integer.valueOf(enemymonster.subSequence(0, enemymonster.length() - 1).toString());
             if(side == 'E'){
                 TempMonster m1 = monsterFieldService.getMonster(currentmonster, p1.getMonsterField());
                 TempMonster m2 = monsterFieldService.getMonster(in, p2.getMonsterField());
                 boardService.fight(p1, p2, m1, m2, currentmonster, in);
+
                 boardService.isGameEnd(board);
+
                 return ResponseEntity.ok(new BoardDto(board, p1, p2
                         , boardService, monsterFieldService, cardService));
             }

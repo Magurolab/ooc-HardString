@@ -1,10 +1,12 @@
 package hard.string.controller;
 
+import hard.string.dto.UserWithProfileDto;
 import hard.string.entity.*;
 import hard.string.repository.UserRepository;
 import hard.string.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,17 +38,24 @@ public class ReadyController {
     @Autowired
     private PlayerQueueService playerQueueService;
 
+//    @RequestMapping(method = RequestMethod.GET)
+//    public ResponseEntity testId(Authentication authentication){
+//        UserWithProfileDto currentUser = (UserWithProfileDto) authentication.getPrincipal();
+//        return ResponseEntity.ok(currentUser.getUserId());
+//    }
+
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity ready(
-            @RequestParam Long userId
+            Authentication authentication
     ){
-        User currentUser =  userRepository.findById(userId).orElse(null);
+        UserWithProfileDto user = (UserWithProfileDto) authentication.getPrincipal();
+        User currentUser =  userRepository.findById(user.getUserId()).orElse(null);
         if(currentUser!=null) {
             TempHand tempHand = tempHandService.initTempHand();
             MonsterField monsterField = monsterFieldService.initMonsterField(currentUser.getFirstName());
             TempDeck tempDeck = tempDeckService.makeTempDeck(currentUser.getDeck());
-            Player player = playerService.initPlayer(userId,tempDeck,tempHand,monsterField,currentUser.getUsername());
+            Player player = playerService.initPlayer(currentUser.getIduser(),tempDeck,tempHand,monsterField,currentUser.getUsername());
             player.setElo(currentUser.getElo());
             playerQueueService.addPlayerToQueue(player);
             return ResponseEntity.ok("You're in queue!");
