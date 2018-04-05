@@ -14,6 +14,8 @@ public class BoardService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private RunningGameService runningGameService;
 
     @Autowired
     private BoardDBRepository boardDBRepository;
@@ -120,7 +122,7 @@ public class BoardService {
         return false;
     }
 
-    public void gameEnd(Board game){
+    private void gameEnd(Board game){
         TempMonster p1 = game.getPlayer1().getMonsterField().getPlayer();
         TempMonster p2 = game.getPlayer2().getMonsterField().getPlayer();
         User winner = null;
@@ -139,8 +141,10 @@ public class BoardService {
             loser.setElo(loser.getElo() - 10);
             userRepository.save(winner);
             userRepository.save(loser);
-//            BoardDB ended = boardDBRepository.findById(game)
-//            boardDBRepository.delete();
+            BoardDB ended = boardDBRepository.findByPlayer1OrPlayer2(game.getPlayer1().getPlayerId(),game.getPlayer1().getPlayerId());
+            runningGameService.removeGame(ended.getBoardId());
+            boardDBRepository.delete(ended);
+            System.out.println("Successfully remove game");
         }
         //player 2 lost
     }
@@ -148,6 +152,7 @@ public class BoardService {
     public boolean gameEndHandler(Board b){
         if(isGameEnd(b)){
             gameEnd(b);
+            return true;
         }
         return false;
     }

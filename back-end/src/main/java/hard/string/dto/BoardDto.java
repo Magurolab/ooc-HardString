@@ -22,6 +22,8 @@ public class BoardDto {
     private int enemyPlayerMana;
     private int maxEnemyPlayerMana;
 
+    private boolean gameEnd;
+
     private long currentPlayer;
     private MonsterField currentField;
     private List<CardDto> currentHand;
@@ -79,7 +81,7 @@ public class BoardDto {
         this.maxCurrentPlayerMana = boardService.getMaxMana(currentPlayer.getPlayerId(),board);
         this.maxEnemyPlayerMana = boardService.getMaxMana(enemyPlayer.getPlayerId(),board);
         currentPlayerMana = boardService.getCurrentMana(currentPlayer.getPlayerId(),board);
-        maxEnemyPlayerMana = boardService.getCurrentMana(enemyPlayer.getPlayerId(),board);
+        enemyPlayerMana = boardService.getCurrentMana(enemyPlayer.getPlayerId(),board);
         this.currentPlayer = currentPlayer.getPlayerId();
         this.enemyPlayer = enemyPlayer.getPlayerId();
         currentField = currentPlayer.getMonsterField();
@@ -94,6 +96,7 @@ public class BoardDto {
         turn = boardService.isValidTurn(currentPlayer,board);
         gameOver = board.isGameIsOver();
         createField(currentPlayer,enemyPlayer,monsterFieldService);
+        gameEnd = board.isGameIsOver();
     }
 
     public List<String> getAvailableAttackTarget() {

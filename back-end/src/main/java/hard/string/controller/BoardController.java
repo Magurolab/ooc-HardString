@@ -85,9 +85,7 @@ public class BoardController {
                 TempMonster m1 = monsterFieldService.getMonster(currentmonster, p1.getMonsterField());
                 TempMonster m2 = monsterFieldService.getMonster(in, p2.getMonsterField());
                 boardService.fight(p1, p2, m1, m2, currentmonster, in);
-
-                boardService.isGameEnd(board);
-
+                boardService.gameEndHandler(board);
                 return ResponseEntity.ok(new BoardDto(board, p1, p2
                         , boardService, monsterFieldService, cardService));
             }
@@ -110,6 +108,7 @@ public class BoardController {
             boardService.endTurn(board);
             Player enemyPlayer = boardService.getEnemeyPlayer(userId, board);
             playerService.drawCard(enemyPlayer);
+            boardService.gameEndHandler(board);
             return ResponseEntity.ok(new BoardDto(board, currentPlayer, enemyPlayer
                     ,boardService,monsterFieldService,cardService));
         }

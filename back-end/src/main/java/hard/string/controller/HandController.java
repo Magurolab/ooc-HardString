@@ -34,6 +34,7 @@ public class HandController {
     @Autowired
     private MagicRepository magicRepository;
 
+
     @Autowired
     private MonsterFieldService monsterFieldService;
     @Autowired
@@ -58,8 +59,12 @@ public class HandController {
         Long gameId = boardDBService.findBoard(userWithProfileDto.getUserId());
         if(gameId > 0){
             Board game = runningGameService.getGame(gameId);
-//            return ResponseEntity.ok(new BoardDto(game,boardService.getPlayer(playerId,game),boardService.getEnemeyPlayer(playerId,game)));
-            return ResponseEntity.ok(boardService.getPlayer(userWithProfileDto.getUserId(),game).getTempHand().getHand());
+            return ResponseEntity.ok(new BoardDto(game,boardService.getPlayer(userWithProfileDto.getUserId(),game),
+                    boardService.getEnemeyPlayer(userWithProfileDto.getUserId(),game),
+                    boardService,
+                    monsterFieldService,
+                    cardService));
+//            return ResponseEntity.ok(boardService.getPlayer(userWithProfileDto.getUserId(),game).getTempHand().getHand());
         }
         else{
             return ResponseEntity.badRequest().body("No game found!");
