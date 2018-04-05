@@ -52,7 +52,7 @@ class Login extends Component {
         loginAPI.login(username, password).then(({ data }) => {
             console.log(data);
             this.props.onLoginSuccess(data,
-                () => this.props.history.push('/board'))
+                () => this.props.history.push('/ready'))
         })
 
 
