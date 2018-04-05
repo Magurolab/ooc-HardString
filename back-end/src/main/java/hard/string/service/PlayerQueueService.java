@@ -61,6 +61,8 @@ public class PlayerQueueService {
             b.setGameIsOver(false);
             b.setMana1(1);
             b.setMana2(1);
+            b.setMaxmana1(1);
+            b.setMaxmana2(1);
             b.setPlayer1(p1);
             b.setPlayer2(p2);
             b.setTurn(1);
