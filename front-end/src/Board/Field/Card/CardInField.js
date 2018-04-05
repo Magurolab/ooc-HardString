@@ -63,7 +63,8 @@ class CardField extends React.Component {
     render(){
         // console.log(this.props);
         const { anchorEl } = this.state;
-        const {img, classes, title, empty, enemy} = this.props;
+        const {monsterInfo} = this.props;
+        const {img, classes, title, empty, enemy} = monsterInfo;
 
         // console.log("Idex:",idex );
     return (

@@ -33,10 +33,28 @@ const styles = theme => ({
 
 });
 
+// function setCard(monster,monsterInfoHolder){
+//
+//     if(monster === undefined){
+//         monsterInfoHolder.emptyHolder = true;
+//     }else{
+//         monsterInfoHolder.imgHolder = ImageMapper[monster.index];
+//         monsterInfoHolder.titleHolder = "ATK :"+ monster.atk +"\n HP :"+ monster.hp+"/"+monster.maxHP;
+//         monsterInfoHolder.emptyHolder = false;
+//         monsterInfoHolder.enemyHolder = true
+//     }
+//
+// }
+
 
 function Field(props){
     const { classes, currentField} = props;
-    console.log("props", props);
+    // let monsterInfoHolder = {imgHolder:null,titleHolder:null,emptyHolder:null,enemyHolder:null};
+
+    // let  imgHolder,titleHolder,emptyHolder,enemyHolder;
+    console.log("current", currentField);
+    const {monster1,monster2,monster3,monster4,monster5,player} = currentField;
+
     console.log(currentField === undefined ? "Not Working" : "Working");
 
         return(
@@ -49,12 +67,26 @@ function Field(props){
 
 
                             <div className="flex-container">
-                                <div><CardInField
-                                    img = {DemoCardsInField[0].img}
-                                    title = {"ATK :"+ DemoCardsInField[0].atk +"\n HP :"+ DemoCardsInField[0].hp}
-                                    classes={classes}
-                                    empty = {DemoCardsInField[0].img == null}
-                                    enemy = {true}
+
+                                <div>
+                                    {/*<script>setCard({pMonster1},{monsterInfoHolder});</script>*/}
+                                    <CardInField
+
+
+
+                                    // monster = {monsterInfoHolder}
+
+                                    // img = {imgHolder}
+                                    // title = titleHolder
+                                    // classes={classes}
+                                    // empty = emptyHolder
+                                    // enemy = enemyHolder
+
+                                    // img = {ImageMapper[{pMonster1: index}]}
+                                    // title = {"ATK :"+ {pMonster1: atk} +"\n HP :"+ {pMonster1: hp}+"/"+{pMonster1: maxHP}}
+                                    // classes={classes}
+                                    // empty = { {pMonster1: name} == null}
+                                    // enemy = {true}
                                 /></div>
                                 <div><CardInField
                                     img = {DemoCardsInField[1].img}
