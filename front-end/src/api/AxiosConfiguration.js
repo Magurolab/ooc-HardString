@@ -13,6 +13,6 @@ const axios = new Axios.create({
     },
     transformRequest: (data) => QS.stringify(data)
 
-})
+});
 
 export default axios

@@ -5,35 +5,50 @@ import {
 } from "react-bootstrap";
 // import { Button, FormGroup, Form } from 'reactstrap';
 import "./Login.css";
+import loginAPI from '../api/LoginAPI.js';
+// import 'bootstrap/dist/css/bootstrap.min.css'
 
-// export default (props) => {
-//     return (
-//         <Button color="danger">Danger!</Button>
-//     );
-// };
+
 const wellStyles = { maxWidth: 400, margin: '0 auto 10px' };
 export default class Login extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            email: "",
+            username: "",
             password: ""
         };
     }
 
+
+
     validateForm() {
-        return this.state.email.length > 0 && this.state.password.length > 0;
+        return this.state.username.length > 0 && this.state.password.length > 0;
     }
 
-    handleChange = event => {
+    handleChangeUsername = event => {
         this.setState({
-            [event.target.id]: event.target.value
+            username: event.target.value
         });
+        // console.log(this.state.username);
+    }
+    handleChangePassword = event => {
+        this.setState({
+            password: event.target.value
+
+        });
+        // console.log(this.state.password);
     }
 
-    handleSubmit = event => {
-        event.preventDefault();
+    // handleSubmit = event => {
+    //     event.preventDefault();
+    //
+    // }
+    onSubmitData = () => {
+        console.log("hey about to sned this is  not a trick");
+        const {username, password} = this.state;
+        loginAPI.login(username, password)
+            .then(response => console.log(response))
     }
 
     render() {
@@ -66,39 +81,47 @@ export default class Login extends Component {
                            </Nav>
                        </Navbar.Collapse>
                      </Navbar>
+
+
                    </div>
                 <div className="login">
-                <form onSubmit={this.handleSubmit}>
-                    <FormGroup controlId="email" bsSize="large">
+                <form >
+                    {/*<FormGroup controlId="email" bsSize="large">*/}
                         <ControlLabel>Username</ControlLabel>
                         <br/>
                         <FormControl
-                            autoFocus
+                            // autoFocus
                             // type="email"
-                            value={this.state.email}
-                            onChange={this.handleChange}
+                            value={this.state.username}
+                            onChange={this.handleChangeUsername}
                         />
-                    </FormGroup>
-                    <FormGroup controlId="password" bsSize="large">
+                    </form>
+                    {/*</FormGroup>*/}
+                    {/*<FormGroup controlId="password" bsSize="large">*/}
+                    <form>
                         <ControlLabel>Password</ControlLabel>
                         <br/>
                         <FormControl
                             value={this.state.password}
-                            onChange={this.handleChange}
+                            onChange={this.handleChangePassword}
                             type="password"
                         />
-                    </FormGroup>
+                    {/*</FormGroup>*/}
+                    </form>
 
                         <Button bsStyle="primary" bsSize="large" block
                                 disabled={!this.validateForm()}
-                                type="submit">
+                                type="submit"
+                                onClick={ this.onSubmitData }
+                                // onSubmit={ this.onSubmitData }
+                        >
 
                             Login
                         </Button>
                         <Button bsSize="large" block bsStyle="success" onClick={() => this.props.history.push("/register")}>
                             Register
                         </Button>
-                </form>
+
                 </div>
             </div>
         );

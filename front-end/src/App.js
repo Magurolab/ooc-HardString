@@ -19,9 +19,9 @@ class App extends Component {
         <MuiThemeProvider theme = { theme }>
             <Router>
                 <div className={"hugeBoy"}>
-                    <Route exact path="/login" exact component={ Login } />
-                    <Route exact path="/" exact component={ Board } />
-                    <Route exact path="/register" exact component={ Register } />
+                    <Route exact path="/login" component={ Login } />
+                    <Route exact path="/" component={ Board } />
+                    <Route exact path="/register" component={ Register } />
                 </div>
             </Router>
         </MuiThemeProvider>
