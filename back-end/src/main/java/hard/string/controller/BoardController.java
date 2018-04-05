@@ -65,7 +65,7 @@ public class BoardController {
     @RequestMapping(method = RequestMethod.POST, value = {"/attack"})
     public ResponseEntity attack(
             Authentication authentication,
-            @RequestParam int currentmonster,
+            @RequestParam String currentmonster,
             @RequestParam String enemymonster
     ){
         UserWithProfileDto userWithProfileDto = (UserWithProfileDto) authentication.getPrincipal();
@@ -76,15 +76,16 @@ public class BoardController {
         //if the turn is valid
         if(valid) {
             //get currentPlayer
+            int currentin = Integer.valueOf(currentmonster.subSequence(0,currentmonster.length()-1).toString());
             Player p1 = boardService.getPlayer(userWithProfileDto.getUserId(),board);
             //get enemyPlayer
             Player p2 = boardService.getEnemeyPlayer(userWithProfileDto.getUserId(),board);
             char side = enemymonster.charAt(enemymonster.length() - 1);
             int in = Integer.valueOf(enemymonster.subSequence(0, enemymonster.length() - 1).toString());
             if(side == 'E'){
-                TempMonster m1 = monsterFieldService.getMonster(currentmonster, p1.getMonsterField());
+                TempMonster m1 = monsterFieldService.getMonster(currentin, p1.getMonsterField());
                 TempMonster m2 = monsterFieldService.getMonster(in, p2.getMonsterField());
-                boardService.fight(p1, p2, m1, m2, currentmonster, in);
+                boardService.fight(p1, p2, m1, m2, currentin, in);
                 boardService.gameEndHandler(board);
                 return ResponseEntity.ok(new BoardDto(board, p1, p2
                         , boardService, monsterFieldService, cardService));
@@ -98,15 +99,16 @@ public class BoardController {
 
     @RequestMapping(method = RequestMethod.POST, value={"/endturn"})
     public ResponseEntity endturn(
-            @RequestParam Long userId
+            Authentication authentication
     ){
-        long gameId = boardDBRepository.findByPlayer1OrPlayer2(userId,userId).getBoardId();
+        UserWithProfileDto userWithProfileDto = (UserWithProfileDto) authentication.getPrincipal();
+        long gameId = boardDBRepository.findByPlayer1OrPlayer2(userWithProfileDto.getUserId(),userWithProfileDto.getUserId()).getBoardId();
         Board board = runningGameService.getGame(gameId);
-        Player currentPlayer = boardService.getPlayer(userId,board);
+        Player currentPlayer = boardService.getPlayer(userWithProfileDto.getUserId(),board);
         boolean valid = boardService.isValidTurn(currentPlayer,board);
         if(valid) {
             boardService.endTurn(board);
-            Player enemyPlayer = boardService.getEnemeyPlayer(userId, board);
+            Player enemyPlayer = boardService.getEnemeyPlayer(userWithProfileDto.getUserId(), board);
             playerService.drawCard(enemyPlayer);
             boardService.gameEndHandler(board);
             return ResponseEntity.ok(new BoardDto(board, currentPlayer, enemyPlayer
