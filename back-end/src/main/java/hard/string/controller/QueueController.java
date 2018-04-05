@@ -42,12 +42,11 @@ public class QueueController {
         UserWithProfileDto userWithProfileDto = (UserWithProfileDto) authentication.getPrincipal();
         BoardDB boardDB = null;
         boardDB = boardDBRepository.findByPlayer1OrPlayer2(userWithProfileDto.getUserId(), userWithProfileDto.getUserId());
-//        System.out.println("catch exception");
         if(boardDB == null){
             return ResponseEntity.ok().body(new ResponseQueue());
         }
         else{
-            return ResponseEntity.ok().body(new ResponseQueue("Found game!",true));
+            return ResponseEntity.ok().body(new ResponseQueue("Found game!",false));
         }
     }
 

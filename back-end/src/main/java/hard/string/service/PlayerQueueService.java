@@ -67,6 +67,7 @@ public class PlayerQueueService {
             runningGameService.addGame(boardDB.getBoardId(),b);
             System.out.println("Create game success!");
             System.out.println(p1.getPlayerId() + "and " + p2.getPlayerId() + " is now in the game!");
+            System.out.println(boardDBRepository.findByPlayer1OrPlayer2(p1.getPlayerId(), p1.getPlayerId()));
         }
 
     }

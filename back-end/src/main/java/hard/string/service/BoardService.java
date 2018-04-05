@@ -148,7 +148,6 @@ public class BoardService {
     public boolean gameEndHandler(Board b){
         if(isGameEnd(b)){
             gameEnd(b);
-
         }
         return false;
     }
