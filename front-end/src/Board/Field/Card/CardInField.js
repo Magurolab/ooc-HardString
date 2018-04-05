@@ -6,6 +6,7 @@ import { withStyles } from 'material-ui/styles';
 import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
+import TargetInFieldPointer from './InFieldPointer/TargetInFieldPointer.js'
 // import DemoCards from "../../Hand/DemoCards";
 
 import Menu, { MenuItem } from 'material-ui/Menu';
@@ -120,34 +121,14 @@ class CardField extends React.Component {
                 </CardContent>
                 <CardActions className = "button">
                     {enemy ? (""):(
-                        <Button
-                            aria-owns={anchorEl ? 'simple-menu' : null}
-                            aria-haspopup="true"
-                            onClick={this.handleClick}
-                        >
-                            Attack
-                        </Button>
+
+                        <TargetInFieldPointer
+                            availableAttackTarget ={availableAttackTarget}
+                        />
 
 
                     )}
-                    {/*<Button*/}
-                        {/*aria-owns={anchorEl ? 'simple-menu' : null}*/}
-                        {/*aria-haspopup="true"*/}
-                        {/*onClick={this.handleClick}*/}
-                    {/*>*/}
-                        {/*Attack*/}
-                    {/*</Button>*/}
-                    <Menu
-                        id="simple-menu"
-                        anchorEl={anchorEl}
-                        open={Boolean(anchorEl)}
-                        onClose={this.handleClose}
-                    >
-                        // TODO: make it fetch data of attackable monster from enemy board
-                        <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                        <MenuItem onClick={this.handleClose}>My account</MenuItem>
-                        <MenuItem onClick={this.handleClose}>Logout</MenuItem>
-                    </Menu>
+
 
                 </CardActions>
             </Card>)}

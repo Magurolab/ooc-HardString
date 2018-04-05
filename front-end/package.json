@@ -5,7 +5,8 @@
   "proxy": "http://localhost:8080",
   "dependencies": {
     "axios": "^0.18.0",
-    "material-ui": "^1.0.0-beta.38",
+    "bootstrap": "^3.3.7",
+    "material-ui": "^1.0.0-beta.40",
     "material-ui-icons": "^1.0.0-beta.36",
     "npm": "^5.8.0",
     "react": "^16.3.1",
@@ -14,7 +15,7 @@
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.1",
     "react-tap-event-plugin": "^3.0.2",
-    "reactstrap": "^5.0.0-beta.3"
+    "reactstrap": "^5.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
