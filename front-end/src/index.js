@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/98894
