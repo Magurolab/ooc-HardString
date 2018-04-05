@@ -6,11 +6,12 @@ import {
 // import { Button, FormGroup, Form } from 'reactstrap';
 import "./Login.css";
 import loginAPI from '../api/LoginAPI.js';
+import {withRouter} from 'react-router-dom'
+import {withAuth} from "react-router-auth-provider";
 // import 'bootstrap/dist/css/bootstrap.min.css'
 
 
-const wellStyles = { maxWidth: 400, margin: '0 auto 10px' };
-export default class Login extends Component {
+class Login extends Component {
     constructor(props) {
         super(props);
 
@@ -47,9 +48,14 @@ export default class Login extends Component {
     onSubmitData = () => {
         console.log("hey about to sned this is  not a trick");
         const {username, password} = this.state;
-        loginAPI.login(username, password)
-            .then(response => console.log(response))
-    }
+        loginAPI.login(username, password).then(({ data }) => {
+            console.log(data);
+            this.props.onLoginSuccess(data,
+                () => this.props.history.push('/board'))
+        })
+
+
+    };
 
     render() {
         return (
@@ -114,6 +120,7 @@ export default class Login extends Component {
                                 type="submit"
                                 onClick={ this.onSubmitData }
                                 // onSubmit={ this.onSubmitData }
+
                         >
 
                             Login
@@ -127,3 +134,5 @@ export default class Login extends Component {
         );
     }
 }
+
+export default withRouter(withAuth((Login)));

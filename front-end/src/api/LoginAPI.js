@@ -8,9 +8,18 @@ class LoginAPI {
             username,
             password,
 
-        }).then(
-            () => {console.log("Logging in")}
-        )
+        })
+    }
+
+    whoami(){
+        console.log("hello heloo");
+        return axios.get('/whoami')
+            .then(({data, status}) => (console.log(status)))
+
+    }
+
+    logout(){
+
     }
 }
 export default new LoginAPI()
