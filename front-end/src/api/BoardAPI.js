@@ -3,18 +3,25 @@ import {withStyles} from "material-ui/styles/index";
 
 class BoardAPI {
     fakeGame(){
-        return axios.get("/debug/fakegame")
+        return axios.get("/board")
             .then((response) => ({data: response.data, status: response.status}))
         // .then(({data, status}) => ({data, status}))
     }
 
     showBoard(){
-        return axios.get("/debug/showboard")
+        return axios.get("/board")
             .then(({data, status}) => ({data, status}))
     }
 
-    attack(){
-        return axios.post()
+    attack(currentPos, targetPos){
+        return axios.post("/board/attack",{
+            currentMonster: currentPos,
+            enemyMonster: targetPos
+        })
+    }
+
+    endTurn(){
+        return axios.post("/board/endturn")
     }
 }
 
