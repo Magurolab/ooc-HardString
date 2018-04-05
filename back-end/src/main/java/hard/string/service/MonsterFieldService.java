@@ -83,6 +83,24 @@ public class MonsterFieldService {
 
     }
 
+    public void setAllAttack(MonsterField monsterField){
+        if(checkMonster(1,monsterField)){
+            monsterField.getMonster1().setCanAttack(true);
+        }
+        if(checkMonster(2,monsterField)){
+            monsterField.getMonster2().setCanAttack(true);
+        }
+        if(checkMonster(3,monsterField)){
+            monsterField.getMonster3().setCanAttack(true);
+        }
+        if(checkMonster(4,monsterField)){
+            monsterField.getMonster4().setCanAttack(true);
+        }
+        if(checkMonster(5,monsterField)){
+            monsterField.getMonster5().setCanAttack(true);
+        }
+    }
+
     public MonsterField initMonsterField(String name){
         MonsterField monsterField = new MonsterField();
         for(int i = 0; i<7;i++){

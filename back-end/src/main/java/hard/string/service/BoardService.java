@@ -53,7 +53,6 @@ public class BoardService {
 //                    monsterFieldService.setMonster(indexB,pB.getMonsterField(),null);
 //                    b.remove(mB);
                 }
-
             } else {
                 //cannot attack since taunt is on the field
                 return false;
@@ -69,18 +68,31 @@ public class BoardService {
     public Player endTurn(Board b){
         if(b.getTurn() == 1){
             //Add one mana to P1
-            b.setMaxmana1((b.getMaxmana1()+1));
-            b.setMana1(b.getMaxmana1());
+            if(b.getMaxmana1()>10){
+                b.setMaxmana1(10);
+                b.setMana1(10);
+            }
+            else {
+                b.setMaxmana1((b.getMaxmana1() + 1));
+                b.setMana1(b.getMaxmana1());
+            }
             //Set turn to P2
+            monsterFieldService.setAllAttack(b.getPlayer2().getMonsterField());
             b.setTurn(2);
             return b.getPlayer2();
         }else {
             //Add one mana to P2
-            b.setMaxmana2(b.getMaxmana2()+1);
-            b.setMana2(b.getMaxmana2());
+            if(b.getMaxmana2()>10){
+                b.setMaxmana2(10);
+                b.setMana2(10);
+            }
+            else {
+                b.setMaxmana2(b.getMaxmana2() + 1);
+                b.setMana2(b.getMaxmana2());
+            }
             //Set turn to P1
+            monsterFieldService.setAllAttack(b.getPlayer1().getMonsterField());
             b.setTurn(1);
-
             return b.getPlayer1();
         }
     }
@@ -145,6 +157,12 @@ public class BoardService {
             runningGameService.removeGame(ended.getBoardId());
             boardDBRepository.delete(ended);
             System.out.println("Successfully remove game");
+        }
+        //rage quit
+        else{
+            BoardDB ended = boardDBRepository.findByPlayer1OrPlayer2(game.getPlayer1().getPlayerId(),game.getPlayer1().getPlayerId());
+            runningGameService.removeGame(ended.getBoardId());
+            boardDBRepository.delete(ended);
         }
         //player 2 lost
     }

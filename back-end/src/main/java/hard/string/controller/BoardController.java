@@ -117,94 +117,16 @@ public class BoardController {
         return ResponseEntity.badRequest().body("Not your fucking turn you twat");
     }
 
-    @RequestMapping(method = RequestMethod.GET, value={"/currentmana"})
-    public ResponseEntity getCurrentMana(
-            @RequestParam Long userId
+    @RequestMapping(method = RequestMethod.POST, value={"/ragequit"})
+    public ResponseEntity ragequit(
+            Authentication authentication
     ){
-        long gameId = boardDBRepository.findByPlayer1OrPlayer2(userId,userId).getBoardId();
+        UserWithProfileDto userWithProfileDto = (UserWithProfileDto) authentication.getPrincipal();
+        long gameId = boardDBRepository.findByPlayer1OrPlayer2(userWithProfileDto.getUserId(),userWithProfileDto.getUserId()).getBoardId();
         Board board = runningGameService.getGame(gameId);
-        Player p = boardService.getPlayer(userId,board);
-        if(board.getPlayer1().equals(p)){
-            return ResponseEntity.ok(board.getMana1());
-        }
-        return ResponseEntity.ok(board.getMana2());
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value={"/enemymana"})
-    public ResponseEntity getEnemyMana(
-            @RequestParam Long userId
-    ){
-        long gameId = boardDBRepository.findByPlayer1OrPlayer2(userId,userId).getBoardId();
-        Board board = runningGameService.getGame(gameId);
-        Player p = boardService.getPlayer(userId,board);
-        if(board.getPlayer1().equals(p)){
-            return ResponseEntity.ok(board.getMana2());
-        }
-        return ResponseEntity.ok(board.getMana1());
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value={"/currentmonsterfield"})
-    public ResponseEntity getCurrentMonsterField(
-            @RequestParam Long userId
-    ){
-        long gameId = boardDBRepository.findByPlayer1OrPlayer2(userId,userId).getBoardId();
-        Board board = runningGameService.getGame(gameId);
-        Player p = boardService.getPlayer(userId,board);
-        return ResponseEntity.ok(p.getMonsterField());
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value={"/enemymonsterfield"})
-    public ResponseEntity getEnemyMonsterField(
-            @RequestParam Long userId
-    ){
-        long gameId = boardDBRepository.findByPlayer1OrPlayer2(userId,userId).getBoardId();
-        Board board = runningGameService.getGame(gameId);
-        Player p = boardService.getEnemeyPlayer(userId,board);
-        return ResponseEntity.ok(p.getMonsterField());
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value={"/currentdeck"})
-    public ResponseEntity getCurrentDeck(
-            @RequestParam Long userId
-    ){
-        long gameId = boardDBRepository.findByPlayer1OrPlayer2(userId,userId).getBoardId();
-        Board board = runningGameService.getGame(gameId);
-        Player p = boardService.getPlayer(userId,board);
-        return ResponseEntity.ok(p.getTempDeck().getCards().size());
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value={"/enemydeck"})
-    public ResponseEntity getEnemyDeck(
-            @RequestParam Long userId
-    ){
-        long gameId = boardDBRepository.findByPlayer1OrPlayer2(userId,userId).getBoardId();
-        Board board = runningGameService.getGame(gameId);
-        Player p = boardService.getEnemeyPlayer(userId,board);
-        return ResponseEntity.ok(p.getTempDeck().getCards().size());
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value={"/validmonsterfield"})
-    public ResponseEntity getValidMonsterField(
-            @RequestParam Long userId
-    ){
-        long gameId = boardDBRepository.findByPlayer1OrPlayer2(userId,userId).getBoardId();
-        Board board = runningGameService.getGame(gameId);
-        Player p1 = boardService.getPlayer(userId,board);
-        Player p2 = boardService.getEnemeyPlayer(userId,board);
-        return ResponseEntity.ok(new BoardDto(board,p1,p2
-                ,boardService,monsterFieldService,cardService).getAvailableMonsterField());
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value={"/validmagictaget"})
-    public ResponseEntity getValidMagicTarget(
-            @RequestParam Long userId
-    ){
-        long gameId = boardDBRepository.findByPlayer1OrPlayer2(userId,userId).getBoardId();
-        Board board = runningGameService.getGame(gameId);
-        Player p1 = boardService.getPlayer(userId,board);
-        Player p2 = boardService.getEnemeyPlayer(userId,board);
-        return ResponseEntity.ok(new BoardDto(board,p1,p2
-                ,boardService,monsterFieldService,cardService).getAvailableMagicTarget());
+        board.setGameIsOver(true);
+        boardService.gameEndHandler(board);
+        return ResponseEntity.ok().body("someone rage quit");
     }
 
 }
