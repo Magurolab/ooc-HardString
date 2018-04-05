@@ -115,21 +115,21 @@ class Login extends Component {
                         />
                         <br/>
                     {/*</FormGroup>*/}
-                        <Button bsStyle="primary" bsSize="large" block
-                                disabled={!this.validateForm()}
-                                type="submit"
-                                onClick={ this.onSubmitData }
-                            // onSubmit={ this.onSubmitData }
 
-                        >
-
-                            Login
-                        </Button>
-                        <Button bsSize="large" block bsStyle="success" onClick={() => this.props.history.push("/register")}>
-                            Register
-                        </Button>
                     </form>
+                    <Button bsStyle="primary" bsSize="large" block
+                            disabled={!this.validateForm()}
+                            type="submit"
+                            onClick={ this.onSubmitData }
+                        // onSubmit={ this.onSubmitData }
 
+                    >
+
+                        Login
+                    </Button>
+                    <Button bsSize="large" block bsStyle="success" onClick={() => this.props.history.push("/register")}>
+                        Register
+                    </Button>
 
 
                 </div>
