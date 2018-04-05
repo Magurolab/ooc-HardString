@@ -64,6 +64,10 @@ public class PlayerQueueService {
             b.setPlayer1(p1);
             b.setPlayer2(p2);
             b.setTurn(1);
+            for(int i = 0; i < 3;i++){
+                playerService.drawCard(p1);
+                playerService.drawCard(p2);
+            }
             runningGameService.addGame(boardDB.getBoardId(),b);
             System.out.println("Create game success!");
             System.out.println(p1.getPlayerId() + "and " + p2.getPlayerId() + " is now in the game!");
