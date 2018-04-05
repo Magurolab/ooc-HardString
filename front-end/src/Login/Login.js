@@ -113,14 +113,13 @@ class Login extends Component {
                             onChange={this.handleChangePassword}
                             type="password"
                         />
+                        <br/>
                     {/*</FormGroup>*/}
-                    </form>
-
                         <Button bsStyle="primary" bsSize="large" block
                                 disabled={!this.validateForm()}
                                 type="submit"
                                 onClick={ this.onSubmitData }
-                                // onSubmit={ this.onSubmitData }
+                            // onSubmit={ this.onSubmitData }
 
                         >
 
@@ -129,6 +128,9 @@ class Login extends Component {
                         <Button bsSize="large" block bsStyle="success" onClick={() => this.props.history.push("/register")}>
                             Register
                         </Button>
+                    </form>
+
+
 
                 </div>
             </div>
