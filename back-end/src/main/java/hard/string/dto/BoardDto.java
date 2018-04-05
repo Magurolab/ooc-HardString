@@ -18,7 +18,9 @@ import java.util.List;
 public class BoardDto {
 
     private int currentPlayerMana;
+    private int maxCurrentPlayerMana;
     private int enemyPlayerMana;
+    private int maxEnemyPlayerMana;
 
     private long currentPlayer;
     private MonsterField currentField;
@@ -74,8 +76,10 @@ public class BoardDto {
                     BoardService boardService,
                     MonsterFieldService monsterFieldService,
                     CardService cardService){
-        currentPlayerMana = board.getMana1();
-        enemyPlayerMana = board.getMana2();
+        this.maxCurrentPlayerMana = boardService.getMaxMana(currentPlayer.getPlayerId(),board);
+        this.maxEnemyPlayerMana = boardService.getMaxMana(enemyPlayer.getPlayerId(),board);
+        currentPlayerMana = boardService.getCurrentMana(currentPlayer.getPlayerId(),board);
+        maxEnemyPlayerMana = boardService.getCurrentMana(enemyPlayer.getPlayerId(),board);
         this.currentPlayer = currentPlayer.getPlayerId();
         this.enemyPlayer = enemyPlayer.getPlayerId();
         currentField = currentPlayer.getMonsterField();
@@ -152,8 +156,16 @@ public class BoardDto {
         return currentHand;
     }
 
+    public int getMaxCurrentPlayerMana() {
+        return maxCurrentPlayerMana;
+    }
 
-//    public TempHand getCurrentHand() {
+    public int getMaxEnemyPlayerMana() {
+        return maxEnemyPlayerMana;
+    }
+
+
+    //    public TempHand getCurrentHand() {
 //        return currentHand;
 //    }
 

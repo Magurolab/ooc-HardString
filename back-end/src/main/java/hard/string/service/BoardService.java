@@ -28,7 +28,8 @@ public class BoardService {
 //                monB hp -= monA atk
                 if (tempMonstersService.isDead(mA)) {
                     //remove monster if it dead
-                    monsterFieldService.setMonster(indexA,pA.getMonsterField(),null);
+                    monsterFieldService.removeMonster(indexA,pA);
+//                    monsterFieldService.setMonster(indexA,pA.getMonsterField(),null);
 //                    a.remove(mA);
                 } else {
                     //make monster cannot attack twice in a turn
@@ -36,7 +37,8 @@ public class BoardService {
                 }
                 if (tempMonstersService.isDead(mB)) {
                     //remove monster if it dead
-                    monsterFieldService.setMonster(indexB,pB.getMonsterField(),null);
+                    monsterFieldService.removeMonster(indexB,pB);
+//                    monsterFieldService.setMonster(indexB,pB.getMonsterField(),null);
 //                    b.remove(mB);
                 }
 
@@ -55,13 +57,15 @@ public class BoardService {
     public Player endTurn(Board b){
         if(b.getTurn() == 1){
             //Add one mana to P1
-            b.setMana1(b.getMana1()+1);
+            b.setMaxmana1((b.getMaxmana1()+1));
+            b.setMana1(b.getMaxmana1());
             //Set turn to P2
             b.setTurn(2);
             return b.getPlayer2();
         }else {
             //Add one mana to P2
-            b.setMana2(b.getMana2()+1);
+            b.setMaxmana2(b.getMaxmana2()+1);
+            b.setMana2(b.getMaxmana2());
             //Set turn to P1
             b.setTurn(1);
 
@@ -84,7 +88,6 @@ public class BoardService {
 
 
 
-    //TODO Ask them if they prefer integer or object as player argument.(if obj, put mana in Player)(Not possible if Player is not Entity)
     //Set the new remaining mana.
     //Return the remaining mana.
     public int usedMana(Board game,int pNum,int manaCost){
@@ -138,6 +141,30 @@ public class BoardService {
         }
         else if(playerId == game.getPlayer2().getPlayerId()){
             return game.getPlayer2();
+        }
+        else{
+            return null;
+        }
+    }
+
+    public Integer getMaxMana(long playerId, Board game){
+        if(playerId == game.getPlayer1().getPlayerId()){
+            return game.getMaxmana1();
+        }
+        else if(playerId == game.getPlayer2().getPlayerId()){
+            return game.getMaxmana2();
+        }
+        else{
+            return null;
+        }
+    }
+
+    public Integer getCurrentMana(long playerId, Board game){
+        if(playerId == game.getPlayer1().getPlayerId()){
+            return game.getMana1();
+        }
+        else if(playerId == game.getPlayer2().getPlayerId()){
+            return game.getMana2();
         }
         else{
             return null;

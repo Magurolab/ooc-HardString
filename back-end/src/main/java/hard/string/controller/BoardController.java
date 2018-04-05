@@ -44,7 +44,7 @@ public class BoardController {
     @Autowired
     private MonsterFieldService monsterFieldService;
 
-    @RequestMapping(method = RequestMethod.GET, params = {"userId"})
+    @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity getBoard(
             @RequestParam Long userId
     ){
@@ -59,11 +59,11 @@ public class BoardController {
         }
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = {"/attack"}, params = {"player1","player2","monster1","monster2"})
+    @RequestMapping(method = RequestMethod.POST, value = {"/attack"})
     public ResponseEntity attack(
             @RequestParam Long player,
-            @RequestParam int monster1,
-            @RequestParam int monster2
+            @RequestParam int currentmonster,
+            @RequestParam String enemymonster
     ){
         long gameId = boardDBRepository.findByPlayer1OrPlayer2(player,player).getBoardId();
         Board board = runningGameService.getGame(gameId);
@@ -75,12 +75,17 @@ public class BoardController {
             Player p1 = boardService.getPlayer(player,board);
             //get enemyPlayer
             Player p2 = boardService.getEnemeyPlayer(player,board);
-            TempMonster m1 = monsterFieldService.getMonster(monster1, p1.getMonsterField());
-            TempMonster m2 = monsterFieldService.getMonster(monster2, p2.getMonsterField());
-            boardService.fight(p1, p2, m1, m2, monster1, monster2);
-            boardService.isGameEnd(board);
-            return ResponseEntity.ok(new BoardDto(board, p1, p2
-                    ,boardService,monsterFieldService,cardService));
+            char side = enemymonster.charAt(enemymonster.length() - 1);
+            int in = Integer.valueOf(enemymonster.subSequence(0, enemymonster.length() - 1).toString());
+            if(side == 'E'){
+                TempMonster m1 = monsterFieldService.getMonster(currentmonster, p1.getMonsterField());
+                TempMonster m2 = monsterFieldService.getMonster(in, p2.getMonsterField());
+                boardService.fight(p1, p2, m1, m2, currentmonster, in);
+                boardService.isGameEnd(board);
+                return ResponseEntity.ok(new BoardDto(board, p1, p2
+                        , boardService, monsterFieldService, cardService));
+            }
+            return ResponseEntity.badRequest().body("Invalid enemy monster");
         }
         else{
             return ResponseEntity.badRequest().body("Not your turn");

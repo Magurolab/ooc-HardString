@@ -1,10 +1,9 @@
 package hard.string.security;
 
-import hard.string.security.ResponseLogin;
+import hard.string.response.ResponseLogin;
 import org.apache.commons.io.IOUtils;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 

@@ -20,6 +20,9 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private DeckService deckService;
+
     public User findDuelist(long id){
         User user = userRepository.findById(id).orElse(null);
         return user;
@@ -37,8 +40,7 @@ public class UserService {
         user.setLastName(lastName);
         user.setPassword(hashpassword);
         user.setElo(1000);
-        Deck deck = new Deck();
-        user.setDeck(deck);
+        user.setDeck(deckService.customDeck());
         return user;
     }
 

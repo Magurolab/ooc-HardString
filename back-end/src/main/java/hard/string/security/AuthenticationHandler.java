@@ -1,7 +1,6 @@
 package hard.string.security;
 
 import hard.string.dto.UserWithProfileDto;
-import hard.string.entity.User;
 import hard.string.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -24,8 +23,7 @@ public class AuthenticationHandler implements AuthenticationProvider {
         String password = authentication.getCredentials().toString();
         UserWithProfileDto userWithProfileDto = userService.authenticate(username,password);
         if (userWithProfileDto!=null){
-
-            return new UsernamePasswordAuthenticationToken(userWithProfileDto, null);
+            return new UsernamePasswordAuthenticationToken(userWithProfileDto, null, new ArrayList<>());
         }
         return null;
     }

@@ -1,6 +1,11 @@
 package hard.string.controller;
 
+import hard.string.component.PlayerQueue;
+import hard.string.entity.BoardDB;
+import hard.string.repository.BoardDBRepository;
 import hard.string.repository.UserRepository;
+import hard.string.response.ResponseQueue;
+import hard.string.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,12 +20,27 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class QueueController {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
+
+    @Autowired
+    private BoardService boardService;
+
+    @Autowired
+    private BoardDBRepository boardDBRepository;
+
+    @Autowired
+    private PlayerQueue playerQueue = PlayerQueue.getInstance();
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity queue(
             @RequestParam Long userId
     ){
-        return ResponseEntity.ok().body("not yet implement");
+        BoardDB boardDB = boardDBRepository.findByPlayer1OrPlayer2(userId,userId);
+        if(boardDB.equals(null)){
+            return ResponseEntity.ok().body(new ResponseQueue());
+        }
+        //if player is not in the room yet
+        return ResponseEntity.ok().body(new ResponseQueue("Found game!",true));
     }
+
 }

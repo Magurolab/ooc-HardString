@@ -27,6 +27,14 @@ public class PlayerQueue {
         getInstance().playerqueue.add(p);
     }
 
+    public Integer size(){
+        return getInstance().playerqueue.size();
+    }
+
+    public boolean isEmpty(){
+        return getInstance().playerqueue.size() == 0;
+    }
+
     public Player peekFirstPlayer(){
         return getInstance().playerqueue.peek();
     }

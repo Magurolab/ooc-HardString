@@ -9,13 +9,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class PlayerService {
 
-    @Autowired
-    private  MagicRepository magicRepository;
-
-
-    public void drawCard(Player p){
+    public boolean drawCard(Player p){
         TempDeck deck = p.getTempDeck();
-        p.getTempHand().getHand().add(deck.getCards().pop());
+        if(deck.getCards().size() > 0) {
+            p.getTempHand().getHand().add(deck.getCards().pop());
+            return true;
+        }
+        else{
+            p.getMonsterField().getPlayer().setHp(p.getMonsterField().getPlayer().getHp()-2);
+            return false;
+        }
     }
 
     public Player initPlayer(long userId, TempDeck tempDeck, TempHand tempHand,
