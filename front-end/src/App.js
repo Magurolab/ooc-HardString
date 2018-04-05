@@ -1,21 +1,31 @@
-import React, { Component } from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import createMuiTheme from 'material-ui/styles/createMuiTheme';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import React, {Component} from 'react';
 import Board from './Board/Board.js';
 import Login from './Login/Login.js';
 import Register from './Register/Register.js';
 import Ready from './Ready.js';
 import './index.css';
 import './App.css';
+import LoginAPI from "./api/LoginAPI.js";
+
+import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {AuthProvider, AuthRoute} from 'react-router-auth-provider'
+import {createMuiTheme, MuiThemeProvider} from 'material-ui';
 
 
 const theme = createMuiTheme();
 
 
-class App extends Component {
+function MyAuthProvider(props) {
+    return (
+        <AuthProvider
+            whoami={LoginAPI.whoami}
+            logout={LoginAPI.logout}
+            {...props}
+        />
+    )
+}
 
-  render() {
+function MyAuthRoute(props) {
     return (
         <MuiThemeProvider theme = { theme }>
             <Router>
@@ -29,6 +39,46 @@ class App extends Component {
         </MuiThemeProvider>
     );
   }
+        <AuthRoute
+            loginRoute="/login"
+            {...props}
+        />
+
+}
+
+class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            currentUserID: "",
+        };
+    }
+
+
+
+    render() {
+        const { currentUserID } = this.state;
+        const functer = this.some_function; // NOTE : No ()
+        return (
+            <MuiThemeProvider theme={theme}>
+                <Router>
+                    <div className={"hugeBoy"}>
+
+                        <MyAuthProvider>
+
+                            <Route exact path="/login" component={Login}/>
+                            <Route exact path="/" component={Login}/>
+                            <Route exact path="/register" component={Register}/>
+                            <MyAuthRoute exact path="/board" component={Board}/>
+
+                        </MyAuthProvider>
+
+
+                    </div>
+                </Router>
+            </MuiThemeProvider>
+        );
+    }
 }
 
 export default App;

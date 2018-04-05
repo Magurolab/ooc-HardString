@@ -192,6 +192,7 @@ class Board extends React.Component{
     render(){
         const { classes } = this.props;
         console.log(this.state.currentField);
+        // console.log(this.props.isLoggedIn);
         return (
             <div className={classes.root}>
                 <Drawer
@@ -211,7 +212,6 @@ class Board extends React.Component{
                 </Drawer>
                 <main className={classes.content}>
                     <div className={classes.toolbar} />
-
 
                         <Grid className = "field_holder" container spacing={12} >
 
