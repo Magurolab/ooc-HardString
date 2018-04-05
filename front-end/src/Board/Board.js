@@ -139,7 +139,7 @@ class Board extends React.Component{
     };
 
     onEndTurn = () => {
-
+        BoardAPI.endTurn()
     };
 
     initBoard = () => {
@@ -206,7 +206,7 @@ class Board extends React.Component{
                     <div className={classes.toolbar} />
 
                     <List>
-                        <StatusBar endTurn={this.onEndTurn()} {...this.state}  />
+                        <StatusBar endTurn={this.onEndTurn} {...this.state}  />
                     </List>
                     <Divider />
                     <List>{otherMailFolderListItems}</List>
