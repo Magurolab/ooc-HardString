@@ -52,7 +52,7 @@ public class PlayerQueueService {
     private void updateList(List<Player> list){
         if(list.size() == 2){
             Player p1 = list.remove(0);
-            Player p2 = list.remove(1);
+            Player p2 = list.remove(0);
             BoardDB boardDB = new BoardDB();
             boardDB.setPlayer1(p1.getPlayerId());
             boardDB.setPlayer2(p2.getPlayerId());
@@ -69,29 +69,63 @@ public class PlayerQueueService {
 
     }
 
+    private boolean checkDupes(List<Player> list, Player player){
+        for(Player p: list){
+            if(player.getPlayerId() == p.getPlayerId()){
+                return true;
+            }
+        }
+        return false;
+    }
+
     private synchronized void updateQueue(){
         while(!playerQueue.isEmpty()){
             Player player = playerQueue.getFirstPlayer();
             System.out.println(player.getPlayerId());
             if(player.getElo() > WEERAPONG){
-                weerapong.add(player);
-                updateList(weerapong);
+                if(!checkDupes(weerapong,player)) {
+                    weerapong.add(player);
+                    updateList(weerapong);
+                }
+                else {
+                    playerQueue.push(player);
+                }
             }
             else if(player.getElo() > PLATINUM){
-                platinum.add(player);
-                updateList(platinum);
+                if(!checkDupes(platinum,player)) {
+                    platinum.add(player);
+                    updateList(platinum);
+                }
+                else {
+                    playerQueue.push(player);
+                }
             }
             else if(player.getElo() > GOLD){
-                gold.add(player);
-                updateList(gold);
+                if(!checkDupes(gold,player)) {
+                    gold.add(player);
+                    updateList(gold);
+                }
+                else {
+                    playerQueue.push(player);
+                }
             }
             else if(player.getElo() > SILVER){
-                silver.add(player);
-                updateList(silver);
+                if(!checkDupes(silver,player)) {
+                    silver.add(player);
+                    updateList(silver);
+                }
+                else {
+                    playerQueue.push(player);
+                }
             }
             else{
-                bronze.add(player);
-                updateList(bronze);
+                if(!checkDupes(bronze,player)) {
+                    bronze.add(player);
+                    updateList(bronze);
+                }
+                else {
+                    playerQueue.push(player);
+                }
             }
         }
     }

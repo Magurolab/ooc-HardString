@@ -1,6 +1,7 @@
 package hard.string.controller;
 
 import hard.string.component.PlayerQueue;
+import hard.string.entity.Board;
 import hard.string.entity.BoardDB;
 import hard.string.repository.BoardDBRepository;
 import hard.string.repository.UserRepository;
@@ -37,12 +38,15 @@ public class QueueController {
     public ResponseEntity queue(
             @RequestParam Long userId
     ){
-        BoardDB boardDB = boardDBRepository.findByPlayer1OrPlayer2(userId,userId);
-        if(boardDB.equals(null)){
+        BoardDB boardDB = null;
+        boardDB = boardDBRepository.findByPlayer1OrPlayer2(userId, userId);
+        System.out.println("catch exception");
+        if(boardDB == null){
             return ResponseEntity.ok().body(new ResponseQueue());
         }
-        //if player is not in the room yet
-        return ResponseEntity.ok().body(new ResponseQueue("Found game!",true));
+        else{
+            return ResponseEntity.ok().body(new ResponseQueue("Found game!",true));
+        }
     }
 
 }

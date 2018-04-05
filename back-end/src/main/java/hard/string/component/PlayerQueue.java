@@ -31,6 +31,10 @@ public class PlayerQueue {
         return getInstance().playerqueue.size();
     }
 
+    public void push(Player p){
+        getInstance().playerqueue.add(p);
+    }
+
     public boolean isEmpty(){
         return getInstance().playerqueue.size() == 0;
     }
