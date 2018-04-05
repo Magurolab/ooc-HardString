@@ -31,7 +31,7 @@ public class CardService {
             else if(type.equals("Monster")) {
 //                System.out.println("Creating monster ..... ID: "+ c.getId());
                 Monster temp = monsterRepository.findById(c.getId()).orElse(null);
-                System.out.println((temp != null));
+//                System.out.println((temp != null));
                 if(temp!=null) {
 //                System.out.println(temp.getClass().isInstance(Monster.class));
                     handDto.add(new CardDto(c, temp.getAtk(), temp.getMaxHP()));

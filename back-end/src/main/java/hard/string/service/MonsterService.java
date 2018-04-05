@@ -16,7 +16,7 @@ public  class MonsterService {
 
     public Monster createMonster(Card c){
         Monster m = monsterRepository.findById(c.getId()).orElse(null);
-        System.out.println(m.equals(null));
+//        System.out.println(m.equals(null));
         return m;
     }
 
