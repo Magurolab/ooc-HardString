@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Board from './Board/Board.js';
 import Login from './Login/Login.js';
 import Register from './Register/Register.js';
+import Ready from './Ready.js';
 import './index.css';
 import './App.css';
 
@@ -22,6 +23,7 @@ class App extends Component {
                     <Route exact path="/login" component={ Login } />
                     <Route exact path="/" component={ Board } />
                     <Route exact path="/register" component={ Register } />
+                    <Route exact path="/ready" component={ Ready }/>
                 </div>
             </Router>
         </MuiThemeProvider>
