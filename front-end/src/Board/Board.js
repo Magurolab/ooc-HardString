@@ -126,6 +126,9 @@ class Board extends React.Component{
             intervalPointer: undefined,
             dead: undefined,
             currentField: undefined,
+            availableMagicTarget:[],
+            availableMonsterField:[],
+
 
         };
     }
@@ -160,7 +163,7 @@ class Board extends React.Component{
                 // console.log(data);
                 // a, b = [aa, bb]
                 // const mana = data.currentPlayerMana
-                const { currentField, currentHand: hand , turn:turn , currentPlayerMana: mana, currentDeck} = data;
+                const { availableMagicTarget,availableMonsterField,currentField, currentHand: hand , turn:turn , currentPlayerMana: mana, currentDeck} = data;
 
                 const { player: { maxHP, name, dead, hp } } = currentField;
 
@@ -174,6 +177,10 @@ class Board extends React.Component{
                     turn: turn,
                     currentHand: hand,
                     currentField,
+                    availableMagicTarget,
+                    availableMonsterField,
+
+
                 }), () => console.log("state", this.state));
             })
             .catch((e) => {
@@ -220,7 +227,11 @@ class Board extends React.Component{
                         <Grid container spacing={12} className={classes.g}>
 
                             {/*{console.log(this.state.currentHand)}*/}
-                            <Hand hand={this.state.currentHand}/>
+                            <Hand
+                                hand={this.state.currentHand}
+                                availableMagicTarget={this.state.availableMagicTarget}
+                                availableMonsterField={this.state.availableMonsterField}
+                            />
 
                         </Grid>
                 </main>
