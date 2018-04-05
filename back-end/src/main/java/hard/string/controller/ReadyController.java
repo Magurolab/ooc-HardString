@@ -47,6 +47,7 @@ public class ReadyController {
             MonsterField monsterField = monsterFieldService.initMonsterField(currentUser.getFirstName());
             TempDeck tempDeck = tempDeckService.makeTempDeck(currentUser.getDeck());
             Player player = playerService.initPlayer(userId,tempDeck,tempHand,monsterField,currentUser.getUsername());
+            player.setElo(currentUser.getElo());
             playerQueueService.addPlayerToQueue(player);
             return ResponseEntity.ok("You're in queue!");
         }

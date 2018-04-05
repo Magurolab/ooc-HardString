@@ -72,6 +72,7 @@ public class PlayerQueueService {
     private synchronized void updateQueue(){
         while(!playerQueue.isEmpty()){
             Player player = playerQueue.getFirstPlayer();
+            System.out.println(player.getPlayerId());
             if(player.getElo() > WEERAPONG){
                 weerapong.add(player);
                 updateList(weerapong);
