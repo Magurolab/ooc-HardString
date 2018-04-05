@@ -5,7 +5,7 @@ import Register from './Register/Register.js';
 import './index.css';
 import './App.css';
 import LoginAPI from "./api/LoginAPI.js";
-
+import withUserId from './UserIdentifier.jsx'
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import {AuthProvider, AuthRoute} from 'react-router-auth-provider'
 import {createMuiTheme, MuiThemeProvider} from 'material-ui';
@@ -34,18 +34,9 @@ function MyAuthRoute(props) {
 }
 
 class App extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            currentUserID: "",
-        };
-    }
-
 
 
     render() {
-        const { currentUserID } = this.state;
-        const functer = this.some_function; // NOTE : No ()
         return (
             <MuiThemeProvider theme={theme}>
                 <Router>
@@ -55,7 +46,7 @@ class App extends Component {
 
                             <Route exact path="/login" component={Login}/>
                             <Route exact path="/" component={Login}/>
-                            <Route exact path="/register" component={Register}/>
+
                             <MyAuthRoute exact path="/board" component={Board}/>
 
                         </MyAuthProvider>

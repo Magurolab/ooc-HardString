@@ -3,11 +3,12 @@ import {
     Button, FormGroup, FormControl, ControlLabel, Navbar, Nav, NavItem, NavDropdown,
     MenuItem
 } from "react-bootstrap";
-// import { Button, FormGroup, Form } from 'reactstrap';
+
 import "./Login.css";
 import loginAPI from '../api/LoginAPI.js';
 import {withRouter} from 'react-router-dom'
 import {withAuth} from "react-router-auth-provider";
+import {withUserId} from "../UserIdentifier";
 // import 'bootstrap/dist/css/bootstrap.min.css'
 
 
@@ -135,4 +136,4 @@ class Login extends Component {
     }
 }
 
-export default withRouter(withAuth((Login)));
+export default withAuth((Login));
