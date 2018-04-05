@@ -1,13 +1,11 @@
 package hard.string.service;
 
 
-import hard.string.entity.Board;
-import hard.string.entity.Player;
-import hard.string.entity.User;
+import hard.string.entity.*;
 import hard.string.entity.cards.Card;
+import hard.string.repository.BoardDBRepository;
 import hard.string.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import hard.string.entity.TempMonster;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,6 +15,8 @@ public class BoardService {
     private UserRepository userRepository;
 
 
+    @Autowired
+    private BoardDBRepository boardDBRepository;
     @Autowired
     private TempMonsterService tempMonstersService;
     @Autowired
@@ -139,6 +139,8 @@ public class BoardService {
             loser.setElo(loser.getElo() - 10);
             userRepository.save(winner);
             userRepository.save(loser);
+//            BoardDB ended = boardDBRepository.findById(game)
+//            boardDBRepository.delete();
         }
         //player 2 lost
     }

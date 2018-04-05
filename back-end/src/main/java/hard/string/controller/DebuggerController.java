@@ -92,8 +92,8 @@ public class DebuggerController {
             playerService.drawCard(p1);
             playerService.drawCard(p2);
         }
-        System.out.println(p1.getTempHand().getHand().size());
-        System.out.println(p2.getTempHand().getHand().size());
+//        System.out.println(p1.getTempHand().getHand().size());
+//        System.out.println(p2.getTempHand().getHand().size());
         Board  b = new Board();
         b.setGameIsOver(false);
         b.setMana1(1);
@@ -138,7 +138,7 @@ public class DebuggerController {
         Card boat =  cardRepository.findById(1L).orElse(null);
         deckService.addCard(user.getDeck(),boat);
         deckService.addCard(user.getDeck(),boat);
-        System.out.println(user.getDeck().getCards());
+//        System.out.println(user.getDeck().getCards());
         deckRepository.save(user.getDeck());
         userRepository.save(user);
         return ResponseEntity.ok(user);

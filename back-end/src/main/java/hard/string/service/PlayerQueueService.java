@@ -65,6 +65,8 @@ public class PlayerQueueService {
             b.setPlayer2(p2);
             b.setTurn(1);
             runningGameService.addGame(boardDB.getBoardId(),b);
+            System.out.println("Create game success!");
+            System.out.println(p1.getPlayerId() + "and " + p2.getPlayerId() + " is now in the game!");
         }
 
     }
@@ -81,7 +83,7 @@ public class PlayerQueueService {
     private synchronized void updateQueue(){
         while(!playerQueue.isEmpty()){
             Player player = playerQueue.getFirstPlayer();
-            System.out.println(player.getPlayerId());
+            System.out.println("Attempt to put player : " + player.getPlayerId() + " in queue");
             if(player.getElo() > WEERAPONG){
                 if(!checkDupes(weerapong,player)) {
                     weerapong.add(player);
