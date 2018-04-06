@@ -78,14 +78,15 @@ public class BoardController {
         if(valid) {
             //get currentPlayer
             int currentin = currentmonster;
+            System.out.println("Our monster position :" + currentmonster);
+            System.out.println("Attempt to attack : " + enemymonster);
             Player p1 = boardService.getPlayer(userWithProfileDto.getUserId(),board);
             //get enemyPlayer
             Player p2 = boardService.getEnemeyPlayer(userWithProfileDto.getUserId(),board);
             char side = enemymonster.charAt(enemymonster.length() - 1);
             int in = Integer.valueOf(enemymonster.subSequence(0, enemymonster.length() - 1).toString());
             if(side == 'E'){
-                System.out.println("Our monster position :" + currentmonster);
-                System.out.println("Attempt to attack : " + enemymonster);
+                System.out.println("Justified enemy position");
                 TempMonster m1 = monsterFieldService.getMonster(currentin, p1.getMonsterField());
                 TempMonster m2 = monsterFieldService.getMonster(in, p2.getMonsterField());
                 boardService.fight(p1, p2, m1, m2, currentin, in);
