@@ -1,5 +1,6 @@
 package hard.string.service;
 
+import hard.string.component.RunningGame;
 import hard.string.entity.Board;
 import org.springframework.stereotype.Service;
 
@@ -10,17 +11,18 @@ import java.util.Map;
 @Service
 public class RunningGameService {
 
-    private Map<Long,Board> games = new HashMap<Long,Board>();
+    private RunningGame runningGame = RunningGame.getInstance();
 
     public void addGame(Long key, Board board){
-        games.put(key,board);
+        runningGame.put(key,board);
     }
 
     public void removeGame(Long key){
-        games.remove(key);
+        runningGame.remove(key);
     }
 
     public Board getGame(Long key){
-        return games.get(key);
+        return runningGame.get(key);
     }
+
 }

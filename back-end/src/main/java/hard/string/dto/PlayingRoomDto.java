@@ -3,14 +3,13 @@ package hard.string.dto;
 import hard.string.entity.LobbyRoom;
 import hard.string.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by Teama on 3/28/2018.
  */
-public class PlayingRoomDto {
 
-    @Autowired
-    UserService userService;
+public class PlayingRoomDto {
 
     private Long roomId;
 
@@ -67,23 +66,23 @@ public class PlayingRoomDto {
     }
 
     public PlayingRoomDto(LobbyRoom lobbyRoom){
-        this.roomId = lobbyRoom.getRoomId();
-        int count = 0;
-        if(lobbyRoom.getUser1()>0){
-            this.setPlayer1(userService.findDuelist(lobbyRoom.getUser1()).getFirstName());
-            count++;
-        }
-        if(lobbyRoom.getUser2()>0){
-            this.setPlayer2(userService.findDuelist(lobbyRoom.getUser2()).getFirstName());
-            count++;
-        }
-        this.size = count;
-        if(count > 1){
-            setCanStart(true);
-        }
-        else{
-            setCanStart(false);
-        }
+//        this.roomId = lobbyRoom.getRoomId();
+//        int count = 0;
+//        if(lobbyRoom.getUser1()>0){
+//            this.setPlayer1(userService.findDuelist(lobbyRoom.getUser1()).getFirstName());
+//            count++;
+//        }
+//        if(lobbyRoom.getUser2()>0){
+//            this.setPlayer2(userService.findDuelist(lobbyRoom.getUser2()).getFirstName());
+//            count++;
+//        }
+//        this.size = count;
+//        if(count > 1){
+//            setCanStart(true);
+//        }
+//        else{
+//            setCanStart(false);
+//        }
     }
 
 }

@@ -14,10 +14,6 @@ import javax.persistence.Id;
 @Entity
 public class Monster {
 
-    /**
-     * Todo
-     * What will monster have? attribute, attack, etc.
-     */
     @Id
     private Long id;
 

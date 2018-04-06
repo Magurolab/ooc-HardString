@@ -20,6 +20,9 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private DeckService deckService;
+
     public User findDuelist(long id){
         User user = userRepository.findById(id).orElse(null);
         return user;
@@ -36,8 +39,8 @@ public class UserService {
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setPassword(hashpassword);
-        Deck deck = new Deck();
-        user.setDeck(deck);
+        user.setElo(1000);
+        user.setDeck(deckService.customDeck());
         return user;
     }
 
@@ -47,9 +50,12 @@ public class UserService {
         if(findUser!=null) {
             System.out.println(username);
             System.out.println(password);
+            System.out.println("Attempting match password..");
             if (HashPassword.verifyPassword(findUser.getPassword(), password)) {
+                System.out.println("login success");
                 return new UserWithProfileDto(findUser);
             }
+            System.out.println("Password mismatched");
         }
         return null;
     }

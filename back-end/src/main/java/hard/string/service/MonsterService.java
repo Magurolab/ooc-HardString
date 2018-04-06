@@ -2,11 +2,23 @@ package hard.string.service;
 
 
 import hard.string.entity.TempMonster;
+import hard.string.entity.cards.Card;
 import hard.string.entity.cards.Monster.Monster;
+import hard.string.repository.MonsterRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public  class MonsterService {
+
+    @Autowired
+    private MonsterRepository monsterRepository;
+
+    public Monster createMonster(Card c){
+        Monster m = monsterRepository.findById(c.getId()).orElse(null);
+//        System.out.println(m.equals(null));
+        return m;
+    }
 
 
     public boolean isDead(TempMonster m){

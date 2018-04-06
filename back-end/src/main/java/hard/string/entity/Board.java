@@ -1,12 +1,20 @@
 package hard.string.entity;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+
 /**
  * Created by Teama on 3/25/2018.
  */
+
+@Component
 public class Board {
 
     private int mana1;
     private int mana2;
+
+    private int maxmana1;
+    private int maxmana2;
 
     private Player player1;
 
@@ -61,5 +69,21 @@ public class Board {
 
     public boolean isGameIsOver() {
         return gameIsOver;
+    }
+
+    public int getMaxmana1() {
+        return maxmana1;
+    }
+
+    public int getMaxmana2() {
+        return maxmana2;
+    }
+
+    public void setMaxmana1(int maxmana1) {
+        this.maxmana1 = maxmana1;
+    }
+
+    public void setMaxmana2(int maxmana2) {
+        this.maxmana2 = maxmana2;
     }
 }

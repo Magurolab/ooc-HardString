@@ -45,7 +45,7 @@ public class TempMonsterService {
     }
 
     public TempMonster createTempMonster(long cardId){
-        Monster monster = monsterRepository.findById(cardId);
+        Monster monster = monsterRepository.findById(cardId).orElse(null);
         TempMonster tempMonster = new TempMonster();
         tempMonster.setName(monster.getName());
         tempMonster.setCost(monster.getCost());

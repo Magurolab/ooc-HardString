@@ -1,1 +1,13 @@
+hard.string
+hard.string.component
+hard.string.configurations
 hard.string.controller
+hard.string.dto
+hard.string.entity
+hard.string.entity.cards
+hard.string.entity.cards.Magic
+hard.string.entity.cards.Monster
+hard.string.hashing
+hard.string.repository
+hard.string.security
+hard.string.service

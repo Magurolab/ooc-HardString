@@ -1,6 +1,7 @@
 package hard.string.entity;
 
 import hard.string.entity.cards.Monster.Monster;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 
@@ -11,6 +12,7 @@ public class Player{
     //playerId == userId
     private long playerId;
 
+    private Integer elo;
 
     private TempDeck tempDeck;
     private TempHand tempHand;
@@ -67,5 +69,13 @@ public class Player{
 
     public void setActiveTaunt(int activeTaunt) {
         this.activeTaunt = activeTaunt;
+    }
+
+    public Integer getElo() {
+        return elo;
+    }
+
+    public void setElo(Integer elo) {
+        this.elo = elo;
     }
 }

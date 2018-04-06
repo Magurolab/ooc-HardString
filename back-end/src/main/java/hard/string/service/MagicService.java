@@ -23,6 +23,8 @@ public class MagicService {
 
     public void applyEffectToTarget(Player p ,Magic magic,TempMonster target){
         int[] eff = getEffect(magic);
+
+
         if(magic.isRandomEff()){
             int i = getRandomEff(eff);
             if(i==0){
@@ -31,6 +33,9 @@ public class MagicService {
             }else if(i ==1){
                 //dmg
                 monsterService.takeDamage(target,eff[1]);
+                if(target.getHp() < 0){
+                    target.setDead(true);
+                }
             }else if(i ==2){
                 //atkbuf
                 monsterService.takeAtkBuff(target,eff[2]);

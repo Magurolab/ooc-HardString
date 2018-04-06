@@ -83,6 +83,24 @@ public class MonsterFieldService {
 
     }
 
+    public void setAllAttack(MonsterField monsterField){
+        if(checkMonster(1,monsterField)){
+            monsterField.getMonster1().setCanAttack(true);
+        }
+        if(checkMonster(2,monsterField)){
+            monsterField.getMonster2().setCanAttack(true);
+        }
+        if(checkMonster(3,monsterField)){
+            monsterField.getMonster3().setCanAttack(true);
+        }
+        if(checkMonster(4,monsterField)){
+            monsterField.getMonster4().setCanAttack(true);
+        }
+        if(checkMonster(5,monsterField)){
+            monsterField.getMonster5().setCanAttack(true);
+        }
+    }
+
     public MonsterField initMonsterField(String name){
         MonsterField monsterField = new MonsterField();
         for(int i = 0; i<7;i++){
@@ -95,6 +113,7 @@ public class MonsterFieldService {
     public  boolean addMonster(Player player,long cardId,int index){
         MonsterField monsterField = player.getMonsterField();
         TempMonster tempMonster = tempMonsterService.createTempMonster(cardId);
+        tempMonster.setIndex(index);
         //If taunt add counter in Player
         if(tempMonster.isTaunt()){
             player.setActiveTaunt(player.getActiveTaunt()+1);
@@ -106,7 +125,9 @@ public class MonsterFieldService {
 
     public boolean removeMonster(int monsterIndex, Player p){
         if(getMonster(monsterIndex,p.getMonsterField()).isTaunt()){
+            System.out.println("Before monster die: " + p.getActiveTaunt());
             p.setActiveTaunt(p.getActiveTaunt()-1);
+            System.out.println("After monster die: " + p.getActiveTaunt());
         }
         setMonster(monsterIndex,p.getMonsterField(),null);
         return true;

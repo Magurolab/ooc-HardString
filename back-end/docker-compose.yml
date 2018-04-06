@@ -1,0 +1,25 @@
+version: "3.2"
+services:
+  database:
+    image: mysql:5
+    ports:
+      #auto redirect local host > 3306
+      - 127.0.0.1:3306:3306
+    volumes:
+      #host machine:docker container
+      - ./db:/var/lib/mysql
+      #restart upon reboot
+    restart: on-failure
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_USER: ooc
+      MYSQL_PASSWORD: hardstring123
+      MYSQL_DATABASE: hardstring
+
+  servlet:
+    build: ./
+    restart: on-failure
+    depends_on: #this container must start before the current container
+      - database
+    ports:
+      - 80:8082 #auto redirect

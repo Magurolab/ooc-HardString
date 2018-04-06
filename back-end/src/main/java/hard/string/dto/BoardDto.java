@@ -1,7 +1,12 @@
 package hard.string.dto;
 
 import hard.string.entity.*;
+import hard.string.entity.cards.Card;
+import hard.string.service.BoardService;
+import hard.string.service.CardService;
 import hard.string.service.MonsterFieldService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,16 +14,20 @@ import java.util.List;
 /**
  * Created by Teama on 3/25/2018.
  */
+
 public class BoardDto {
 
-    private MonsterFieldService monsterFieldService = new MonsterFieldService();
-
     private int currentPlayerMana;
+    private int maxCurrentPlayerMana;
     private int enemyPlayerMana;
+    private int maxEnemyPlayerMana;
+
+    private boolean gameEnd;
 
     private long currentPlayer;
     private MonsterField currentField;
-    private TempHand currentHand;
+    private List<CardDto> currentHand;
+//    private TempHand currentHand;
     private long currentDeck;
     private String yourUsername;
 
@@ -34,12 +43,20 @@ public class BoardDto {
     //valid space to play magic
     private List<String> availableMagicTarget;
 
-    private int turn;
+    //valid attack target
+    private List<String> availableAttackTarget;
+
+    private boolean turn;
     private boolean gameOver;
 
-    private void createField(Player currentPlayer, Player enemyPlayer){
+    private void createCurrentHand(TempHand tempHand, CardService cardService){
+        currentHand = cardService.createHandDto(tempHand);
+    }
+
+    private void createField(Player currentPlayer, Player enemyPlayer, MonsterFieldService monsterFieldService){
         availableMonsterField = new ArrayList<>();
         availableMagicTarget = new ArrayList<>();
+        availableAttackTarget = new ArrayList<>();
         for(int i = 0; i < 6; i++){
             if(monsterFieldService.checkMonster(i,currentPlayer.getMonsterField())){
                 availableMagicTarget.add(String.valueOf(i)+'P');
@@ -52,26 +69,38 @@ public class BoardDto {
             boolean isValid = monsterFieldService.checkMonster(i, enemyPlayer.getMonsterField());
             if(isValid){
                 availableMagicTarget.add(String.valueOf(i)+'E');
+                availableAttackTarget.add(String.valueOf(i)+'E');
             }
         }
     }
 
-    public BoardDto(Board board, Player currentPlayer, Player enemyPlayer){
-        currentPlayerMana = board.getMana1();
-        enemyPlayerMana = board.getMana2();
+    public BoardDto(Board board, Player currentPlayer, Player enemyPlayer,
+                    BoardService boardService,
+                    MonsterFieldService monsterFieldService,
+                    CardService cardService){
+        this.maxCurrentPlayerMana = boardService.getMaxMana(currentPlayer.getPlayerId(),board);
+        this.maxEnemyPlayerMana = boardService.getMaxMana(enemyPlayer.getPlayerId(),board);
+        currentPlayerMana = boardService.getCurrentMana(currentPlayer.getPlayerId(),board);
+        enemyPlayerMana = boardService.getCurrentMana(enemyPlayer.getPlayerId(),board);
         this.currentPlayer = currentPlayer.getPlayerId();
         this.enemyPlayer = enemyPlayer.getPlayerId();
         currentField = currentPlayer.getMonsterField();
         enemyField = enemyPlayer.getMonsterField();
-        currentHand = currentPlayer.getTempHand();
+        createCurrentHand(currentPlayer.getTempHand(),cardService);
+//        currentHand = currentPlayer.getTempHand();
         enemyHand = enemyPlayer.getTempHand().getHand().size();
         currentDeck = currentPlayer.getTempDeck().getCards().size();
         enemyDeck = enemyPlayer.getTempDeck().getCards().size();
         yourUsername = currentPlayer.getUsername();
         enemyUsername = enemyPlayer.getUsername();
-        turn = board.getTurn();
+        turn = boardService.isValidTurn(currentPlayer,board);
         gameOver = board.isGameIsOver();
-        createField(currentPlayer,enemyPlayer);
+        createField(currentPlayer,enemyPlayer,monsterFieldService);
+        gameEnd = board.isGameIsOver();
+    }
+
+    public List<String> getAvailableAttackTarget() {
+        return availableAttackTarget;
     }
 
     public int getCurrentPlayerMana() {
@@ -82,8 +111,12 @@ public class BoardDto {
         return enemyPlayerMana;
     }
 
-    public int getTurn() {
+    public boolean isTurn() {
         return turn;
+    }
+
+    public boolean isGameOver() {
+        return gameOver;
     }
 
     public long getEnemyPlayer() {
@@ -122,9 +155,22 @@ public class BoardDto {
         return enemyUsername;
     }
 
-    public TempHand getCurrentHand() {
+    public List<CardDto> getCurrentHand() {
         return currentHand;
     }
+
+    public int getMaxCurrentPlayerMana() {
+        return maxCurrentPlayerMana;
+    }
+
+    public int getMaxEnemyPlayerMana() {
+        return maxEnemyPlayerMana;
+    }
+
+
+    //    public TempHand getCurrentHand() {
+//        return currentHand;
+//    }
 
     public List<String> getAvailableMonsterField() {
         return availableMonsterField;
@@ -133,5 +179,7 @@ public class BoardDto {
     public List<String> getAvailableMagicTarget() {
         return availableMagicTarget;
     }
+
+
 }
 

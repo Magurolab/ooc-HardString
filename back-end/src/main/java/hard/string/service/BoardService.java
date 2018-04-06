@@ -1,45 +1,61 @@
 package hard.string.service;
 
 
-import hard.string.entity.Board;
-import hard.string.entity.Player;
+import hard.string.entity.*;
 import hard.string.entity.cards.Card;
+import hard.string.repository.BoardDBRepository;
+import hard.string.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import hard.string.entity.TempMonster;
 import org.springframework.stereotype.Service;
 
 @Service
 public class BoardService {
 
     @Autowired
-    private TempMonsterService tempMonstersService = new TempMonsterService();
+    private UserRepository userRepository;
+
     @Autowired
-    private MonsterFieldService monsterFieldService = new MonsterFieldService();
+    private RunningGameService runningGameService;
+
+    @Autowired
+    private BoardDBRepository boardDBRepository;
+    @Autowired
+    private TempMonsterService tempMonstersService;
+    @Autowired
+    private MonsterFieldService monsterFieldService;
 
     public boolean fight(Player pA ,Player pB, TempMonster mA,TempMonster mB,int indexA,int indexB) {
 
         if (pA.getPlayerId() != pB.getPlayerId()) {
             //if player try to attack monster on the same side, we'll not allow that
-            if (pA.getActiveTaunt() == 0 || mB.isTaunt()) {
+            if (pB.getActiveTaunt() == 0 || mB.isTaunt()) {
                 //doing an attack
                 tempMonstersService.takeDamage(mA, mB.getAtk());
+                System.out.println("Monster a after attack : " + mA.getHp());
 //                monA hp -= monB atk
                 tempMonstersService.takeDamage(mB, mA.getAtk());
+                System.out.println("Monster b after being attacked : " + mB.getHp());
 //                monB hp -= monA atk
                 if (tempMonstersService.isDead(mA)) {
                     //remove monster if it dead
-                    monsterFieldService.setMonster(indexA,pA.getMonsterField(),null);
+                    if(indexA != 0) {
+                        monsterFieldService.removeMonster(indexA, pA);
+                    }
+//                    monsterFieldService.setMonster(indexA,pA.getMonsterField(),null);
 //                    a.remove(mA);
                 } else {
+                    System.out.println("set can't attack");
                     //make monster cannot attack twice in a turn
                     mA.setCanAttack(false);
                 }
                 if (tempMonstersService.isDead(mB)) {
                     //remove monster if it dead
-                    monsterFieldService.setMonster(indexB,pB.getMonsterField(),null);
+                    if(indexB != 0) {
+                        monsterFieldService.removeMonster(indexB, pB);
+                    }
+//                    monsterFieldService.setMonster(indexB,pB.getMonsterField(),null);
 //                    b.remove(mB);
                 }
-
             } else {
                 //cannot attack since taunt is on the field
                 return false;
@@ -55,16 +71,31 @@ public class BoardService {
     public Player endTurn(Board b){
         if(b.getTurn() == 1){
             //Add one mana to P1
-            b.setMana1(b.getMana1()+1);
+            if(b.getMaxmana1()>10){
+                b.setMaxmana1(10);
+                b.setMana1(10);
+            }
+            else {
+                b.setMaxmana1((b.getMaxmana1() + 1));
+                b.setMana1(b.getMaxmana1());
+            }
             //Set turn to P2
+            monsterFieldService.setAllAttack(b.getPlayer2().getMonsterField());
             b.setTurn(2);
             return b.getPlayer2();
         }else {
             //Add one mana to P2
-            b.setMana2(b.getMana2()+1);
+            if(b.getMaxmana2()>10){
+                b.setMaxmana2(10);
+                b.setMana2(10);
+            }
+            else {
+                b.setMaxmana2(b.getMaxmana2() + 1);
+                b.setMana2(b.getMaxmana2());
+            }
             //Set turn to P1
+            monsterFieldService.setAllAttack(b.getPlayer1().getMonsterField());
             b.setTurn(1);
-
             return b.getPlayer1();
         }
     }
@@ -84,7 +115,6 @@ public class BoardService {
 
 
 
-    //TODO Ask them if they prefer integer or object as player argument.(if obj, put mana in Player)(Not possible if Player is not Entity)
     //Set the new remaining mana.
     //Return the remaining mana.
     public int usedMana(Board game,int pNum,int manaCost){
@@ -98,11 +128,54 @@ public class BoardService {
 
     }
 
-    public void isGameEnd(Board game){
+    public boolean isGameEnd(Board game){
         if(game.getPlayer1().getMonsterField().getPlayer().getHp() == 0 ||
                 game.getPlayer2().getMonsterField().getPlayer().getHp() == 0){
             game.setGameIsOver(true);
+            return true;
         }
+        return false;
+    }
+
+    private void gameEnd(Board game){
+        TempMonster p1 = game.getPlayer1().getMonsterField().getPlayer();
+        TempMonster p2 = game.getPlayer2().getMonsterField().getPlayer();
+        User winner = null;
+        User loser = null;
+        //player 1 lost
+        if(p1.getHp() <= 0){
+            winner = userRepository.findById(game.getPlayer1().getPlayerId()).orElse(null);
+            loser = userRepository.findById(game.getPlayer2().getPlayerId()).orElse(null);
+        }
+        else if(p2.getHp() <= 0){
+            winner = userRepository.findById(game.getPlayer2().getPlayerId()).orElse(null);
+            loser = userRepository.findById(game.getPlayer1().getPlayerId()).orElse(null);
+        }
+        if(winner != null && loser != null) {
+            winner.setElo(winner.getElo() + 20);
+            loser.setElo(loser.getElo() - 10);
+            userRepository.save(winner);
+            userRepository.save(loser);
+            BoardDB ended = boardDBRepository.findByPlayer1OrPlayer2(game.getPlayer1().getPlayerId(),game.getPlayer1().getPlayerId());
+            runningGameService.removeGame(ended.getBoardId());
+            boardDBRepository.delete(ended);
+            System.out.println("Successfully remove game");
+        }
+        //rage quit
+        else{
+            BoardDB ended = boardDBRepository.findByPlayer1OrPlayer2(game.getPlayer1().getPlayerId(),game.getPlayer1().getPlayerId());
+            runningGameService.removeGame(ended.getBoardId());
+            boardDBRepository.delete(ended);
+        }
+        //player 2 lost
+    }
+
+    public boolean gameEndHandler(Board b){
+        if(isGameEnd(b)){
+            gameEnd(b);
+            return true;
+        }
+        return false;
     }
 
 
@@ -138,6 +211,30 @@ public class BoardService {
         }
         else if(playerId == game.getPlayer2().getPlayerId()){
             return game.getPlayer2();
+        }
+        else{
+            return null;
+        }
+    }
+
+    public Integer getMaxMana(long playerId, Board game){
+        if(playerId == game.getPlayer1().getPlayerId()){
+            return game.getMaxmana1();
+        }
+        else if(playerId == game.getPlayer2().getPlayerId()){
+            return game.getMaxmana2();
+        }
+        else{
+            return null;
+        }
+    }
+
+    public Integer getCurrentMana(long playerId, Board game){
+        if(playerId == game.getPlayer1().getPlayerId()){
+            return game.getMana1();
+        }
+        else if(playerId == game.getPlayer2().getPlayerId()){
+            return game.getMana2();
         }
         else{
             return null;

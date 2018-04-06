@@ -22,12 +22,9 @@ public class AuthenticationHandler implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = authentication.getName();
         String password = authentication.getCredentials().toString();
-//        System.out.println("In authentication");
-//        System.out.println(username);
-//        System.out.println(password);
-        // Check with Database
         UserWithProfileDto userWithProfileDto = userService.authenticate(username,password);
         if (userWithProfileDto!=null){
+            System.out.println("Success");
             return new UsernamePasswordAuthenticationToken(userWithProfileDto, null, new ArrayList<>());
         }
         return null;
