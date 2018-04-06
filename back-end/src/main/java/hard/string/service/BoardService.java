@@ -28,7 +28,7 @@ public class BoardService {
 
         if (pA.getPlayerId() != pB.getPlayerId()) {
             //if player try to attack monster on the same side, we'll not allow that
-            if (pA.getActiveTaunt() == 0 || mB.isTaunt()) {
+            if (pB.getActiveTaunt() == 0 || mB.isTaunt()) {
                 //doing an attack
                 tempMonstersService.takeDamage(mA, mB.getAtk());
                 System.out.println("Monster a after attack : " + mA.getHp());
