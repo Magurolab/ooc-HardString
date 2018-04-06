@@ -6,6 +6,7 @@ import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 import Button from 'material-ui/Button';
 import ImageMapper from '../../ImageMapper';
 
+
 import TargetPointer from './HandTools/TargetPointer.js';
 
 const styles = theme => ({
@@ -36,7 +37,9 @@ const styles = theme => ({
 
 function Hand(props) {
     const { classes, hand: currentHand, availableMonsterField, availableMagicTarget } = props;
-    console.log("hand", currentHand.map(e => console.log(e)));
+    // console.log("hand", currentHand.map(e => console.log(e)));
+    // this.forceUpdate();
+    //console.log('hello', availableMons)
     return (
         <div className={classes.root}>
             <GridList className={classes.gridList} cellHeight={400} cols={5.1}>
@@ -57,6 +60,7 @@ function Hand(props) {
                         />
                         <CardActions>
                             <TargetPointer
+                                cardId={tile.cardId}
                                 type={tile.type}
                                 availableMonsterField ={availableMonsterField}
                                 availableMagicTarget={availableMagicTarget}
@@ -67,6 +71,7 @@ function Hand(props) {
                 ))}
             </GridList>
         </div>
+
     );
 }
 

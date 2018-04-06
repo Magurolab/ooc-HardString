@@ -52,7 +52,7 @@ function TurnBar(props){
     const {turn} = props;
     return (
         <ListItem text >
-            {turn ? "Your Turn" : "Other Turn"}
+            {turn ? "Your Turn" : "Enemy Turn"}
         </ListItem>
     )
 }
@@ -194,14 +194,16 @@ class Board extends React.Component{
                     availableMagicTarget,
                     availableMonsterField,
                     availableAttackTarget,
+                })
 
-
-                }), () => console.log("state", this.state));
+                , () => console.log("state", this.state));
             })
             .catch((e) => {
                 // alert("Shit happens in Show board");
                 console.log(e);
             })
+        this.forceUpdate();
+
     };
 
     render(){
@@ -247,6 +249,7 @@ class Board extends React.Component{
                         <Grid container spacing={12} className={classes.g}>
 
                             {/*{console.log(this.state.currentHand)}*/}
+
                             <Hand
                                 hand={this.state.currentHand}
                                 availableMagicTarget={this.state.availableMagicTarget}

@@ -1,13 +1,15 @@
 import React from 'react';
 import './Ready.css';
 import { Button } from "react-bootstrap";
-
+import './WaitingQueue.css';
 import ReadyAPI from './api/ReadyAPI';
 import loginAPI from "./api/LoginAPI";
 import {withStyles} from "material-ui/styles/index";
 import {withAuth} from "react-router-auth-provider";
 import WaitingAPI from "./api/WaitingAPI";
 import BoardAPI from "./api/BoardAPI";
+
+import {BeatLoader, HashLoader} from 'react-spinners';
 
 // const wellStyles = { maxWidth: 400, margin: '0 auto 200px' };
 
@@ -16,6 +18,10 @@ const styles = theme => ({
     ready:{
         maxWidth:400,
         margin: '0 auto 200px'
+    },
+
+    waitText:{
+        fontSize:1000,
     }
 
 });
@@ -80,9 +86,16 @@ class WaitingQueue extends React.Component {
     render(){
 
         return (
-           <div>
-               Waiting.......
-           </div>
+
+           <div className='BeatLoader'>
+
+               <HashLoader
+                   color={'#36D7B7'}
+                   loading={true}
+                    size={90}
+               />
+
+               </div>
 
         );
     }

@@ -69,9 +69,9 @@ class CardField extends React.Component {
         if(monsterInfo === undefined){
             return(<div>Card Loading..</div>);
         }
-        const {img, title, empty, enemy} = monsterInfo;
-        console.log("MonsterInfo", monsterInfo);
-        console.log(img);
+        const {img, title, empty, enemy,index,cardId} = monsterInfo;
+        // console.log("MonsterInfo", monsterInfo);
+        // console.log(img);
         // console.log("Idex:",idex );
     return (
 
@@ -124,6 +124,9 @@ class CardField extends React.Component {
 
                         <TargetInFieldPointer
                             availableAttackTarget ={availableAttackTarget}
+                            monsterIndex = {index}
+                            cardId = {cardId}
+
                         />
 
 

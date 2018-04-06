@@ -65,20 +65,11 @@ class Login extends Component {
                    <Navbar inverse collapseOnSelect >
                        <Navbar.Header>
                            <Navbar.Brand>
-                               <a href="#brand">React-Bootstrap</a>
+                               <a href="#brand">HardString</a>
                            </Navbar.Brand>
                            <Navbar.Toggle />
                        </Navbar.Header>
                        <Navbar.Collapse>
-                           <Nav>
-                               <NavItem eventKey={1} href="#">
-                                   Link
-                               </NavItem>
-                               <NavItem eventKey={2} href="#">
-                                   Link
-                               </NavItem>
-
-                           </Nav>
                            <Nav pullRight>
                                <NavDropdown eventKey={3} title="contact us" id="basic-nav-dropdown">
                                    <MenuItem eventKey={3.1} href="mailto:kmkanokpon3@gmail.com?subject=I would like to suggest something">suggestion</MenuItem>

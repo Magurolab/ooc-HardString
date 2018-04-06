@@ -2,14 +2,15 @@ import React from 'react';
 import Button from 'material-ui/Button';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import PropTypes from 'prop-types';
+import FieldAPI from "../../../../api/FieldAPI";
 
 class TargetInFieldPointer extends React.Component {
     constructor(props){
         super(props)
         this.state = {
             anchorEl: null,
-            type:props.type,
-            availableAttackTarget: props.availableAttackTarget,
+            // type:props.type,
+            // availableAttackTarget: props.availableAttackTarget,
 
         }
     };
@@ -22,10 +23,20 @@ class TargetInFieldPointer extends React.Component {
         this.setState({ anchorEl: null });
     };
 
+    handleMenuItemClick = (event, index) => {
+        this.setState({selectedIndex: index, anchorEl: null});
+        console.log("BEfore axios", this.props.monsterIndex, index);
+        FieldAPI.attack(this.props.monsterIndex, index).then(
+            // {this.setState(anchorEl: null)}
+        );
+    };
+
 
 
     render() {
-        const { anchorEl, availableAttackTarget } = this.state;
+        // const { anchorEl, availableAttackTarget } = this.state;
+        const {anchorEl, } = this.state;
+        const {availableAttackTarget, cardId} = this.props;
 
             return (
                 <div>
@@ -43,7 +54,11 @@ class TargetInFieldPointer extends React.Component {
                         onClose={this.handleClose}
                     >
                         {availableAttackTarget.map(each => (
-                            <MenuItem onClick={this.handleClose}>{each}</MenuItem>
+                            <MenuItem
+                                // onClick={this.handleClose}
+                                selected={each === this.state.selectedIndex}
+                                onClick={event => this.handleMenuItemClick(event, each)}
+                            >{each}</MenuItem>
                         ))}
 
 

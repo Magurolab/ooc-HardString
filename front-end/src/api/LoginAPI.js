@@ -12,14 +12,15 @@ class LoginAPI {
     }
 
     whoami(){
-        console.log("hello heloo");
+        // console.log("hello heloo");
         return axios.get('/whoami')
             .then(({data, status}) => (console.log(status)))
 
     }
 
     logout(){
-
+        axios.post("/board/ragequit")
+        return axios.post("/logout")
     }
 }
 export default new LoginAPI()

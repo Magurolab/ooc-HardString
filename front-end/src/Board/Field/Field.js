@@ -42,6 +42,8 @@ function setCard(monster,isEnemy){
         monsterInfoHolder.title = "ATK :"+ monster.atk +"\n HP :"+ monster.hp+"/"+monster.maxHP;
         monsterInfoHolder.empty = false;
         monsterInfoHolder.enemy = isEnemy;
+        monsterInfoHolder.index = monster.index;
+        monsterInfoHolder.cardId = monster.cardId;
     }
     return monsterInfoHolder;
 }
@@ -77,7 +79,6 @@ function Field(props){
                                 <div>
 
                                     <CardInField
-
                                         monsterInfo = {setCard(player,true)}
                                     classes={classes}
 
@@ -116,7 +117,7 @@ function Field(props){
 
                             <div className="flex-container">
                                 <div><CardInField
-                                    monsterInfo = {setCard(currentField.player,false)}
+                                    monsterInfo = {setCard(currentField.player,true)}
                                     classes={classes}
                                     availableAttackTarget = {availableAttackTarget}
                                     availableMagicTarget = {availableMagicTarget}
