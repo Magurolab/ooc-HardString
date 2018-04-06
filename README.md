@@ -13,4 +13,7 @@ http://localhost:8080/register?username=test&password=test&firstName=Tester&last
 
 This one username: test, password: test
 http://localhost:8080/register?username=test2&password=test2&firstName=Tester2&lastName=testtest2
+
 This one username: test2, password: test2
+
+#Enjoy the game!!!
