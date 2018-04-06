@@ -1,7 +1,7 @@
 import Axios from "axios"
 import QS from 'qs'
 
-const URL = process.env.NODE_ENV !== 'development' ? 'https://api.hardstring.temata.me'  : 'http://localhost:8080'
+const URL = process.env.NODE_ENV !== 'development' ? 'https://api.hardstring.teamata.me/'  : 'http://localhost:8080'
 
 const axios = new Axios.create({
     baseURL: URL,
