@@ -33,6 +33,9 @@ public class MagicService {
             }else if(i ==1){
                 //dmg
                 monsterService.takeDamage(target,eff[1]);
+                if(target.getHp() < 0){
+                    target.setDead(true);
+                }
             }else if(i ==2){
                 //atkbuf
                 monsterService.takeAtkBuff(target,eff[2]);

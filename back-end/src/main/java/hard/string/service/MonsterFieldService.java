@@ -125,7 +125,9 @@ public class MonsterFieldService {
 
     public boolean removeMonster(int monsterIndex, Player p){
         if(getMonster(monsterIndex,p.getMonsterField()).isTaunt()){
+            System.out.println("Before monster die: " + p.getActiveTaunt());
             p.setActiveTaunt(p.getActiveTaunt()-1);
+            System.out.println("After monster die: " + p.getActiveTaunt());
         }
         setMonster(monsterIndex,p.getMonsterField(),null);
         return true;

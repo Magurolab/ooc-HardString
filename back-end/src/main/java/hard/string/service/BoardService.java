@@ -44,6 +44,7 @@ public class BoardService {
 //                    monsterFieldService.setMonster(indexA,pA.getMonsterField(),null);
 //                    a.remove(mA);
                 } else {
+                    System.out.println("set can't attack");
                     //make monster cannot attack twice in a turn
                     mA.setCanAttack(false);
                 }

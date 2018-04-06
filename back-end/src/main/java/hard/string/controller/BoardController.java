@@ -89,8 +89,11 @@ public class BoardController {
                 System.out.println("Justified enemy position");
                 TempMonster m1 = monsterFieldService.getMonster(currentin, p1.getMonsterField());
                 TempMonster m2 = monsterFieldService.getMonster(in, p2.getMonsterField());
-                boardService.fight(p1, p2, m1, m2, currentin, in);
-                boardService.gameEndHandler(board);
+                System.out.println("Your monster can attack : " + m1.isCanAttack());
+                if(m1.isCanAttack()) {
+                    boardService.fight(p1, p2, m1, m2, currentin, in);
+                    boardService.gameEndHandler(board);
+                }
                 return ResponseEntity.ok(new BoardDto(board, p1, p2
                         , boardService, monsterFieldService, cardService));
             }

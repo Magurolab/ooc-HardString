@@ -38,13 +38,21 @@ public class TempHandService {
         boardService.usedMana(b,boardService.getPlayerNum(b,player),c.getCost());
 
         if(c.getType().equals("Magic")){
-            return playMagic(player,c,monsterFieldService.getMonster(indexTarget,monsterField));
+            playMagic(player,c,monsterFieldService.getMonster(indexTarget,monsterField));
+            if(monsterFieldService.getMonster(indexTarget,monsterField).isDead()){
+                if(friendlyTarget) {
+                    monsterFieldService.removeMonster(indexTarget,player);
+                }
+                else{
+                    monsterFieldService.removeMonster(indexTarget, boardService.getEnemeyPlayer(player.getPlayerId(),b));
+                }
+            }
+            return  true;
         }else if (c.getType().equals("Monster")){
             return playMonster(player,c,indexTarget);
         }else{
             return false;
         }
-
     }
 
     private boolean playMagic(Player player,Card c,TempMonster tempMonster){
