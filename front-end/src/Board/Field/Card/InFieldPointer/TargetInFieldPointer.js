@@ -9,7 +9,7 @@ class TargetInFieldPointer extends React.Component {
         super(props)
         this.state = {
             anchorEl: null,
-            // type:props.type,
+            // type:props.type,F
             // availableAttackTarget: props.availableAttackTarget,
 
         }
