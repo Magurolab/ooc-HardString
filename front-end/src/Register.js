@@ -13,19 +13,26 @@ class Register extends React.Component {
             first_name:'',
             last_name:'',
             username:'',
-            password:''
+            password:'',
+            confirmPassword:'',
+            error:''
         }
     }
     handleClick(event){
         var apiBaseUrl = "http://localhost:8080";
-        console.log("values",this.state.first_name,this.state.last_name,this.state.username,this.state.password);
+        console.log("values",this.state.first_name,this.state.last_name,this.state.username,this.state.password,this.state.confirmPassword);
         //To be done:check for empty values before hitting submit
         var self = this;
         var payload={
             "first_name": this.state.first_name,
             "last_name":this.state.last_name,
             "username":this.state.username,
-            "password":this.state.password
+            "password":this.state.password,
+            "confirmPassword":this.state.confirmPassword
+        }
+        if(this.state.password === this.state.confirmPassword){
+            this.state.error = "Password doesn't match"
+            return;
         }
         axios.post(apiBaseUrl+'/register', payload)
             .then(function (response) {
@@ -55,6 +62,7 @@ class Register extends React.Component {
                         <AppBar
                             title="Register"
                         />
+                        <div> { this.state.error } </div>
                         <TextField
                             hintText="Enter your First Name"
                             floatingLabelText="First Name"
@@ -76,6 +84,13 @@ class Register extends React.Component {
                         <TextField
                             type = "password"
                             hintText="Enter your Password"
+                            floatingLabelText="Password"
+                            onChange = {(event,newValue) => this.setState({password:newValue})}
+                        />
+                        <br/>
+                        <TextField
+                            type = "confirm password"
+                            hintText="confirm your password"
                             floatingLabelText="Password"
                             onChange = {(event,newValue) => this.setState({password:newValue})}
                         />
