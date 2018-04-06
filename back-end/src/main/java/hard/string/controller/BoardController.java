@@ -65,7 +65,8 @@ public class BoardController {
     @RequestMapping(method = RequestMethod.POST, value = {"/attack"})
     public ResponseEntity attack(
             Authentication authentication,
-            @RequestParam String currentmonster,
+//            @RequestParam String currentmonster,
+            @RequestParam Integer currentmonster,
             @RequestParam String enemymonster
     ){
         UserWithProfileDto userWithProfileDto = (UserWithProfileDto) authentication.getPrincipal();
@@ -76,7 +77,7 @@ public class BoardController {
         //if the turn is valid
         if(valid) {
             //get currentPlayer
-            int currentin = Integer.valueOf(currentmonster.subSequence(0,currentmonster.length()-1).toString());
+            int currentin = currentmonster;
             Player p1 = boardService.getPlayer(userWithProfileDto.getUserId(),board);
             //get enemyPlayer
             Player p2 = boardService.getEnemeyPlayer(userWithProfileDto.getUserId(),board);

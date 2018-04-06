@@ -150,11 +150,11 @@ public class DebuggerController {
      * @return board
      */
 
-    @RequestMapping(value = {"/fakegame"})
-    public ResponseEntity fakeGame(){
-        board = createFakeboard();
-        return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2(),boardService,monsterFieldService,cardService));
-    }
+//    @RequestMapping(value = {"/fakegame"})
+//    public ResponseEntity fakeGame(){
+//        board = createFakeboard();
+//        return ResponseEntity.ok(new BoardDto(board,board.getPlayer1(),board.getPlayer2(),boardService,monsterFieldService,cardService));
+//    }
 
     /**
      * <b>/debug/showboard</b>

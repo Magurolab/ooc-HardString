@@ -38,13 +38,6 @@ public class ReadyController {
     @Autowired
     private PlayerQueueService playerQueueService;
 
-//    @RequestMapping(method = RequestMethod.GET)
-//    public ResponseEntity testId(Authentication authentication){
-//        UserWithProfileDto currentUser = (UserWithProfileDto) authentication.getPrincipal();
-//        return ResponseEntity.ok(currentUser.getUserId());
-//    }
-
-
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity ready(
             Authentication authentication

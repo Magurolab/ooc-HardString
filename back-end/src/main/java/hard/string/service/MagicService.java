@@ -23,6 +23,8 @@ public class MagicService {
 
     public void applyEffectToTarget(Player p ,Magic magic,TempMonster target){
         int[] eff = getEffect(magic);
+
+
         if(magic.isRandomEff()){
             int i = getRandomEff(eff);
             if(i==0){

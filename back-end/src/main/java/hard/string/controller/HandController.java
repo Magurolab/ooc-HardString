@@ -93,7 +93,7 @@ public class HandController {
         if(playedCard!=null){
             //check if player is able to play this card
             if(boardService.canPlayThisCard(board,playedCard,currentPlayer)) {
-                System.out.println("String sent: "+index);
+                System.out.println("String sent: "+ index);
                 System.out.println("String size : " + index.length());
                 System.out.println("Stripped : " + index.charAt(index.length() -1));
                 char side = index.charAt(index.length() - 1);
