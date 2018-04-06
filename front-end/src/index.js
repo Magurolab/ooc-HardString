@@ -1,9 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
 import './index.css';
+import App from './App';
+import registerServiceWorker from './registerServiceWorker';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
-ReactDOM.render(
-  <App />,
-  document.getElementById('root')
-);
+// import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
+// import '~/node_modules/bootstrap/dist/bootstrap.css';
+// Needed for onTouchTap
+// http://stackoverflow.com/a/34015469/98894
+
+injectTapEventPlugin();
+
+const sty = {
+
+};
+
+
+function Main() {
+    return (<App style={sty}/>)
+}
+ReactDOM.render(<Main />, document.getElementById('root'));
+registerServiceWorker();

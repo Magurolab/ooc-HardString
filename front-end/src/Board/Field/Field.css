@@ -1,0 +1,40 @@
+.flex-container {
+    display: flex;
+    /*height: 600px;*/
+    flex-wrap: wrap;
+    align-content: space-between;
+    text-align: center;
+    background-color: DodgerBlue;
+    /*flex-wrap: nowrap;*/
+    transform: translateZ(0);
+}
+
+.flex-container > div {
+    /*background-color: #f1f1f1;*/
+    width: 150px;
+    /*height: 220px;*/
+    height: auto;
+    /*width: auto;*/
+
+    /*display: flex;*/
+    /*flex-wrap: nowrap;*/
+    /*align-content: space-between;*/
+    /*flexWrap: nowrap;*/
+    /*flexGrow: 1;*/
+
+
+    margin: 10px;
+    /*margin:auto;*/
+    text-align: center;
+    line-height: 75px;
+    font-size: 30px;
+}
+
+.grid-holder-enemy {
+     text-align: center;
+     margin: 5px 5% 5px 5%;
+ }
+.grid-holder-friendly {
+    text-align: center;
+    margin: 5px 5% 5px 5%;
+}

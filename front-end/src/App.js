@@ -1,38 +1,67 @@
-import React, { Component } from 'react';
-import injectTapEventPlugin from 'react-tap-event-plugin';
+import React, {Component} from 'react';
+import Board from './Board/Board.js';
+import Login from './Login/Login.js';
+import Register from './Register/Register.js';
+import Ready from './Ready.js';
+import './index.css';
 import './App.css';
-import Loginscreen from './Loginscreen';
-import Login from "./Login";
+import LoginAPI from "./api/LoginAPI.js";
+import withUserId from './UserIdentifier.jsx'
+import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {AuthProvider, AuthRoute} from 'react-router-auth-provider'
+import {createMuiTheme, MuiThemeProvider} from 'material-ui';
+import WaitingQueue from "./WaitingQueue";
 
-// Needed for onTouchTap
-// http://stackoverflow.com/a/34015469/988941
-injectTapEventPlugin();
+
+const theme = createMuiTheme();
+
+
+function MyAuthProvider(props) {
+    return (
+        <AuthProvider
+            whoami={LoginAPI.whoami}
+            logout={LoginAPI.logout}
+            {...props}
+        />
+    )
+}
+
+function MyAuthRoute(props) {
+    return(
+        <AuthRoute
+            loginRoute="/login"
+            {...props}
+        />
+    )
+
+}
 
 class App extends Component {
-    constructor(props){
-        super(props);
-        this.state={
-            loginPage:[],
-            uploadScreen:[]
-        }
-    }
-    componentWillMount(){
-        var loginPage =[];
-        loginPage.push(<Loginscreen parentContext={this}/>);
-        this.setState({
-            loginPage:loginPage
-        })
-    }
+
+
     render() {
         return (
-            <div className="App">
-                {this.state.loginPage}
-                {this.state.uploadScreen}
-            </div>
+            <MuiThemeProvider theme={theme}>
+                <Router>
+                    <div className={"hugeBoy"}>
+
+                        <MyAuthProvider>
+
+                            <Route exact path="/login" component={Login}/>
+                            <Route exact path="/" component={Login}/>
+
+                            <MyAuthRoute exact path="/board" component={Board}/>
+                            <MyAuthRoute exact path="/ready" component={ Ready }/>
+                            <MyAuthRoute exact path="/waiting" component={ WaitingQueue }/>
+
+                        </MyAuthProvider>
+
+
+                    </div>
+                </Router>
+            </MuiThemeProvider>
         );
     }
 }
-const style = {
-    margin: 15,
-};
+
 export default App;

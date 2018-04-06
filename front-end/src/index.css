@@ -1,0 +1,29 @@
+body {
+  min-height: 100%;
+  overflow-x: hidden;
+  width: 100%;
+  margin-left: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+  width: 100%;
+    font-size: 18px;
+  font-family: sans-serif;
+
+}
+
+html, body {
+
+  /*overflow: auto;*/
+
+}
+#root > div{
+    height: 100%;
+    width: 100%;
+}
+/*#root {*/
+    /*height: 1000%;*/
+    /*width: 1000%;*/
+/*}*/
