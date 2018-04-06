@@ -31,8 +31,10 @@ public class BoardService {
             if (pA.getActiveTaunt() == 0 || mB.isTaunt()) {
                 //doing an attack
                 tempMonstersService.takeDamage(mA, mB.getAtk());
+                System.out.println("Monster a after attack : " + mA.getHp());
 //                monA hp -= monB atk
                 tempMonstersService.takeDamage(mB, mA.getAtk());
+                System.out.println("Monster b after being attacked : " + mB.getHp());
 //                monB hp -= monA atk
                 if (tempMonstersService.isDead(mA)) {
                     //remove monster if it dead

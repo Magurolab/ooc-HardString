@@ -63,7 +63,7 @@ public class HandController {
                     boardService.getEnemeyPlayer(userWithProfileDto.getUserId(),game),
                     boardService,
                     monsterFieldService,
-                    cardService));
+                    cardService).getCurrentHand());
 //            return ResponseEntity.ok(boardService.getPlayer(userWithProfileDto.getUserId(),game).getTempHand().getHand());
         }
         else{

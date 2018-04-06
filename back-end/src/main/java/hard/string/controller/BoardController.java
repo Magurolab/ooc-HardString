@@ -84,6 +84,8 @@ public class BoardController {
             char side = enemymonster.charAt(enemymonster.length() - 1);
             int in = Integer.valueOf(enemymonster.subSequence(0, enemymonster.length() - 1).toString());
             if(side == 'E'){
+                System.out.println("Our monster position :" + currentmonster);
+                System.out.println("Attempt to attack : " + enemymonster);
                 TempMonster m1 = monsterFieldService.getMonster(currentin, p1.getMonsterField());
                 TempMonster m2 = monsterFieldService.getMonster(in, p2.getMonsterField());
                 boardService.fight(p1, p2, m1, m2, currentin, in);
