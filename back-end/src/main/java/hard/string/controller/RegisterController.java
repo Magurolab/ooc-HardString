@@ -41,6 +41,7 @@ public class RegisterController {
     @Transactional
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity addUser(
+            @RequestBody()  String abc,
             @RequestParam String username,
             @RequestParam String password,
             @RequestParam String firstName,

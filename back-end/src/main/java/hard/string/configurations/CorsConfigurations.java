@@ -17,7 +17,8 @@ public class CorsConfigurations {
                     .allowCredentials(true)
                     .allowedMethods("*")
                     .allowedHeaders("*")
-                    .allowedOrigins("http://localhost:3000");
+                    .allowedOrigins("http://localhost:3000",
+                            "https://hardstring.teamata.me");
             }
         };
     }

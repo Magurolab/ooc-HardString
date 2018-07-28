@@ -129,9 +129,12 @@ public class BoardService {
     }
 
     public boolean isGameEnd(Board game){
-        if(game.getPlayer1().getMonsterField().getPlayer().getHp() == 0 ||
-                game.getPlayer2().getMonsterField().getPlayer().getHp() == 0){
+        if((game.getPlayer1().getMonsterField().getPlayer().getHp() == 0 ||
+                game.getPlayer2().getMonsterField().getPlayer().getHp() == 0)){
             game.setGameIsOver(true);
+            return true;
+        }
+        if(game.isGameIsOver()){
             return true;
         }
         return false;

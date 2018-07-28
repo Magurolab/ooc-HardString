@@ -15,12 +15,10 @@ import java.io.IOException;
 @Component
 public class EntryConfig implements AuthenticationEntryPoint {
 
-    //someone who is not login trying to do dirty shit.
     @Override
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
         httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         httpServletResponse.setContentType(MediaType.APPLICATION_JSON_VALUE);
-
         IOUtils.write(new ResponseLogin().toString(), httpServletResponse.getWriter());
     }
 
